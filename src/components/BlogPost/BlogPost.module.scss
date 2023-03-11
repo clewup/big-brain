@@ -1,0 +1,13 @@
+.blog_post {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 2px solid white;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.blog_post_content {
+  display: flex;
+  gap: 1rem;
+}

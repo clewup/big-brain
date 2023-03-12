@@ -8,7 +8,7 @@ interface IProps {
 
 const Image: React.FC<IProps> = ({ imageUrl }) => {
   return (
-    <div className={styles.image}>
+    <div className={styles.image} data-testid={"blog_post_image"}>
       <NextImage
         src={imageUrl}
         alt={"Blog Post Image"}

@@ -2,11 +2,16 @@ import { render, screen } from "@testing-library/react";
 import Details from "@/components/BlogPost/components/Details/Details";
 import { mockBlogPost } from "@/components/BlogPost/testUtils/mockData";
 
-describe("Details", () => {
-  it("should render the component in the expected state", async () => {
+describe("BlogPost.Details", () => {
+  it("should render the content", async () => {
     render(<Details content={mockBlogPost.content} date={mockBlogPost.date} />);
 
     expect(await screen.findByText(/^lorem ipsum/i)).toBeInTheDocument();
+  });
+
+  it("should render the date", async () => {
+    render(<Details content={mockBlogPost.content} date={mockBlogPost.date} />);
+
     expect(
       await screen.findByText(new Date().toDateString())
     ).toBeInTheDocument();

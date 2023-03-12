@@ -8,7 +8,7 @@ interface IProps {
 
 const Details: React.FC<IProps> = ({ content, date }) => {
   return (
-    <div className={styles.details}>
+    <div className={styles.details} data-testid={"blog_post_details"}>
       <p>
         {content.length > 300 ? content.substring(0, 300) + "..." : content}
       </p>

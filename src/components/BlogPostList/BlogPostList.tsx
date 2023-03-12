@@ -1,12 +1,16 @@
 import styles from "./BlogPostList.module.scss";
 import BlogPost from "@/components/BlogPost/BlogPost";
-import { mockBlogPosts } from "@/components/BlogPost/testUtils/mockData";
+import React from "react";
 
-const BlogPostList = () => {
+interface IProps {
+  blogPosts: BlogPost[];
+}
+
+const BlogPostList: React.FC<IProps> = ({ blogPosts }) => {
   return (
-    <div className={styles.blog_post_list}>
-      {mockBlogPosts.map((blogPost) => {
-        return <BlogPost blogPost={blogPost} />;
+    <div className={styles.blog_post_list} data-testid={"blogpost_list"}>
+      {blogPosts.map((blogPost) => {
+        return <BlogPost key={blogPost.id} blogPost={blogPost} />;
       })}
     </div>
   );

@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import Image from "@/components/BlogPost/components/Image/Image";
 import { mockBlogPost } from "@/components/BlogPost/testUtils/mockData";
 
-describe("Image", () => {
-  it("should render component in the expected state", async () => {
+describe("BlogPost.Image", () => {
+  it("should render the image", async () => {
     render(<Image imageUrl={mockBlogPost.imageUrl} />);
 
     expect(await screen.findByRole("img")).toHaveAttribute(

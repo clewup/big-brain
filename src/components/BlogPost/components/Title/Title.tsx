@@ -7,7 +7,7 @@ interface IProps {
 
 const Title: React.FC<IProps> = ({ title }) => {
   return (
-    <div className={styles.title}>
+    <div className={styles.title} data-testid={"blog_post_title"}>
       <p>{title}</p>
     </div>
   );

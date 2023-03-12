@@ -5,13 +5,13 @@ import BookIcon from "@mui/icons-material/Book";
 
 const Header = () => {
   return (
-    <div className={styles.header}>
+    <div className={styles.header} data-testid={"header"}>
       <Link href={"/"} className={styles.logo}>
         <BookIcon />
         Blog
       </Link>
       <div className={styles.action_row}>
-        <Link href={"/"}>All Posts</Link>
+        <Link href={"/posts"}>All Posts</Link>
         <Link href={"/"}>Categories</Link>
         <Link href={"/"}>
           <GitHubIcon />

@@ -3,17 +3,27 @@ import BlogPost from "@/components/BlogPost/BlogPost";
 import { mockBlogPost } from "@/components/BlogPost/testUtils/mockData";
 
 describe("BlogPost", () => {
-  it("should render the component in the expected state", async () => {
+  it("should render the title component", async () => {
     render(<BlogPost blogPost={mockBlogPost} />);
 
-    expect(await screen.findByText(/^mock blog post/i)).toBeInTheDocument();
-    expect(await screen.findByRole("img")).toHaveAttribute(
-      "src",
-      "/_next/image?url=https%3A%2F%2Fplacekitten.com%2F200%2F300&w=640&q=75"
-    );
-    expect(await screen.findByText(/^lorem ipsum/i)).toBeInTheDocument();
-    expect(
-      await screen.findByText(new Date().toDateString())
-    ).toBeInTheDocument();
+    expect(await screen.findByTestId("blog_post_title")).toBeInTheDocument();
+  });
+
+  it("should render the image component", async () => {
+    render(<BlogPost blogPost={mockBlogPost} />);
+
+    expect(await screen.findByTestId("blog_post_image")).toBeInTheDocument();
+  });
+
+  it("should render the details component", async () => {
+    render(<BlogPost blogPost={mockBlogPost} />);
+
+    expect(await screen.findByTestId("blog_post_details")).toBeInTheDocument();
+  });
+
+  it("should render the tags component", async () => {
+    render(<BlogPost blogPost={mockBlogPost} />);
+
+    expect(await screen.findByTestId("blog_post_tags")).toBeInTheDocument();
   });
 });

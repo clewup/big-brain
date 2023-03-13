@@ -8,7 +8,7 @@ describe("BlogPost.Image", () => {
 
     expect(await screen.findByRole("img")).toHaveAttribute(
       "src",
-      "/_next/image?url=https%3A%2F%2Fplacekitten.com%2F200%2F300&w=640&q=75"
+      "/_next/image?url=https%3A%2F%2Fapi.lorem.space%2Fimage%2Fpizza%3Fw%3D150%26h%3D150&w=640&q=75"
     );
   });
 });

@@ -1,12 +1,32 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Posts.module.scss";
 import BlogPostList from "@/components/BlogPostList/BlogPostList";
-import { mockBlogPosts } from "@/components/BlogPost/testUtils/mockData";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useEffect, useState } from "react";
+import { BlogPost } from "@/types/blogPost";
+import { Endpoints } from "@/enums/endpoints";
 
 const Posts = () => {
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchBlogPosts = async () => {
+    setLoading(true);
+
+    fetch(Endpoints.BLOG_POST)
+      .then(async (res) => setBlogPosts(await res.json()))
+      .catch((err) => setError(err))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchBlogPosts();
+  }, []);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error)
+    return <p>Whoops! There's been a problem loading the blog posts.</p>;
+
   return (
     <>
       <Head>
@@ -16,7 +36,7 @@ const Posts = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <BlogPostList blogPosts={mockBlogPosts} />
+        <BlogPostList blogPosts={blogPosts} />
       </main>
     </>
   );

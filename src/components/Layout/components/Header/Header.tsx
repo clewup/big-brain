@@ -1,9 +1,16 @@
 import styles from "./Header.module.scss";
 import Link from "next/link";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import BookIcon from "@mui/icons-material/Book";
+import {
+  Book as BookIcon,
+  GitHub as GitHubIcon,
+  LightMode as LightModeIcon,
+  DarkMode as DarkModeIcon,
+} from "@mui/icons-material";
+import { useTheme } from "next-themes";
 
 const Header = () => {
+  const { theme, setTheme } = useTheme();
+
   return (
     <div className={styles.header} data-testid={"header"}>
       <Link href={"/"} className={styles.logo}>
@@ -16,6 +23,17 @@ const Header = () => {
         <Link href={"/"}>
           <GitHubIcon />
         </Link>
+        {theme === "light" ? (
+          <DarkModeIcon
+            onClick={() => setTheme("dark")}
+            className={styles.theme_toggle}
+          />
+        ) : (
+          <LightModeIcon
+            onClick={() => setTheme("light")}
+            className={styles.theme_toggle}
+          />
+        )}
       </div>
     </div>
   );

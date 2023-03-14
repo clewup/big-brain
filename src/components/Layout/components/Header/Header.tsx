@@ -7,9 +7,10 @@ import {
   DarkMode as DarkModeIcon,
 } from "@mui/icons-material";
 import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
 
 const Header = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, forcedTheme, setTheme } = useTheme();
 
   return (
     <div className={styles.header} data-testid={"header"}>
@@ -23,16 +24,37 @@ const Header = () => {
         <Link href={"/"}>
           <GitHubIcon />
         </Link>
+
         {theme === "light" ? (
-          <DarkModeIcon
-            onClick={() => setTheme("dark")}
-            className={styles.theme_toggle}
-          />
+          <motion.div
+            initial={{ scale: 0, rotate: 0 }}
+            animate={{ rotate: -20, scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+            }}
+          >
+            <DarkModeIcon
+              onClick={() => !forcedTheme && setTheme("dark")}
+              className={styles.theme_toggle}
+            />
+          </motion.div>
         ) : (
-          <LightModeIcon
-            onClick={() => setTheme("light")}
-            className={styles.theme_toggle}
-          />
+          <motion.div
+            initial={{ scale: 0, rotate: 0 }}
+            animate={{ rotate: 20, scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+            }}
+          >
+            <LightModeIcon
+              onClick={() => !forcedTheme && setTheme("light")}
+              className={styles.theme_toggle}
+            />
+          </motion.div>
         )}
       </div>
     </div>

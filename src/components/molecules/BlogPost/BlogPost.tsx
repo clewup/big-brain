@@ -5,6 +5,7 @@ import Image from "@/components/molecules/BlogPost/components/Image/Image";
 import Details from "@/components/molecules/BlogPost/components/Details/Details";
 import { BlogPost } from "@/types/blogPost";
 import Tags from "@/components/molecules/BlogPost/components/Tags/Tags";
+import { motion } from "framer-motion";
 
 interface IProps {
   blogPost: BlogPost;
@@ -14,14 +15,25 @@ const BlogPost: React.FC<IProps> = ({ blogPost }) => {
   const { id, title, imageUrl, content, date, tags } = blogPost;
 
   return (
-    <div className={styles.blog_post} data-testid={`blogpost blogpost_${id}`}>
+    <motion.div
+      initial={{ y: "2.5rem", opacity: 0 }}
+      whileInView={{ y: "0rem", opacity: 1 }}
+      transition={{
+        duration: 0.7,
+        type: "spring",
+        stiffness: 260,
+        damping: 12,
+      }}
+      className={styles.blog_post}
+      data-testid={`blogpost blogpost_${id}`}
+    >
       <Title title={title} />
       <div className={styles.blog_post_content}>
         <Image imageUrl={imageUrl} />
         <Details content={content} date={date} />
       </div>
       <Tags tags={tags} />
-    </div>
+    </motion.div>
   );
 };
 export default BlogPost;

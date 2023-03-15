@@ -10,7 +10,8 @@ const Posts = () => {
     category: router.query.category,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return null;
+
   if (error)
     return <p>Whoops! There's been a problem loading the blog posts.</p>;
 

@@ -25,6 +25,8 @@ const useBlogPosts = ({ category }: IProps) => {
   }, []);
 
   const fetchBlogPostsByCategory = async (category: string) => {
+    setLoading(true);
+
     fetch(Endpoints.BLOG_POST_BY_CATEGORY(category))
       .then(async (res) => setBlogPosts(await res.json()))
       .catch((err) => setError(err))

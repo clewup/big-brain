@@ -4,11 +4,14 @@ import BlogPostList from "@/components/BlogPostList/BlogPostList";
 import { useEffect, useState } from "react";
 import { BlogPost } from "@/types/blogPost";
 import { Endpoints } from "@/enums/endpoints";
+import { useRouter } from "next/router";
 
 const Posts = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const router = useRouter();
 
   const fetchBlogPosts = async () => {
     setLoading(true);

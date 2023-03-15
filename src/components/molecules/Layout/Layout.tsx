@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "@/components/Layout/components/Header/Header";
-import Footer from "@/components/Layout/components/Footer/Footer";
+import Header from "@/components/molecules/Layout/components/Header/Header";
+import Footer from "@/components/molecules/Layout/components/Footer/Footer";
 
 interface IProps {
   children: any;

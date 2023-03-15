@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Title from "@/components/BlogPost/components/Title/Title";
-import { mockBlogPost } from "@/components/BlogPost/testUtils/mockData";
+import Title from "@/components/molecules/BlogPost/components/Title/Title";
+import { mockBlogPost } from "@/components/molecules/BlogPost/testUtils/mockData";
 
 describe("BlogPost.Title", () => {
   it("should render the title", async () => {

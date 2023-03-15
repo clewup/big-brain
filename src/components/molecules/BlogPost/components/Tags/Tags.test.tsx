@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import Tags from "@/components/BlogPost/components/Tags/Tags";
+import Tags from "@/components/molecules/BlogPost/components/Tags/Tags";
 import { Tag } from "@/enums/tags";
-import { mockBlogPost } from "@/components/BlogPost/testUtils/mockData";
+import { mockBlogPost } from "@/components/molecules/BlogPost/testUtils/mockData";
 import { TagStyles } from "@/enums/tags";
 
 describe("BlogPost.Tags", () => {

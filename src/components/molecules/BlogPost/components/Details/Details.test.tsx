@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Details from "@/components/BlogPost/components/Details/Details";
-import { mockBlogPost } from "@/components/BlogPost/testUtils/mockData";
+import Details from "@/components/molecules/BlogPost/components/Details/Details";
+import { mockBlogPost } from "@/components/molecules/BlogPost/testUtils/mockData";
 
 describe("BlogPost.Details", () => {
   it("should render the content", async () => {

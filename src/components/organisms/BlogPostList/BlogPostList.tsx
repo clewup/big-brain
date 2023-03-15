@@ -1,5 +1,5 @@
 import styles from "./BlogPostList.module.scss";
-import BlogPost from "@/components/BlogPost/BlogPost";
+import BlogPost from "@/components/molecules/BlogPost/BlogPost";
 import React from "react";
 
 interface IProps {

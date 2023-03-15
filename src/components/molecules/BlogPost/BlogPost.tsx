@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./BlogPost.module.scss";
-import Title from "@/components/BlogPost/components/Title/Title";
-import Image from "@/components/BlogPost/components/Image/Image";
-import Details from "@/components/BlogPost/components/Details/Details";
+import Title from "@/components/molecules/BlogPost/components/Title/Title";
+import Image from "@/components/molecules/BlogPost/components/Image/Image";
+import Details from "@/components/molecules/BlogPost/components/Details/Details";
 import { BlogPost } from "@/types/blogPost";
-import Tags from "@/components/BlogPost/components/Tags/Tags";
+import Tags from "@/components/molecules/BlogPost/components/Tags/Tags";
 
 interface IProps {
   blogPost: BlogPost;

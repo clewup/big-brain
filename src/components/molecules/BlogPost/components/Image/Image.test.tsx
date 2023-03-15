@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Image from "@/components/BlogPost/components/Image/Image";
-import { mockBlogPost } from "@/components/BlogPost/testUtils/mockData";
+import Image from "@/components/molecules/BlogPost/components/Image/Image";
+import { mockBlogPost } from "@/components/molecules/BlogPost/testUtils/mockData";
 
 describe("BlogPost.Image", () => {
   it("should render the image", async () => {

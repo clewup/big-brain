@@ -1,3 +1,5 @@
-export enum Endpoints {
-  BLOG_POST = "/api/blogpost",
-}
+export const Endpoints = {
+  BLOG_POST: "/api/blogpost",
+  BLOG_POST_BY_CATEGORY: (category: string) =>
+    `/api/blogpost?category=${category}`,
+};

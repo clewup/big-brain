@@ -2,6 +2,7 @@ import styles from "./Tags.module.scss";
 import { Tag, TagStyles } from "@/enums/tags";
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface IProps {
   tags: Tag[];
@@ -14,9 +15,13 @@ const Tags: React.FC<IProps> = ({ tags }) => {
         const tagColor = TagStyles[tag];
         return (
           <Link href={{ pathname: "posts", query: { category: tag } }}>
-            <p key={tag} style={{ color: tagColor }}>
+            <motion.p
+              whileHover={{ scale: 1.1 }}
+              key={tag}
+              style={{ color: tagColor }}
+            >
               #{tag}
-            </p>
+            </motion.p>
           </Link>
         );
       })}

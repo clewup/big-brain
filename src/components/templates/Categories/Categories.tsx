@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Tag, TagStyles } from "@/enums/tags";
 import styles from "./Categories.module.scss";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const Categories = () => {
   const [categories, setCategories] = useState<Tag[]>([]);
@@ -27,7 +28,9 @@ const Categories = () => {
         const tagColor = TagStyles[tag];
         return (
           <Link href={{ pathname: "posts", query: { category: tag } }}>
-            <p style={{ color: tagColor }}>#{tag}</p>
+            <motion.p whileHover={{ scale: 1.2 }} style={{ color: tagColor }}>
+              #{tag}
+            </motion.p>
           </Link>
         );
       })}

@@ -20,7 +20,7 @@ const Header = () => {
       </Link>
       <div className={styles.action_row}>
         <Link href={{ pathname: "posts" }}>All Posts</Link>
-        <Link href={"/"}>Categories</Link>
+        <Link href={{ pathname: "categories" }}>Categories</Link>
         <Link href={"/"}>
           <GitHubIcon />
         </Link>

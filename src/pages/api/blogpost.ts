@@ -11,7 +11,7 @@ interface Response {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<BlogPost[] | Response>
+  res: NextApiResponse<BlogPost[] | BlogPost | Response>
 ) {
   if (req.method != HttpMethods.GET) {
     res.status(405);
@@ -19,14 +19,38 @@ export default function handler(
     return;
   }
 
-  const { category } = req.query;
+  const { category, id } = req.query;
 
-  let data = blogPosts;
-  if (category)
-    data = blogPosts.filter((blogPost) =>
+  if (category) {
+    const blogPostsByCategory = blogPosts.filter((blogPost) =>
       blogPost.tags.find((tag) => tag === category)
     );
 
+    if (!blogPostsByCategory || !blogPostsByCategory.length) {
+      res.status(404);
+      res.json({ message: "Not found." });
+      return;
+    }
+
+    res.status(200);
+    res.json(blogPostsByCategory);
+  }
+
+  if (id) {
+    const blogPostById = blogPosts.find(
+      (blogPost) => blogPost.id === Number(id)
+    );
+
+    if (!blogPostById) {
+      res.status(404);
+      res.json({ message: "Not found." });
+      return;
+    }
+
+    res.status(200);
+    res.json(blogPostById);
+  }
+
   res.status(200);
-  res.json(data);
+  res.json(blogPosts);
 }

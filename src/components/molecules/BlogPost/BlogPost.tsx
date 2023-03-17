@@ -27,7 +27,7 @@ const BlogPost: React.FC<IProps> = ({ blogPost }) => {
       className={styles.blog_post}
       data-testid={`blogpost blogpost_${id}`}
     >
-      <Title title={title} />
+      <Title id={id} title={title} />
       <div className={styles.blog_post_content}>
         <Image imageUrl={imageUrl} />
         <Details content={content} date={date} />

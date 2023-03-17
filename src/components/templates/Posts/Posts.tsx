@@ -11,7 +11,6 @@ const Posts = () => {
   });
 
   if (isLoading) return null;
-
   if (error)
     return <p>Whoops! There's been a problem loading the blog posts.</p>;
 

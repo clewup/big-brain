@@ -41,13 +41,13 @@ const Post = () => {
             width={300}
             height={300}
             animate={{
-              scale: [0.7, 1.05, 1.05, 1.05, 1],
-              borderRadius: ["50%", "50%", "1rem", "1rem", "1rem"],
+              scale: [0.7, 1.05, 1],
+              borderRadius: ["50%", "1rem", "1rem"],
             }}
             transition={{
-              duration: 1.5,
+              duration: 1,
               ease: "easeInOut",
-              times: [0, 0.2, 0.5, 0.3, 1],
+              times: [0, 0.4, 0.3, 1],
             }}
             className={styles.image}
           />

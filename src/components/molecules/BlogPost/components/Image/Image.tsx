@@ -8,14 +8,14 @@ interface IProps {
 
 const Image: React.FC<IProps> = ({ imageUrl }) => {
   return (
-    <div className={styles.image} data-testid={"blog_post_image"}>
-      <NextImage
-        src={imageUrl}
-        alt={"Blog Post Image"}
-        width={200}
-        height={200}
-      />
-    </div>
+    <NextImage
+      src={imageUrl}
+      alt={"Blog Post Image"}
+      width={200}
+      height={200}
+      className={styles.image}
+      data-testid={"blog_post_image"}
+    />
   );
 };
 export default Image;

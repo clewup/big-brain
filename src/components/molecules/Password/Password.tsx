@@ -1,42 +1,43 @@
 import styles from "./Password.module.scss";
-import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
-import { Form, Formik } from "formik";
+import React from "react";
+import { Button } from "@mui/material";
+import { Field, Form, Formik, FormikHelpers, FormikValues } from "formik";
+import { Inputs } from "@/components/atoms/Inputs/Inputs";
 
 interface IProps {
   handleSignIn: (password: string) => boolean;
 }
 
 const Password: React.FC<IProps> = ({ handleSignIn }) => {
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string>("");
+  const initialValues = {
+    password: "",
+  };
 
-  const handleSubmit = () => {
-    const isSignedIn = handleSignIn(password);
+  const handleSubmit = (
+    values: FormikValues,
+    helpers: FormikHelpers<{ password: string }>
+  ) => {
+    const isSignedIn = handleSignIn(values.password);
 
-    if (!isSignedIn) setError("Incorrect password");
+    if (!isSignedIn) helpers.setFieldError("password", "Incorrect password");
   };
 
   return (
-    <Formik initialValues={{ password: "" }} onSubmit={handleSubmit}>
-      {({ touched }) => {
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values, helpers) => handleSubmit(values, helpers)}
+    >
+      {({ values, touched, handleChange, errors }) => {
         return (
           <Form className={styles.password}>
             <p>Please check your emails for the password.</p>
             <span>
-              <TextField
-                variant={"standard"}
+              <Field
+                name={"password"}
+                component={Inputs.TEXT}
+                onChange={handleChange}
+                value={values.password}
                 type={"password"}
-                onChange={(event) => setPassword(event.target.value)}
-                error={touched && !!error}
-                helperText={error}
-                inputProps={{
-                  style: {
-                    backgroundColor: "white",
-                    textAlign: "center",
-                    fontSize: "1.1rem",
-                  },
-                }}
               />
               <Button type={"submit"}>Sign In</Button>
             </span>

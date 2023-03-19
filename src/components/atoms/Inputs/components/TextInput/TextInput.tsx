@@ -1,7 +1,7 @@
 import React from "react";
 import { FieldAttributes, FormikProps } from "formik";
-import { FormGroup, FormLabel, InputAdornment, TextField } from "@mui/material";
-import { useTheme } from "next-themes";
+import { InputAdornment, TextField } from "@mui/material";
+import InputWrapper from "@/components/atoms/Inputs/components/InputWrapper/InputWrapper";
 
 interface IProps {
   field?: FieldAttributes<any>;
@@ -28,13 +28,8 @@ const TextInput: React.FC<IProps> = ({
   type = "text",
   icon,
 }) => {
-  const { theme } = useTheme();
-
   return (
-    <FormGroup>
-      <FormLabel sx={{ color: theme === "light" ? "black" : "white" }}>
-        {label}
-      </FormLabel>
+    <InputWrapper label={label}>
       <TextField
         {...field}
         error={form?.touched[field.name] && form?.errors[field.name]}
@@ -56,7 +51,7 @@ const TextInput: React.FC<IProps> = ({
         }}
         fullWidth
       />
-    </FormGroup>
+    </InputWrapper>
   );
 };
 export default TextInput;

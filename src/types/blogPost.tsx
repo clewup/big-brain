@@ -5,6 +5,6 @@ export interface BlogPost {
   title: string;
   imageUrl: string;
   content: string;
-  date: string;
+  date: Date;
   tags: Tag[];
 }

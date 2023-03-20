@@ -9,7 +9,7 @@ const BlogPostForm = () => {
     title: "",
     imageUrl: "",
     content: "",
-    date: new Date().toString(),
+    date: new Date(),
     tags: [],
   };
 
@@ -34,6 +34,7 @@ const BlogPostForm = () => {
               onChange={handleChange}
               value={values.content}
             />
+            <p>{values.date.toDateString()}</p>
           </Form>
         );
       }}

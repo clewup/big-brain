@@ -3,7 +3,7 @@ import styles from "./Details.module.scss";
 
 interface IProps {
   content: string;
-  date: string;
+  date: Date;
 }
 
 const Details: React.FC<IProps> = ({ content, date }) => {

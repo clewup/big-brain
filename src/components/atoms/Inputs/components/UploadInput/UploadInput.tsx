@@ -1,20 +1,33 @@
-import React, { SetStateAction, useState } from "react";
-import { Button } from "@mui/material";
+import React, { InputHTMLAttributes, SetStateAction, useState } from "react";
+import { IconButton } from "@mui/material";
 import { Endpoints } from "@/enums/endpoints";
 import { HttpMethods } from "@/enums/httpMethods";
+import { PhotoCamera } from "@mui/icons-material";
+import { FieldAttributes, FormikProps } from "formik";
+import InputWrapper from "@/components/atoms/Inputs/components/InputWrapper/InputWrapper";
+import styles from "./UploadInput.module.scss";
 
 interface IProps {
-  setImageUrl: React.Dispatch<SetStateAction<string>>;
-  setError: React.Dispatch<SetStateAction<any>>;
+  field?: FieldAttributes<any>;
+  form?: FormikProps<any>;
+  label?: string;
+  disabled?: boolean;
+  accept: InputHTMLAttributes<HTMLInputElement>["accept"];
 }
 
-const UploadInput: React.FC<IProps> = ({ setImageUrl, setError }) => {
-  const [image, _setImage] = useState<string>("");
+const UploadInput: React.FC<IProps> = ({
+  field,
+  form,
+  label,
+  disabled,
+  accept,
+}) => {
+  const UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET || "hgv24xh6";
+  const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || "dliog6kq6";
 
-  const UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET || "";
-  const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || "";
+  const uploadImage = async (image: Blob | undefined) => {
+    if (!image) return;
 
-  const uploadImage = async () => {
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", UPLOAD_PRESET);
@@ -26,31 +39,30 @@ const UploadInput: React.FC<IProps> = ({ setImageUrl, setError }) => {
     })
       .then(async (res) => {
         const data = await res.json();
-        setImageUrl(data.url);
+        form?.setFieldValue(field.name, data.url);
       })
-      .catch((err) => setError(err));
-  };
-
-  const setImage = (file: File | undefined) => {
-    if (!file) return;
-
-    let reader = new FileReader();
-
-    reader.readAsText(file);
-    reader.onload = () => {
-      _setImage(reader.result as string);
-    };
+      .catch((err) => form?.setFieldError(field.name, err));
   };
 
   return (
-    <div>
-      <input
-        accept={"image/*"}
-        type={"file"}
-        onChange={(e) => setImage(e.target.files?.[0])}
-      />
-      <Button onClick={uploadImage}>Upload</Button>
-    </div>
+    <InputWrapper label={label}>
+      <IconButton
+        component="label"
+        disabled={disabled}
+        className={styles.upload_button}
+      >
+        <input
+          hidden
+          accept={accept}
+          type="file"
+          onChange={(e) => {
+            uploadImage(e.target.files?.[0]);
+          }}
+          disabled={disabled}
+        />
+        <PhotoCamera />
+      </IconButton>
+    </InputWrapper>
   );
 };
 export default UploadInput;

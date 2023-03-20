@@ -4,5 +4,5 @@ export const Endpoints = {
     `/api/blogpost?category=${category}`,
   BLOG_POST_BY_ID: (id: number) => `/api/blogpost?id=${id}`,
 
-  CLOUDINARY_UPLOAD: "https://res.cloudinary.com/clewup/image/upload",
+  CLOUDINARY_UPLOAD: "https://api.cloudinary.com/v1_1/dliog6kq6/image/upload",
 };

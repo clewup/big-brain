@@ -53,7 +53,6 @@ const TextAreaInput: React.FC<IProps> = ({
         }}
         multiline
         rows={rows}
-        fullWidth
       />
     </InputWrapper>
   );

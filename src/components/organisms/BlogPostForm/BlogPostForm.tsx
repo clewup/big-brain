@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Inputs } from "@/components/atoms/Inputs/Inputs";
 import UploadInput from "@/components/atoms/Inputs/components/UploadInput/UploadInput";
 import Image from "next/image";
+import { Grid } from "@mui/material";
 
 const BlogPostForm = () => {
   const FormFields = {
@@ -31,42 +32,56 @@ const BlogPostForm = () => {
       enableReinitialize
     >
       {({ values, handleChange }) => {
-        console.log(values);
         return (
-          <Form className={styles.blog_post_form}>
-            <span className={styles.image_container}>
-              {values.imageUrl ? (
-                <Image
-                  src={values.imageUrl}
-                  alt={"image"}
-                  height={270}
-                  width={270}
-                  className={styles.image}
-                />
-              ) : (
-                <Field
-                  name={FormFields.IMAGE_URL}
-                  component={Inputs.UPLOAD}
-                  accept={"image/*"}
-                />
-              )}
-            </span>
-            <Field
-              name={FormFields.TITLE}
-              label={"Title"}
-              component={Inputs.TEXT}
-              onChange={handleChange}
-              value={values.title}
-            />
-            <Field
-              name={FormFields.CONTENT}
-              label={"Content"}
-              component={Inputs.TEXT_AREA}
-              onChange={handleChange}
-              value={values.content}
-            />
+          <Form className={styles.form}>
+            <h1>Create/Edit a Blog Post</h1>
+            <br />
 
-            <p>{values.date.toDateString()}</p>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Field
+                  name={FormFields.TITLE}
+                  component={Inputs.TEXT}
+                  onChange={handleChange}
+                  value={values.title}
+                  label={"Title"}
+                />
+              </Grid>
+
+              <Grid item xs={12} md={5}>
+                <div className={styles.image_container}>
+                  <span className={styles.image_placeholder}>
+                    {values.imageUrl ? (
+                      <Image
+                        src={values.imageUrl}
+                        alt={"image"}
+                        height={250}
+                        width={250}
+                        className={styles.image}
+                      />
+                    ) : (
+                      <Field
+                        name={FormFields.IMAGE_URL}
+                        component={Inputs.UPLOAD}
+                        accept={"image/*"}
+                      />
+                    )}
+                  </span>
+                  <p>{values.date.toDateString()}</p>
+                </div>
+              </Grid>
+
+              <Grid item xs={12} md={7}>
+                <Field
+                  name={FormFields.CONTENT}
+                  component={Inputs.TEXT_AREA}
+                  onChange={handleChange}
+                  value={values.content}
+                  rows={20}
+                  label={"Content"}
+                />
+              </Grid>
+            </Grid>
           </Form>
         );
       }}

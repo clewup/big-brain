@@ -49,7 +49,6 @@ const TextInput: React.FC<IProps> = ({
             <InputAdornment position={"end"}>{icon}</InputAdornment>
           ),
         }}
-        fullWidth
       />
     </InputWrapper>
   );

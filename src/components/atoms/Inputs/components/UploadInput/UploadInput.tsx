@@ -60,7 +60,7 @@ const UploadInput: React.FC<IProps> = ({
           }}
           disabled={disabled}
         />
-        <PhotoCamera />
+        <PhotoCamera fontSize={"large"} />
       </IconButton>
     </InputWrapper>
   );

@@ -4,6 +4,7 @@ import { BlogPost } from "@/types/blogPost";
 import React, { useState } from "react";
 import { Inputs } from "@/components/atoms/Inputs/Inputs";
 import UploadInput from "@/components/atoms/Inputs/components/UploadInput/UploadInput";
+import Image from "next/image";
 
 const BlogPostForm = () => {
   const FormFields = {
@@ -33,6 +34,23 @@ const BlogPostForm = () => {
         console.log(values);
         return (
           <Form className={styles.blog_post_form}>
+            <span className={styles.image_container}>
+              {values.imageUrl ? (
+                <Image
+                  src={values.imageUrl}
+                  alt={"image"}
+                  height={270}
+                  width={270}
+                  className={styles.image}
+                />
+              ) : (
+                <Field
+                  name={FormFields.IMAGE_URL}
+                  component={Inputs.UPLOAD}
+                  accept={"image/*"}
+                />
+              )}
+            </span>
             <Field
               name={FormFields.TITLE}
               label={"Title"}
@@ -46,12 +64,6 @@ const BlogPostForm = () => {
               component={Inputs.TEXT_AREA}
               onChange={handleChange}
               value={values.content}
-            />
-            <Field
-              name={FormFields.IMAGE_URL}
-              label={"Image"}
-              component={Inputs.UPLOAD}
-              accept={"image/*"}
             />
 
             <p>{values.date.toDateString()}</p>

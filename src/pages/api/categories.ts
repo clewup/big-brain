@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { mockBlogPosts } from "@/components/molecules/BlogPost/testUtils/mockData";
-import { BlogPost } from "@/types/blogPost";
+import { BlogPost } from "@/types/blogPostTypes";
 import { HttpMethods } from "@/enums/httpMethods";
 import { mergeArrays } from "@/utils/arrays";
 import { Tag } from "@/enums/tags";

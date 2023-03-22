@@ -4,7 +4,7 @@ import { mockBlogPost } from "@/components/molecules/BlogPost/testUtils/mockData
 
 describe("BlogPost.Image", () => {
   it("should render the image", async () => {
-    render(<Image imageUrl={mockBlogPost.imageUrl} />);
+    render(<Image imageUrl={mockBlogPost.image} />);
 
     expect(await screen.findByRole("img")).toHaveAttribute(
       "src",

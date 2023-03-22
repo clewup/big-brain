@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { BlogPost } from "@/types/blogPost";
+import { BlogPost } from "@/types/blogPostTypes";
 import { HttpMethods } from "@/enums/httpMethods";
 import { connectDb } from "@/lib/mongo/db";
 

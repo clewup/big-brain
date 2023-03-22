@@ -1,6 +1,6 @@
 import { Endpoints } from "@/enums/endpoints";
 import { useEffect, useState } from "react";
-import { BlogPost } from "@/types/blogPost";
+import { BlogPost } from "@/types/blogPostTypes";
 import { HttpMethods } from "@/enums/httpMethods";
 
 interface IProps {

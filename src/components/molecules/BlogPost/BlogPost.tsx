@@ -3,7 +3,7 @@ import styles from "./BlogPost.module.scss";
 import Title from "@/components/molecules/BlogPost/components/Title/Title";
 import Image from "@/components/molecules/BlogPost/components/Image/Image";
 import Details from "@/components/molecules/BlogPost/components/Details/Details";
-import { BlogPost } from "@/types/blogPost";
+import { BlogPost } from "@/types/blogPostTypes";
 import Tags from "@/components/molecules/BlogPost/components/Tags/Tags";
 import { motion } from "framer-motion";
 
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const BlogPost: React.FC<IProps> = ({ blogPost }) => {
-  const { id, title, imageUrl, content, date, tags } = blogPost;
+  const { id, title, image, content, date, tags } = blogPost;
 
   return (
     <motion.div
@@ -29,7 +29,7 @@ const BlogPost: React.FC<IProps> = ({ blogPost }) => {
     >
       <Title id={id} title={title} />
       <div className={styles.blog_post_content}>
-        <Image imageUrl={imageUrl} />
+        <Image imageUrl={image} />
         <Details content={content} date={date} />
       </div>
       <Tags tags={tags} />

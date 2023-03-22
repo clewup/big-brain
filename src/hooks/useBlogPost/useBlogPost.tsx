@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BlogPost } from "@/types/blogPost";
+import { BlogPost } from "@/types/blogPostTypes";
 import { Endpoints } from "@/enums/endpoints";
 import { HttpMethods } from "@/enums/httpMethods";
 

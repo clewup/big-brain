@@ -36,7 +36,7 @@ const Post = () => {
       <div className={styles.main_body}>
         <div>
           <AnimatedImage
-            src={blogPost.imageUrl}
+            src={blogPost.image}
             alt={blogPost.title}
             width={300}
             height={300}

@@ -31,7 +31,7 @@ const BlogPostForm = () => {
   };
 
   const handleSubmit = (values: FormikValues) => {
-    fetch(Endpoints.BLOG_POST, {
+    fetch(Endpoints.POST, {
       method: HttpMethods.POST,
       headers: {
         "Content-Type": "application/json",

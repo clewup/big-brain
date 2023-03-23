@@ -8,11 +8,7 @@ import { Tag } from "@/enums/tags";
 const blogPosts = mockBlogPosts;
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method != HttpMethods.GET) {
-    res.status(405);
-    res.send({ message: "Only GET requests are allowed." });
-    return;
-  }
+  if (req.method !== HttpMethods.GET) return res.status(405);
 
   const tags = blogPosts.map((blogPost) => {
     return blogPost.tags;

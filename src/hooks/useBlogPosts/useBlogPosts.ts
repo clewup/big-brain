@@ -15,7 +15,7 @@ const useBlogPosts = ({ category }: IProps) => {
   const fetchBlogPosts = async () => {
     setLoading(true);
 
-    fetch(Endpoints.BLOG_POST, {
+    fetch(Endpoints.POST, {
       method: HttpMethods.GET,
     })
       .then(async (res) => setBlogPosts(await res.json()))
@@ -26,7 +26,7 @@ const useBlogPosts = ({ category }: IProps) => {
   const fetchBlogPostsByCategory = async (category: string) => {
     setLoading(true);
 
-    fetch(Endpoints.BLOG_POST_BY_CATEGORY(category), {
+    fetch(Endpoints.POST_BY_CATEGORY(category), {
       method: HttpMethods.GET,
     })
       .then(async (res) => setBlogPosts(await res.json()))

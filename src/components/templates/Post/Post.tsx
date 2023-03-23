@@ -6,6 +6,7 @@ import Image from "next/image";
 import { TagStyles } from "@/enums/tags";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Routes } from "@/enums/routes";
 
 const Post = () => {
   const [id, setId] = useState<string>();
@@ -51,7 +52,7 @@ const Post = () => {
           {blogPost.tags?.map((tag) => {
             const tagColor = TagStyles[tag];
             return (
-              <Link href={{ pathname: "posts", query: { category: tag } }}>
+              <Link href={{ pathname: Routes.POSTS, query: { category: tag } }}>
                 <motion.p
                   whileHover={{ scale: 1.1 }}
                   key={tag}

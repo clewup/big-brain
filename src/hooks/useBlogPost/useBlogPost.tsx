@@ -15,7 +15,7 @@ const useBlogPost = ({ id }: IProps) => {
   const fetchBlogPost = (id: string) => {
     setLoading(true);
 
-    fetch(Endpoints.BLOG_POST_BY_ID(id), {
+    fetch(Endpoints.POST_BY_ID(id), {
       method: HttpMethods.GET,
     })
       .then(async (res) => setBlogPost(await res.json()))

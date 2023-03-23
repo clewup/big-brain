@@ -29,6 +29,7 @@ const Post = () => {
   return (
     <div className={styles.post}>
       <h1>{blogPost.title}</h1>
+
       <div className={styles.main_body}>
         <div>
           <AnimatedImage
@@ -37,16 +38,15 @@ const Post = () => {
             width={300}
             height={300}
             animate={{
-              scale: [0.7, 1.05, 1],
-              borderRadius: ["50%", "1rem", "1rem"],
+              scale: [0.8, 1.05, 1],
             }}
             transition={{
-              duration: 1,
+              duration: 0.7,
               ease: "easeInOut",
-              times: [0, 0.4, 0.3, 1],
             }}
             className={styles.image}
           />
+
           <p>{new Date(blogPost.date).toDateString()}</p>
           {blogPost.tags?.map((tag) => {
             const tagColor = TagStyles[tag];
@@ -63,14 +63,16 @@ const Post = () => {
             );
           })}
         </div>
+
         <motion.p
           initial={{ y: "2.5rem", opacity: 0 }}
           whileInView={{ y: "0rem", opacity: 1 }}
           transition={{
-            duration: 0.7,
+            duration: 1,
             type: "spring",
-            stiffness: 260,
+            stiffness: 100,
             damping: 12,
+            delay: 0.6,
           }}
         >
           {blogPost.content}

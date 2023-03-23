@@ -2,16 +2,18 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { BlogPost } from "@/types/blogPostTypes";
 import { HttpMethods } from "@/enums/httpMethods";
 import { connectDb } from "@/lib/mongo/db";
+import { ObjectId } from "bson";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { db } = await connectDb();
 
   const handleGet = async () => {
-    const { category, id } = req.query;
+    const id = req.query.id as string;
+    const category = req.query.category as string;
 
     if (category) {
       const blogPosts = await db
-        .collection<BlogPost>("BlogPost")
+        .collection("BlogPost")
         .find({ category: category })
         .toArray();
 
@@ -22,9 +24,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (id) {
       const blogPosts = await db
-        .collection<BlogPost>("BlogPost")
-        .find({ id: Number(id) })
-        .toArray();
+        .collection("BlogPost")
+        .findOne({ _id: new ObjectId(id) });
 
       res.status(200);
       res.json(blogPosts);
@@ -42,9 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   };
 
   const handlePost = async () => {
-    const blogPost = await db
-      .collection<BlogPost>("BlogPost")
-      .insertOne(req.body);
+    const blogPost = await db.collection("BlogPost").insertOne(req.body);
 
     res.status(201);
     res.json(blogPost);

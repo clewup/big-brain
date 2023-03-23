@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const BlogPost: React.FC<IProps> = ({ blogPost }) => {
-  const { id, title, image, content, date, tags } = blogPost;
+  const { _id, title, image, content, date, tags } = blogPost;
 
   return (
     <motion.div
@@ -25,9 +25,9 @@ const BlogPost: React.FC<IProps> = ({ blogPost }) => {
         damping: 12,
       }}
       className={styles.blog_post}
-      data-testid={`blogpost blogpost_${id}`}
+      data-testid={`blogpost blogpost_${_id}`}
     >
-      <Title id={id} title={title} />
+      <Title _id={_id} title={title} />
       <div className={styles.blog_post_content}>
         <Image imageUrl={image} />
         <Details content={content} date={date} />

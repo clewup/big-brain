@@ -1,7 +1,7 @@
 import { Tag } from "@/enums/tags";
 
 export interface BlogPost {
-  id: number;
+  _id: string;
   title: string;
   image: string;
   content: string;

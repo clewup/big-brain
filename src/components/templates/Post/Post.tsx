@@ -8,15 +8,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const Post = () => {
-  const [id, setId] = useState<number>();
+  const [id, setId] = useState<string>();
 
   useEffect(() => {
-    if (
-      router.query.id &&
-      typeof router.query.id === "string" &&
-      parseInt(router.query.id)
-    ) {
-      setId(parseInt(router.query.id));
+    if (router.query.id && typeof router.query.id === "string") {
+      setId(router.query.id);
     }
   }, []);
 
@@ -52,7 +48,7 @@ const Post = () => {
             className={styles.image}
           />
           <p>{new Date(blogPost.date).toDateString()}</p>
-          {blogPost.tags.map((tag) => {
+          {blogPost.tags?.map((tag) => {
             const tagColor = TagStyles[tag];
             return (
               <Link href={{ pathname: "posts", query: { category: tag } }}>

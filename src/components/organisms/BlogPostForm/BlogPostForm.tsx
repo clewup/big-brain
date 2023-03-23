@@ -1,11 +1,13 @@
 import styles from "./BlogPostForm.module.scss";
-import { Field, Form, Formik, FormikProps } from "formik";
+import { Field, Form, Formik, FormikProps, FormikValues } from "formik";
 import { BlogPost } from "@/types/blogPostTypes";
 import React, { useRef } from "react";
 import { Inputs } from "@/components/atoms/Inputs/Inputs";
 import Image from "next/image";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
+import { Endpoints } from "@/enums/endpoints";
+import { HttpMethods } from "@/enums/httpMethods";
 
 type FormValues = Omit<BlogPost, "id">;
 
@@ -33,7 +35,15 @@ const BlogPostForm = () => {
     tagsPos: [0, 0],
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (values: FormikValues) => {
+    fetch(Endpoints.BLOG_POST, {
+      method: HttpMethods.POST,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+  };
 
   const handleDrag = (
     event: DraggableEvent,
@@ -117,6 +127,8 @@ const BlogPostForm = () => {
                 </Grid>
               </Draggable>
             </Grid>
+
+            <Button type={"submit"}>Save</Button>
           </Form>
         );
       }}

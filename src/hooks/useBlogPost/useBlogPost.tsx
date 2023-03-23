@@ -4,7 +4,7 @@ import { Endpoints } from "@/enums/endpoints";
 import { HttpMethods } from "@/enums/httpMethods";
 
 interface IProps {
-  id?: number;
+  id?: string;
 }
 
 const useBlogPost = ({ id }: IProps) => {
@@ -12,7 +12,7 @@ const useBlogPost = ({ id }: IProps) => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchBlogPost = (id: number) => {
+  const fetchBlogPost = (id: string) => {
     setLoading(true);
 
     fetch(Endpoints.BLOG_POST_BY_ID(id), {

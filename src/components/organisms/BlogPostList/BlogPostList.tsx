@@ -10,7 +10,7 @@ const BlogPostList: React.FC<IProps> = ({ blogPosts }) => {
   return (
     <div className={styles.blog_post_list} data-testid={"blogpost_list"}>
       {blogPosts.map((blogPost) => {
-        return <BlogPost key={blogPost.id} blogPost={blogPost} />;
+        return <BlogPost key={blogPost._id} blogPost={blogPost} />;
       })}
     </div>
   );

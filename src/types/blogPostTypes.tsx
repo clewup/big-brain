@@ -1,4 +1,4 @@
-import { Tag } from "@/enums/tags";
+import { Category } from "@/enums/categories";
 
 export interface BlogPost {
   _id: string;
@@ -6,7 +6,7 @@ export interface BlogPost {
   image: string;
   content: string;
   date: Date;
-  tags: Tag[];
+  tags: Category[];
 }
 
 export type Positioning = [number, number] & { length: 2 };

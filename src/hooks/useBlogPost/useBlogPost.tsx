@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BlogPost } from "@/types/blogPostTypes";
-import { Endpoints } from "@/enums/endpoints";
+import { endpoints } from "@/enums/endpoints";
 import { HttpMethods } from "@/enums/httpMethods";
 
 interface IProps {
@@ -15,7 +15,7 @@ const useBlogPost = ({ id }: IProps) => {
   const fetchBlogPost = (id: string) => {
     setLoading(true);
 
-    fetch(Endpoints.POST_BY_ID(id), {
+    fetch(endpoints.POST_BY_ID(id), {
       method: HttpMethods.GET,
     })
       .then(async (res) => setBlogPost(await res.json()))

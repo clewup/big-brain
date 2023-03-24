@@ -1,4 +1,4 @@
-export const Endpoints = {
+export const endpoints = {
   POST: "/api/post",
   CATEGORY: "api/category",
   POST_BY_CATEGORY: (category: string) => `/api/post/category/${category}`,

@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 import { Inputs } from "@/components/atoms/Inputs/Inputs";
 import Image from "next/image";
 import { Grid } from "@mui/material";
-import { Endpoints } from "@/enums/endpoints";
+import { endpoints } from "@/enums/endpoints";
 import { HttpMethods } from "@/enums/httpMethods";
 import ActionRow from "@/components/organisms/BlogPostForm/components/ActionRow/ActionRow";
 
@@ -31,7 +31,7 @@ const BlogPostForm = () => {
   };
 
   const handleSubmit = (values: FormikValues) => {
-    fetch(Endpoints.POST, {
+    fetch(endpoints.POST, {
       method: HttpMethods.POST,
       headers: {
         "Content-Type": "application/json",

@@ -8,21 +8,21 @@ import {
 } from "@mui/icons-material";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
-import { Routes } from "@/enums/routes";
+import { routes } from "@/enums/routes";
 
 const Header = () => {
   const { theme, forcedTheme, setTheme } = useTheme();
 
   return (
     <div className={styles.header} data-testid={"header"}>
-      <Link href={{ pathname: Routes.HOME }} className={styles.logo}>
+      <Link href={{ pathname: routes.HOME }} className={styles.logo}>
         <BookIcon />
         Blog
       </Link>
       <div className={styles.action_row}>
-        <Link href={{ pathname: Routes.POSTS }}>All Posts</Link>
-        <Link href={{ pathname: Routes.CATEGORIES }}>Categories</Link>
-        <Link href={{ pathname: Routes.HOME }}>
+        <Link href={{ pathname: routes.POSTS }}>All Posts</Link>
+        <Link href={{ pathname: routes.CATEGORIES }}>Categories</Link>
+        <Link href={{ pathname: routes.HOME }}>
           <GitHubIcon />
         </Link>
 

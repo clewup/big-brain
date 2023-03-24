@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes, SetStateAction, useState } from "react";
 import { IconButton } from "@mui/material";
-import { Endpoints } from "@/enums/endpoints";
+import { endpoints } from "@/enums/endpoints";
 import { HttpMethods } from "@/enums/httpMethods";
 import { PhotoCamera } from "@mui/icons-material";
 import { FieldAttributes, FormikProps } from "formik";
@@ -33,7 +33,7 @@ const UploadInput: React.FC<IProps> = ({
     data.append("upload_preset", UPLOAD_PRESET);
     data.append("cloud_name", CLOUD_NAME);
 
-    fetch(Endpoints.CLOUDINARY_UPLOAD, {
+    fetch(endpoints.CLOUDINARY_UPLOAD, {
       method: HttpMethods.POST,
       body: data,
     })

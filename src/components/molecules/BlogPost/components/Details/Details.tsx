@@ -1,10 +1,8 @@
 import React from "react";
 import styles from "./Details.module.scss";
+import { BlogPost } from "@/types/blogPostTypes";
 
-interface IProps {
-  content: string;
-  date: Date;
-}
+interface IProps extends Pick<BlogPost, "content" | "date"> {}
 
 const Details: React.FC<IProps> = ({ content, date }) => {
   const dateString = new Date(date).toDateString();

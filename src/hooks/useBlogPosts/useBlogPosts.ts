@@ -1,4 +1,4 @@
-import { Endpoints } from "@/enums/endpoints";
+import { endpoints } from "@/enums/endpoints";
 import { useEffect, useState } from "react";
 import { BlogPost } from "@/types/blogPostTypes";
 import { HttpMethods } from "@/enums/httpMethods";
@@ -15,7 +15,7 @@ const useBlogPosts = ({ category }: IProps) => {
   const fetchBlogPosts = async () => {
     setLoading(true);
 
-    fetch(Endpoints.POST, {
+    fetch(endpoints.POST, {
       method: HttpMethods.GET,
     })
       .then(async (res) => setBlogPosts(await res.json()))
@@ -26,7 +26,7 @@ const useBlogPosts = ({ category }: IProps) => {
   const fetchBlogPostsByCategory = async (category: string) => {
     setLoading(true);
 
-    fetch(Endpoints.POST_BY_CATEGORY(category), {
+    fetch(endpoints.POST_BY_CATEGORY(category), {
       method: HttpMethods.GET,
     })
       .then(async (res) => setBlogPosts(await res.json()))

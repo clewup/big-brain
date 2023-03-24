@@ -1,15 +1,14 @@
 import React from "react";
 import styles from "./Image.module.scss";
 import NextImage from "next/image";
+import { BlogPost } from "@/types/blogPostTypes";
 
-interface IProps {
-  imageUrl: string;
-}
+interface IProps extends Pick<BlogPost, "image"> {}
 
-const Image: React.FC<IProps> = ({ imageUrl }) => {
+const Image: React.FC<IProps> = ({ image }) => {
   return (
     <NextImage
-      src={imageUrl}
+      src={image}
       alt={"Blog Post Image"}
       width={200}
       height={200}

@@ -29,7 +29,7 @@ const BlogPost: React.FC<IProps> = ({ blogPost }) => {
     >
       <Title _id={_id} title={title} />
       <div className={styles.blog_post_content}>
-        <Image imageUrl={image} />
+        <Image image={image} />
         <Details content={content} date={date} />
       </div>
       <Tags tags={tags} />

@@ -4,7 +4,7 @@ import { mockBlogPost } from "@/components/molecules/BlogPost/testUtils/mockData
 
 describe("BlogPost.Title", () => {
   it("should render the title", async () => {
-    render(<Title id={mockBlogPost.id} title={mockBlogPost.title} />);
+    render(<Title _id={mockBlogPost._id} title={mockBlogPost.title} />);
 
     expect(await screen.findByText(/^mock blog post/i)).toBeInTheDocument();
   });

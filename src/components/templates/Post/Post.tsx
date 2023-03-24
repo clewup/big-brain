@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useBlogPost from "@/hooks/useBlogPost/useBlogPost";
 import Image from "next/image";
-import { TagStyles } from "@/enums/tags";
+import { CategoryStyle } from "@/enums/categories";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Routes } from "@/enums/routes";
+import { routes } from "@/enums/routes";
 
 const Post = () => {
   const [id, setId] = useState<string>();
@@ -50,9 +50,9 @@ const Post = () => {
 
           <p>{new Date(blogPost.date).toDateString()}</p>
           {blogPost.tags?.map((tag) => {
-            const tagColor = TagStyles[tag];
+            const tagColor = CategoryStyle[tag];
             return (
-              <Link href={{ pathname: Routes.POSTS, query: { category: tag } }}>
+              <Link href={{ pathname: routes.POSTS, query: { category: tag } }}>
                 <motion.p
                   whileHover={{ scale: 1.1 }}
                   key={tag}

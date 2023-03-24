@@ -1,21 +1,20 @@
 import styles from "./Tags.module.scss";
-import { Tag, TagStyles } from "@/enums/tags";
+import { Category, CategoryStyle } from "@/enums/categories";
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Routes } from "@/enums/routes";
+import { routes } from "@/enums/routes";
+import { BlogPost } from "@/types/blogPostTypes";
 
-interface IProps {
-  tags: Tag[];
-}
+interface IProps extends Pick<BlogPost, "tags"> {}
 
 const Tags: React.FC<IProps> = ({ tags }) => {
   return (
     <div className={styles.tags} data-testid={"blog_post_tags"}>
       {tags.map((tag) => {
-        const tagColor = TagStyles[tag];
+        const tagColor = CategoryStyle[tag];
         return (
-          <Link href={{ pathname: Routes.POSTS, query: { category: tag } }}>
+          <Link href={{ pathname: routes.POSTS, query: { category: tag } }}>
             <motion.p
               whileHover={{ scale: 1.1 }}
               key={tag}

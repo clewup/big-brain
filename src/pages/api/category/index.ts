@@ -1,21 +1,20 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { mockBlogPosts } from "@/components/molecules/BlogPost/testUtils/mockData";
-import { BlogPost } from "@/types/blogPostTypes";
-import { HttpMethods } from "@/enums/httpMethods";
-import { mergeArrays } from "@/utils/arrays";
-import { Category } from "@/enums/categories";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { mockBlogPosts } from '@/components/molecules/BlogPost/testUtils/mockData';
+import { HttpMethodsEnum } from '@/enums/httpMethodsEnum';
+import { mergeArrays } from '@/utils';
+import { CategoriesEnum } from '@/enums';
 
 const blogPosts = mockBlogPosts;
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== HttpMethods.GET) return res.status(405);
+    if (req.method !== HttpMethodsEnum.GET) return res.status(405);
 
-  const tags = blogPosts.map((blogPost) => {
-    return blogPost.tags;
-  });
+    const tags = blogPosts.map((blogPost) => {
+        return blogPost.tags;
+    });
 
-  const data = mergeArrays(tags) as Category[];
+    const data = mergeArrays(tags) as CategoriesEnum[];
 
-  res.status(200);
-  res.json(data);
+    res.status(200);
+    res.json(data);
 }

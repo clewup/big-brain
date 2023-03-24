@@ -1,21 +1,21 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.2rem;
 }
 
 .action_row {
-  display: flex;
-  gap: 1rem;
+    display: flex;
+    gap: 1rem;
 }
 
 .theme_toggle {
-  cursor: pointer;
+    cursor: pointer;
 }

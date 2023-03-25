@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import { CategoriesEnum, CategoryStylesEnum } from '@/enums';
-import styles from './Categories.module.scss';
-import Link from 'next/link';
+import { CategoriesEnum, CategoryStylesEnum, RoutesEnum } from '@/enums';
+import getCategories from '@/requests/getCategories';
 import { motion } from 'framer-motion';
-import { EndpointsEnum } from '@/enums/endpointsEnum';
-import { RoutesEnum } from '@/enums';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import styles from './Categories.module.scss';
 
 const Categories = () => {
     const [categories, setCategories] = useState<CategoriesEnum[]>([]);
@@ -13,7 +12,7 @@ const Categories = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch(EndpointsEnum.CATEGORY)
+        getCategories()
             .then(async (res) => setCategories(await res.json()))
             .catch((err) => setError(err))
             .finally(() => setLoading(false));

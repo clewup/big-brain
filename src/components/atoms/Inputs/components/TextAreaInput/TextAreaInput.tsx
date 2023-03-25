@@ -1,7 +1,7 @@
-import React from 'react';
-import { FieldAttributes, FormikProps } from 'formik';
-import { InputAdornment, TextField } from '@mui/material';
 import InputWrapper from '@/components/atoms/Inputs/components/InputWrapper/InputWrapper';
+import { InputAdornment, TextField } from '@mui/material';
+import { FieldAttributes, FormikProps } from 'formik';
+import React from 'react';
 
 interface IProps {
     field?: FieldAttributes<any>;
@@ -29,7 +29,7 @@ const TextAreaInput: React.FC<IProps> = ({
     rows = 4,
 }) => {
     return (
-        <InputWrapper label={label}>
+        <InputWrapper label={label} htmlFor={field.name}>
             <TextField
                 {...field}
                 error={form?.touched[field.name] && form?.errors[field.name]}
@@ -49,6 +49,9 @@ const TextAreaInput: React.FC<IProps> = ({
                 }}
                 multiline
                 rows={rows}
+                name={field.name}
+                aria-label={field.name}
+                data-testid={`${field.name}_input`}
             />
         </InputWrapper>
     );

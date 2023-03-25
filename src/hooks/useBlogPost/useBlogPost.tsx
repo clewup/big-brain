@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import getPostById from '@/requests/getPostById';
 import { BlogPostType } from '@/types';
-import { EndpointsEnum, HttpMethodsEnum } from '@/enums';
+import React, { useEffect, useState } from 'react';
 
 interface IProps {
     id?: string;
@@ -14,9 +14,7 @@ const useBlogPost = ({ id }: IProps) => {
     const fetchBlogPost = (id: string) => {
         setLoading(true);
 
-        fetch(EndpointsEnum.POST_BY_ID(id), {
-            method: HttpMethodsEnum.GET,
-        })
+        getPostById(id)
             .then(async (res) => setBlogPost(await res.json()))
             .catch((err) => setError(err))
             .finally(() => setLoading(false));

@@ -1,6 +1,7 @@
-import { EndpointsEnum, HttpMethodsEnum } from '@/enums';
-import { useEffect, useState } from 'react';
+import getPosts from '@/requests/getPosts';
+import getPostsByCategory from '@/requests/getPostsByCategory';
 import { BlogPostType } from '@/types';
+import { useEffect, useState } from 'react';
 
 interface IProps {
     category?: string | string[];
@@ -14,9 +15,7 @@ const useBlogPosts = ({ category }: IProps) => {
     const fetchBlogPosts = async () => {
         setLoading(true);
 
-        fetch(EndpointsEnum.POST, {
-            method: HttpMethodsEnum.GET,
-        })
+        getPosts()
             .then(async (res) => setBlogPosts(await res.json()))
             .catch((err) => setError(err))
             .finally(() => setLoading(false));
@@ -25,9 +24,7 @@ const useBlogPosts = ({ category }: IProps) => {
     const fetchBlogPostsByCategory = async (category: string) => {
         setLoading(true);
 
-        fetch(EndpointsEnum.POST_BY_CATEGORY(category), {
-            method: HttpMethodsEnum.GET,
-        })
+        getPostsByCategory(category)
             .then(async (res) => setBlogPosts(await res.json()))
             .catch((err) => setError(err))
             .finally(() => setLoading(false));

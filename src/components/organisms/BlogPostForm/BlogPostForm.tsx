@@ -1,18 +1,15 @@
-import styles from './BlogPostForm.module.scss';
-import { Field, Form, Formik, FormikProps, FormikValues } from 'formik';
-import { BlogPostType } from '@/types';
-import React, { useRef } from 'react';
 import { Inputs } from '@/components/atoms/Inputs/Inputs';
-import Image from 'next/image';
-import { Grid } from '@mui/material';
-import { EndpointsEnum } from '@/enums';
-import { HttpMethodsEnum } from '@/enums';
 import ActionRow from '@/components/organisms/BlogPostForm/components/ActionRow/ActionRow';
-
-type FormValues = Omit<BlogPostType, '_id'>;
+import postPost from '@/requests/postPost';
+import { BlogPostFormValues } from '@/types';
+import { Grid } from '@mui/material';
+import { Field, Form, Formik, FormikProps } from 'formik';
+import Image from 'next/image';
+import React, { useRef } from 'react';
+import styles from './BlogPostForm.module.scss';
 
 const BlogPostForm = () => {
-    const formRef = useRef<FormikProps<FormValues>>(null);
+    const formRef = useRef<FormikProps<BlogPostFormValues>>(null);
 
     enum FormFields {
         TITLE = 'title',
@@ -22,7 +19,7 @@ const BlogPostForm = () => {
         TAGS = 'tags',
     }
 
-    const initialValues: FormValues = {
+    const initialValues: BlogPostFormValues = {
         title: '',
         image: '',
         content: '',
@@ -30,14 +27,8 @@ const BlogPostForm = () => {
         tags: [],
     };
 
-    const handleSubmit = (values: FormikValues) => {
-        fetch(EndpointsEnum.POST, {
-            method: HttpMethodsEnum.POST,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(values),
-        });
+    const handleSubmit = (values: BlogPostFormValues) => {
+        postPost(values);
     };
 
     const handleCancel = () => {

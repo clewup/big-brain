@@ -8,3 +8,5 @@ export interface BlogPostType {
     date: Date;
     tags: CategoriesEnum[];
 }
+
+export type BlogPostFormValues = Omit<BlogPostType, '_id'>;

@@ -1,10 +1,9 @@
-import React, { InputHTMLAttributes, SetStateAction, useState } from 'react';
-import { IconButton } from '@mui/material';
-import { EndpointsEnum } from '@/enums';
-import { HttpMethodsEnum } from '@/enums';
-import { PhotoCamera } from '@mui/icons-material';
-import { FieldAttributes, FormikProps } from 'formik';
 import InputWrapper from '@/components/atoms/Inputs/components/InputWrapper/InputWrapper';
+import postImage from '@/requests/postImage';
+import { PhotoCamera } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
+import { FieldAttributes, FormikProps } from 'formik';
+import React, { InputHTMLAttributes } from 'react';
 import styles from './UploadInput.module.scss';
 
 interface IProps {
@@ -27,10 +26,7 @@ const UploadInput: React.FC<IProps> = ({ field, form, label, disabled, accept })
         data.append('upload_preset', UPLOAD_PRESET);
         data.append('cloud_name', CLOUD_NAME);
 
-        fetch(EndpointsEnum.CLOUDINARY_UPLOAD, {
-            method: HttpMethodsEnum.POST,
-            body: data,
-        })
+        postImage(data)
             .then(async (res) => {
                 const data = await res.json();
                 form?.setFieldValue(field.name, data.url);
@@ -39,7 +35,7 @@ const UploadInput: React.FC<IProps> = ({ field, form, label, disabled, accept })
     };
 
     return (
-        <InputWrapper label={label}>
+        <InputWrapper label={label} htmlFor={field.name}>
             <IconButton component="label" disabled={disabled} className={styles.upload_button}>
                 <input
                     hidden
@@ -49,6 +45,9 @@ const UploadInput: React.FC<IProps> = ({ field, form, label, disabled, accept })
                         uploadImage(e.target.files?.[0]);
                     }}
                     disabled={disabled}
+                    name={field.name}
+                    aria-label={field.name}
+                    data-testid={`${field.name}_input`}
                 />
                 <PhotoCamera fontSize={'large'} />
             </IconButton>

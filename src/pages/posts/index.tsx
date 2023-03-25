@@ -1,5 +1,6 @@
-import Head from 'next/head';
 import Template from '@/components/templates/Posts/Posts';
+import Head from 'next/head';
+import React from 'react';
 
 const Index = () => {
     return (

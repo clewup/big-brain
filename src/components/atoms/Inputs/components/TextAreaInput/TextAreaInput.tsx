@@ -1,11 +1,11 @@
 import InputWrapper from '@/components/atoms/Inputs/components/InputWrapper/InputWrapper';
-import { InputAdornment, TextField } from '@mui/material';
+import { InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import { FieldAttributes, FormikProps } from 'formik';
 import React from 'react';
 
 interface IProps {
-    field?: FieldAttributes<any>;
-    form?: FormikProps<any>;
+    field: FieldAttributes<unknown>;
+    form: FormikProps<unknown>;
     label?: string;
     disabled?: boolean;
     value?: unknown;
@@ -31,15 +31,15 @@ const TextAreaInput: React.FC<IProps> = ({
     return (
         <InputWrapper label={label} htmlFor={field.name}>
             <TextField
-                {...field}
-                error={form?.touched[field.name] && form?.errors[field.name]}
+                {...field as TextFieldProps}
+                error={form?.touched[field.name as keyof typeof form.touched] && !!form?.errors[field.name as keyof typeof form.errors]}
                 type={type}
                 disabled={disabled}
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
                 variant={'standard'}
-                helperText={form?.errors[field.name]}
+                helperText={form?.errors[field.name as keyof typeof form.errors]}
                 InputProps={{
                     style: {
                         backgroundColor: 'white',

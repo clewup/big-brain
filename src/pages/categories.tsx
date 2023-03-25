@@ -1,8 +1,7 @@
-import Head from 'next/head';
-import { Inter } from 'next/font/google';
 import Template from '@/components/templates/Categories/Categories';
+import Head from 'next/head';
+import React from 'react';
 
-const inter = Inter({ subsets: ['latin'] });
 
 const Categories = () => {
     return (

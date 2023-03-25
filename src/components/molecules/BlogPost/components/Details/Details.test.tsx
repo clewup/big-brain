@@ -2,6 +2,7 @@ import Details from '@/components/molecules/BlogPost/components/Details/Details'
 import { mockBlogPost } from '@/components/molecules/BlogPost/testUtils/mockData';
 import renderHelper from '@/testUtils/renderHelper';
 import { screen } from '@testing-library/react';
+import React from 'react';
 
 describe('BlogPost.Details', () => {
     it('should render the content', async () => {

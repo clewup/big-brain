@@ -1,6 +1,6 @@
 import getPostById from '@/requests/getPostById';
 import { BlogPostType } from '@/types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface IProps {
     id?: string;

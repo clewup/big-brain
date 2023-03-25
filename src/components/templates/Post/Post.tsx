@@ -1,30 +1,29 @@
-import styles from './Post.module.scss';
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { CategoryStylesEnum, RoutesEnum } from '@/enums';
 import useBlogPost from '@/hooks/useBlogPost/useBlogPost';
-import Image from 'next/image';
-import { CategoryStylesEnum } from '@/enums';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { RoutesEnum } from '@/enums';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import styles from './Post.module.scss';
 
 const Post = () => {
     const [id, setId] = useState<string>();
+    const router = useRouter();
 
     useEffect(() => {
         if (router.query.id && typeof router.query.id === 'string') {
             setId(router.query.id);
         }
-    }, []);
+    }, [router.query.id]);
 
-    const router = useRouter();
     const AnimatedImage = motion(Image);
 
     const { blogPost, isLoading, error } = useBlogPost({ id: id });
 
     if (isLoading) return null;
     if (!blogPost) return <p>Not found.</p>;
-    if (error) return <p>Whoops! There's been a problem loading the blog posts.</p>;
+    if (error) return <p>Whoops! There&apos;s been a problem loading the blog posts.</p>;
 
     return (
         <div className={styles.post}>
@@ -51,7 +50,7 @@ const Post = () => {
                     {blogPost.tags?.map((tag) => {
                         const tagColor = CategoryStylesEnum[tag];
                         return (
-                            <Link href={{ pathname: RoutesEnum.POSTS, query: { category: tag } }}>
+                            <Link key={tag} href={{ pathname: RoutesEnum.POSTS, query: { category: tag } }}>
                                 <motion.p whileHover={{ scale: 1.1 }} key={tag} style={{ color: tagColor }}>
                                     #{tag}
                                 </motion.p>

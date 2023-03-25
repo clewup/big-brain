@@ -20,9 +20,12 @@ export async function connectDb() {
 
     const opts: MongoClientOptions = {};
 
-    let client = new MongoClient(DB_CONNECTION_STRING!, opts);
+    if (!DB_CONNECTION_STRING)
+        throw new Error("The database connection string has not been defined.");
+
+    const client = new MongoClient(DB_CONNECTION_STRING, opts);
     await client.connect();
-    let db = client.db(DB_NAME);
+    const db = client.db(DB_NAME);
 
     cachedClient = client;
     cachedDb = db;

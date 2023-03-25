@@ -3,7 +3,7 @@ import styles from './Image.module.scss';
 import NextImage from 'next/image';
 import { BlogPostType } from '@/types';
 
-interface IProps extends Pick<BlogPostType, 'image'> {}
+type IProps = Pick<BlogPostType, 'image'>
 
 const Image: React.FC<IProps> = ({ image }) => {
     return (

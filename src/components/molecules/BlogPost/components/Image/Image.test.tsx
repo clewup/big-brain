@@ -2,6 +2,7 @@ import Image from '@/components/molecules/BlogPost/components/Image/Image';
 import { mockBlogPost } from '@/components/molecules/BlogPost/testUtils/mockData';
 import renderHelper from '@/testUtils/renderHelper';
 import { screen } from '@testing-library/react';
+import React from 'react';
 
 describe('BlogPost.Image', () => {
     it('should render the image', async () => {

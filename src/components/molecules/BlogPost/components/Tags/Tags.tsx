@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { BlogPostType } from '@/types';
 
-interface IProps extends Pick<BlogPostType, 'tags'> {}
+type IProps = Pick<BlogPostType, 'tags'>
 
 const Tags: React.FC<IProps> = ({ tags }) => {
     return (

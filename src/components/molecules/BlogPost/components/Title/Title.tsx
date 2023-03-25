@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { RoutesEnum } from '@/enums';
 import { BlogPostType } from '@/types';
 
-interface IProps extends Pick<BlogPostType, '_id' | 'title'> {}
+type IProps = Pick<BlogPostType, '_id' | 'title'>
 
 const Title: React.FC<IProps> = ({ _id, title }) => {
     return (

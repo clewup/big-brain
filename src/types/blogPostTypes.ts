@@ -9,4 +9,4 @@ export interface BlogPostType {
     tags: CategoriesEnum[];
 }
 
-export type BlogPostFormValues = Omit<BlogPostType, '_id'>;
+export type BlogPostFormValues = Required<Omit<BlogPostType, '_id'>>;

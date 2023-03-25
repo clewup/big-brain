@@ -7,8 +7,8 @@ import React, { InputHTMLAttributes } from 'react';
 import styles from './UploadInput.module.scss';
 
 interface IProps {
-    field?: FieldAttributes<any>;
-    form?: FormikProps<any>;
+    field: FieldAttributes<unknown>;
+    form?: FormikProps<unknown>;
     label?: string;
     disabled?: boolean;
     accept: InputHTMLAttributes<HTMLInputElement>['accept'];
@@ -36,21 +36,24 @@ const UploadInput: React.FC<IProps> = ({ field, form, label, disabled, accept })
 
     return (
         <InputWrapper label={label} htmlFor={field.name}>
-            <IconButton component="label" disabled={disabled} className={styles.upload_button}>
-                <input
-                    hidden
-                    accept={accept}
-                    type="file"
-                    onChange={(e) => {
-                        uploadImage(e.target.files?.[0]);
-                    }}
-                    disabled={disabled}
-                    name={field.name}
-                    aria-label={field.name}
-                    data-testid={`${field.name}_input`}
-                />
-                <PhotoCamera fontSize={'large'} />
-            </IconButton>
+            <>
+                <IconButton component="label" disabled={disabled} className={styles.upload_button}>
+                    <input
+                        hidden
+                        accept={accept}
+                        type="file"
+                        onChange={(e) => {
+                            uploadImage(e.target.files?.[0]);
+                        }}
+                        disabled={disabled}
+                        name={field.name}
+                        aria-label={field.name}
+                        data-testid={`${field.name}_input`}
+                    />
+                    <PhotoCamera fontSize={'large'} />
+                </IconButton>
+            </>
+
         </InputWrapper>
     );
 };

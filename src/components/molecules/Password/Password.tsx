@@ -1,8 +1,8 @@
-import styles from './Password.module.scss';
-import React from 'react';
+import { Inputs } from '@/components/atoms/Inputs/Inputs';
 import { Button } from '@mui/material';
 import { Field, Form, Formik, FormikHelpers, FormikValues } from 'formik';
-import { Inputs } from '@/components/atoms/Inputs/Inputs';
+import React from 'react';
+import styles from './Password.module.scss';
 
 interface IProps {
     handleSignIn: (password: string) => boolean;
@@ -21,7 +21,7 @@ const Password: React.FC<IProps> = ({ handleSignIn }) => {
 
     return (
         <Formik initialValues={initialValues} onSubmit={(values, helpers) => handleSubmit(values, helpers)}>
-            {({ values, touched, handleChange, errors }) => {
+            {({ values, handleChange }) => {
                 return (
                     <Form className={styles.password}>
                         <p>Please check your emails for the password.</p>

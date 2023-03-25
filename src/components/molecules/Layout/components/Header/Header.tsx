@@ -1,14 +1,15 @@
-import styles from './Header.module.scss';
-import Link from 'next/link';
+import { RoutesEnum } from '@/enums';
 import {
     Book as BookIcon,
+    DarkMode as DarkModeIcon,
     GitHub as GitHubIcon,
     LightMode as LightModeIcon,
-    DarkMode as DarkModeIcon,
 } from '@mui/icons-material';
-import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
-import { RoutesEnum } from '@/enums';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+import React from 'react';
+import styles from './Header.module.scss';
 
 const Header = () => {
     const { theme, forcedTheme, setTheme } = useTheme();

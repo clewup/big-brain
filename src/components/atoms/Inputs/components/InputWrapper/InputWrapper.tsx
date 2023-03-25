@@ -13,7 +13,13 @@ const InputWrapper: React.FC<IProps> = ({ children, label, htmlFor }) => {
 
     return (
         <FormGroup>
-            <FormLabel sx={{ color: theme === 'light' ? 'black' : 'white' }} htmlFor={htmlFor} data-testid={`${htmlFor}_label`}>{label}</FormLabel>
+            <FormLabel
+                sx={{ color: theme === 'light' ? 'black' : 'white' }}
+                htmlFor={htmlFor}
+                data-testid={`${htmlFor}_label`}
+            >
+                {label}
+            </FormLabel>
             {children}
         </FormGroup>
     );

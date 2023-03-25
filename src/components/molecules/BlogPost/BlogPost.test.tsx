@@ -2,6 +2,7 @@ import BlogPost from '@/components/molecules/BlogPost/BlogPost';
 import { mockBlogPost } from '@/components/molecules/BlogPost/testUtils/mockData';
 import renderHelper from '@/testUtils/renderHelper';
 import { screen } from '@testing-library/react';
+import React from 'react';
 
 describe('BlogPost', () => {
     it('should render the title component', async () => {

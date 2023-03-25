@@ -1,5 +1,5 @@
-const nextJest = require('next/jest');
-const { resolve } = require('path');
+import nextJest from 'next/jest';
+import { resolve } from 'path';
 
 const createJestConfig = nextJest({
     dir: './',

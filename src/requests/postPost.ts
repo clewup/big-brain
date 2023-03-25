@@ -9,5 +9,5 @@ const postPost = async (values: BlogPostFormValues) => {
         },
         body: JSON.stringify(values),
     });
-}
+};
 export default postPost;

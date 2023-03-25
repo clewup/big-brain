@@ -1,6 +1,6 @@
-import styles from './Footer.module.scss';
-import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import styles from './Footer.module.scss';
 
 const Footer = () => {
     const [clickCount, setClickCount] = useState(1);

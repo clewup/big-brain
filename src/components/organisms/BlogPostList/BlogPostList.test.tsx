@@ -2,6 +2,7 @@ import { mockBlogPosts } from '@/components/molecules/BlogPost/testUtils/mockDat
 import BlogPostList from '@/components/organisms/BlogPostList/BlogPostList';
 import renderHelper from '@/testUtils/renderHelper';
 import { screen } from '@testing-library/react';
+import React from 'react';
 
 describe('BlogPostList', () => {
     it('should render a list of blog posts', async () => {

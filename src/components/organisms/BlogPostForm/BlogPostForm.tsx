@@ -1,5 +1,7 @@
 import { Inputs } from '@/components/atoms/Inputs/Inputs';
 import ActionRow from '@/components/organisms/BlogPostForm/components/ActionRow/ActionRow';
+import validationSchema from '@/components/organisms/BlogPostForm/utils/validationSchema';
+import { CategoriesEnum } from '@/enums';
 import postPost from '@/requests/postPost';
 import { BlogPostFormValues } from '@/types';
 import { Grid } from '@mui/material';
@@ -24,7 +26,7 @@ const BlogPostForm = () => {
         image: '',
         content: '',
         date: new Date(),
-        tags: [],
+        tags: [CategoriesEnum.NEXTJS],
     };
 
     const handleSubmit = (values: BlogPostFormValues) => {
@@ -36,7 +38,7 @@ const BlogPostForm = () => {
     };
 
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} enableReinitialize innerRef={formRef}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} enableReinitialize innerRef={formRef} validationSchema={validationSchema}>
             {({ values, handleChange }) => {
                 return (
                     <Form className={styles.form}>
@@ -90,6 +92,7 @@ const BlogPostForm = () => {
                             </Grid>
 
                             <Grid item xs={12}>
+                                {}
                                 <ActionRow onCancel={handleCancel} />
                             </Grid>
                         </Grid>

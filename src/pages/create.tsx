@@ -1,8 +1,6 @@
-import Head from 'next/head';
-import { Inter } from 'next/font/google';
 import Template from '@/components/templates/Create/Create';
-
-const inter = Inter({ subsets: ['latin'] });
+import Head from 'next/head';
+import React from 'react';
 
 const Create = () => {
     return (

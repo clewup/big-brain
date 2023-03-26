@@ -39,7 +39,7 @@ const TextAreaInput: React.FC<IProps> = ({
                 onChange={onChange}
                 placeholder={placeholder}
                 variant={'standard'}
-                helperText={form?.errors[field.name as keyof typeof form.errors]}
+                helperText={form?.touched[field.name as keyof typeof form.touched] && form?.errors[field.name as keyof typeof form.errors]}
                 InputProps={{
                     style: {
                         backgroundColor: 'white',

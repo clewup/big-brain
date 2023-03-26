@@ -1,3 +1,5 @@
+import { RoutesEnum } from '@/enums';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styles from './Footer.module.scss';
@@ -21,7 +23,10 @@ const Footer = () => {
 
     return (
         <div className={styles.footer} data-testid={'footer'}>
-            <div onMouseDown={handleTripleClick}>clewup blog</div>
+            <p>clewup blog</p>
+            <Link href={{pathname: RoutesEnum.LOGIN}}>
+                Login
+            </Link>
         </div>
     );
 };

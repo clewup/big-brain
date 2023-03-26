@@ -15,7 +15,10 @@
         }
     },
     "lint-staged": {
-        "*.{js,jsx,ts,tsx}": ["eslint --max-warnings=Infinity --fix", "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""]
+        "*.{js,jsx,ts,tsx}": [
+            "eslint --max-warnings=Infinity --fix",
+            "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
+        ]
     },
     "dependencies": {
         "@emotion/react": "^11.10.6",
@@ -32,6 +35,7 @@
         "eslint-config-next": "13.2.4",
         "formik": "^2.2.9",
         "framer-motion": "^10.3.1",
+        "jwt-decode": "^3.1.2",
         "mongodb": "^5.1.0",
         "next": "13.2.4",
         "next-themes": "^0.2.1",

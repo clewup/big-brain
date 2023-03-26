@@ -1,48 +1,57 @@
-import { useUser } from '@/contexts/UserContext';
 import postLogin from '@/requests/postLogin';
-import { UserLoginType } from '@/types';
+import { AccessTokenType, UserLoginType, UserType } from '@/types';
+import jwtDecode from 'jwt-decode';
 import React, { createContext, SetStateAction, useContext, useState } from 'react';
 
 interface AuthContextValues {
     accessToken: string | undefined;
     setAccessToken: React.Dispatch<SetStateAction<string | undefined>>
+    user: UserType | undefined;
+    setUser: React.Dispatch<SetStateAction<UserType | undefined>>
 
-    login: (userLogin: UserLoginType) => void;
+    login: (userLogin: UserLoginType) => Promise<void>;
     logout: () => void;
     isLoggedIn: boolean;
 }
 
 interface AuthContextProps {
     children: JSX.Element;
-    existingAccessToken?: string;
+    providerArgs?: {
+        initialAccessToken: string | undefined;
+        initialUser: UserType | undefined,
+    };
 }
 
 const AuthContext = createContext<AuthContextValues>({} as AuthContextValues);
 
-const AuthProvider = ({ children, existingAccessToken }: AuthContextProps) => {
-    const [accessToken, setAccessToken] = useState<string | undefined>(existingAccessToken);
-
-    const {user, setUser} = useUser()
+const AuthProvider = ({ children, providerArgs }: AuthContextProps) => {
+    const [accessToken, setAccessToken] = useState<string | undefined>(providerArgs?.initialAccessToken);
+    const [user, setUser] = useState<UserType | undefined>(providerArgs?.initialUser);
 
     const login = async (userLogin: UserLoginType) => {
         postLogin(userLogin).then(async (res) => {
             if (res.status === 200 && res.body) {
                 const data = await res.json();
                 setAccessToken(data.accessToken);
-                setUser(data.user)
+
+                const decodedAccessToken = jwtDecode<AccessTokenType>(data.accessToken);
+                setUser({
+                    id: decodedAccessToken.id,
+                    email: decodedAccessToken.email,
+                    role: decodedAccessToken.role
+                })
             }
         }).catch((err) => null);
     }
 
     const logout = async () => {
         setAccessToken(undefined);
-        setUser(undefined);
     }
 
-    const isLoggedIn = !!user;
+    const isLoggedIn = !!accessToken;
 
     return (
-        <AuthContext.Provider value={{accessToken, setAccessToken, login, logout, isLoggedIn}}>
+        <AuthContext.Provider value={{accessToken, setAccessToken, user, setUser, login, logout, isLoggedIn}}>
             {children}
         </AuthContext.Provider>
     )

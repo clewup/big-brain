@@ -1,5 +1,5 @@
 import { EndpointsEnum, HttpMethodsEnum } from '@/enums';
-import { UserLoginType } from '@/types/userTypes';
+import { UserLoginType } from '@/types';
 
 const postLogin = async (userLogin: UserLoginType) => {
     return fetch(EndpointsEnum.AUTH_LOGIN, {

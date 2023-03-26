@@ -7,3 +7,5 @@ export interface UserLoginType {
     email: string;
     password: string;
 }
+
+export type LoginFormValues = UserLoginType;

@@ -1,6 +1,6 @@
 import { useUser } from '@/contexts/UserContext';
 import postLogin from '@/requests/postLogin';
-import { UserLoginType } from '@/types/userTypes';
+import { UserLoginType } from '@/types';
 import React, { createContext, SetStateAction, useContext, useState } from 'react';
 
 interface AuthContextValues {

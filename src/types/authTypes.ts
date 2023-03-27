@@ -1,10 +1,9 @@
 import { RolesEnum } from '@/enums';
+import { VariantType } from '@/types/variantTypes';
 
 export interface AccessTokenType {
     id: string;
     email: string;
     role: RolesEnum;
-    exp: number;
-    iss: string;
-    aud: string;
+    variants: VariantType[];
 }

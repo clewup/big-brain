@@ -1,5 +1,6 @@
-import postLogin from '@/requests/postLogin';
-import { AccessTokenType, UserLoginType, UserType } from '@/types';
+import { useVariant } from '@/contexts/VariantContext';
+import postAccessToken from '@/requests/postAccessToken';
+import { AccessTokenType, UserType } from '@/types';
 import jwtDecode from 'jwt-decode';
 import React, { createContext, SetStateAction, useContext, useState } from 'react';
 
@@ -9,7 +10,7 @@ interface AuthContextValues {
     user: UserType | undefined;
     setUser: React.Dispatch<SetStateAction<UserType | undefined>>
 
-    login: (userLogin: UserLoginType) => Promise<void>;
+    login: (code: string) => void;
     logout: () => void;
     isLoggedIn: boolean;
 }
@@ -28,18 +29,21 @@ const AuthProvider = ({ children, providerArgs }: AuthContextProps) => {
     const [accessToken, setAccessToken] = useState<string | undefined>(providerArgs?.initialAccessToken);
     const [user, setUser] = useState<UserType | undefined>(providerArgs?.initialUser);
 
-    const login = async (userLogin: UserLoginType) => {
-        postLogin(userLogin).then(async (res) => {
+    const {setVariants} = useVariant();
+
+    const login = async (code: string) => {
+        postAccessToken(code).then(async (res) => {
             if (res.status === 200 && res.body) {
                 const data = await res.json();
-                setAccessToken(data.accessToken);
+                setAccessToken(data.access_token);
 
-                const decodedAccessToken = jwtDecode<AccessTokenType>(data.accessToken);
+                const decodedAccessToken = jwtDecode<AccessTokenType>(data.access_token);
                 setUser({
                     id: decodedAccessToken.id,
                     email: decodedAccessToken.email,
-                    role: decodedAccessToken.role
+                    role: decodedAccessToken.role,
                 })
+                setVariants(decodedAccessToken.variants)
             }
         }).catch((err) => null);
     }

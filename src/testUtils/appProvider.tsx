@@ -3,7 +3,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import { VariantProvider } from '@/contexts/VariantContext';
 import mockNextRouter from '@/testUtils/mocks/mockNextRouter';
 import mockUser from '@/testUtils/mocks/mockUser';
-import { UserType, VariantType } from '@/types';
+import { UserType } from '@/types';
 import { ThemeProvider } from 'next-themes';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import React, { ReactElement } from 'react';
@@ -11,7 +11,7 @@ import React, { ReactElement } from 'react';
 export interface ProviderArgs {
     initialAccessToken?: string;
     initialUser?: UserType;
-    initialVariants?: VariantType[];
+    initialVariants?: string[];
 }
 
 export const appProvider = (component: ReactElement, providerArgs?: ProviderArgs) => {

@@ -1,9 +1,8 @@
-import { VariantType } from '@/types';
 import React, { createContext, SetStateAction, useContext, useState } from 'react';
 
 interface VariantContextValues {
-    variants: VariantType[];
-    setVariants: React.Dispatch<SetStateAction<VariantType[]>>
+    variants: string[];
+    setVariants: React.Dispatch<SetStateAction<string[]>>
 }
 
 const VariantContext = createContext<VariantContextValues>({} as VariantContextValues);
@@ -11,12 +10,12 @@ const VariantContext = createContext<VariantContextValues>({} as VariantContextV
 interface VariantContextProps {
     children: JSX.Element;
     providerArgs?: {
-        initialVariants: VariantType[] | undefined;
+        initialVariants: string[] | undefined;
     };
 }
 
 const VariantProvider = ({children, providerArgs}: VariantContextProps) => {
-    const [variants, setVariants] = useState<VariantType[]>(providerArgs?.initialVariants || [])
+    const [variants, setVariants] = useState<string[]>(providerArgs?.initialVariants || [])
 
     return (
         <VariantContext.Provider value={{variants: variants, setVariants: setVariants}}>

@@ -8,14 +8,16 @@ import React from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
+        <VariantProvider>
+
         <AuthProvider>
-            <VariantProvider>
                 <ThemeProvider>
                     <Layout>
                         <Component {...pageProps} />
                     </Layout>
                 </ThemeProvider>
-            </VariantProvider>
         </AuthProvider>
+        </VariantProvider>
+            
     );
 }

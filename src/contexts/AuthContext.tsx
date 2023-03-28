@@ -10,7 +10,7 @@ interface AuthContextValues {
     user: UserType | undefined;
     setUser: React.Dispatch<SetStateAction<UserType | undefined>>
 
-    login: (code: string) => void;
+    login: (code: string) => Promise<void>;
     logout: () => void;
     isLoggedIn: boolean;
 }
@@ -41,6 +41,7 @@ const AuthProvider = ({ children, providerArgs }: AuthContextProps) => {
                 setUser({
                     id: decodedAccessToken.id,
                     email: decodedAccessToken.email,
+                    customer: decodedAccessToken.customer,
                     role: decodedAccessToken.role,
                 })
                 setVariants(decodedAccessToken.variants)
@@ -50,6 +51,8 @@ const AuthProvider = ({ children, providerArgs }: AuthContextProps) => {
 
     const logout = async () => {
         setAccessToken(undefined);
+        setUser(undefined);
+        setVariants([]);
     }
 
     const isLoggedIn = !!accessToken;

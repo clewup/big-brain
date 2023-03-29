@@ -1,5 +1,5 @@
-import { CategoryStylesEnum, RoutesEnum } from '@/enums';
-import useBlogPost from '@/hooks/useBlogPost/useBlogPost';
+import { RoutesEnum } from '@/enums';
+import usePost from '@/hooks/usePost/usePost';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,21 +19,21 @@ const Post = () => {
 
     const AnimatedImage = motion(Image);
 
-    const { blogPost, isLoading, error } = useBlogPost({ id: id });
+    const { post, isLoading, error } = usePost({ id: id });
 
     if (isLoading) return null;
-    if (!blogPost) return <p>Not found.</p>;
+    if (!post) return <p>Not found.</p>;
     if (error) return <p>Whoops! There&apos;s been a problem loading the blog posts.</p>;
 
     return (
         <div className={styles.post}>
-            <h1>{blogPost.title}</h1>
+            <h1>{post.title}</h1>
 
             <div className={styles.main_body}>
                 <div>
                     <AnimatedImage
-                        src={blogPost.image}
-                        alt={blogPost.title}
+                        src={post.image}
+                        alt={post.title}
                         width={300}
                         height={300}
                         animate={{
@@ -46,12 +46,11 @@ const Post = () => {
                         className={styles.image}
                     />
 
-                    <p>{new Date(blogPost.date).toDateString()}</p>
-                    {blogPost.tags?.map((tag) => {
-                        const tagColor = CategoryStylesEnum[tag];
+                    <p>{new Date(post.date).toDateString()}</p>
+                    {post.tags?.map((tag) => {
                         return (
-                            <Link key={tag} href={{ pathname: RoutesEnum.POSTS, query: { category: tag } }}>
-                                <motion.p whileHover={{ scale: 1.1 }} key={tag} style={{ color: tagColor }}>
+                            <Link key={tag} href={{ pathname: RoutesEnum.POSTS, query: { tag: tag } }}>
+                                <motion.p whileHover={{ scale: 1.1 }} key={tag}>
                                     #{tag}
                                 </motion.p>
                             </Link>
@@ -70,7 +69,7 @@ const Post = () => {
                         delay: 0.6,
                     }}
                 >
-                    {blogPost.content}
+                    {post.content}
                 </motion.p>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import { RolesEnum } from '@/enums';
 
 export interface UserType {
-    id: string;
+    id: number;
     email: string;
     customer: number;
     role: RolesEnum;

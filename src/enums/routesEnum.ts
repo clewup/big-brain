@@ -1,8 +1,8 @@
 export const RoutesEnum = {
     HOME: '/',
     POSTS: 'posts',
-    POST: (id: string) => `posts/${id}`,
-    CATEGORIES: 'categories',
+    POST: (id: number) => `posts/${id}`,
+    TAGS: 'tags',
     CREATE: 'create',
-    LOGIN: 'login'
+    LOGIN: 'login',
 };

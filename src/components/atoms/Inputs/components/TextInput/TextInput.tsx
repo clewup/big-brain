@@ -29,15 +29,21 @@ const TextInput: React.FC<IProps> = ({
     return (
         <InputWrapper label={label} htmlFor={field.name}>
             <TextField
-                {...field as TextFieldProps}
-                error={form?.touched[field.name as keyof typeof form.touched] && !!form?.errors[field.name as keyof typeof form.errors]}
+                {...(field as TextFieldProps)}
+                error={
+                    form?.touched[field.name as keyof typeof form.touched] &&
+                    !!form?.errors[field.name as keyof typeof form.errors]
+                }
                 type={type}
                 disabled={disabled}
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
                 variant={'standard'}
-                helperText={form?.touched[field.name as keyof typeof form.touched] && form?.errors[field.name as keyof typeof form.errors]}
+                helperText={
+                    form?.touched[field.name as keyof typeof form.touched] &&
+                    form?.errors[field.name as keyof typeof form.errors]
+                }
                 InputProps={{
                     style: {
                         backgroundColor: 'white',

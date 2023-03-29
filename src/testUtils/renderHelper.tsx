@@ -9,7 +9,7 @@ const renderHelper = (component: ReactElement, options?: object, providerArgs?: 
 
 interface FormikProps {
     initialValues: {
-        test: true,
+        test: true;
     };
     onSubmit: jest.Mock;
 }

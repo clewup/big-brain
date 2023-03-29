@@ -1,4 +1,5 @@
-import { RoutesEnum } from '@/enums';
+import { useAuth } from '@/contexts/AuthContext';
+import { RolesEnum, RoutesEnum } from '@/enums';
 import {
     Book as BookIcon,
     DarkMode as DarkModeIcon,
@@ -13,6 +14,8 @@ import styles from './Header.module.scss';
 
 const Header = () => {
     const { theme, forcedTheme, setTheme } = useTheme();
+    const { user } = useAuth();
+    console.log(user);
 
     return (
         <div className={styles.header} data-testid={'header'}>
@@ -21,8 +24,9 @@ const Header = () => {
                 Blog
             </Link>
             <div className={styles.action_row}>
+                {user?.role === RolesEnum.ADMIN && <Link href={{ pathname: RoutesEnum.CREATE }}>Create</Link>}
                 <Link href={{ pathname: RoutesEnum.POSTS }}>All Posts</Link>
-                <Link href={{ pathname: RoutesEnum.CATEGORIES }}>Categories</Link>
+                <Link href={{ pathname: RoutesEnum.TAGS }}>Tags</Link>
                 <Link href={{ pathname: RoutesEnum.HOME }}>
                     <GitHubIcon />
                 </Link>

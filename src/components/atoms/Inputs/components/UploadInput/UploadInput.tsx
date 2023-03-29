@@ -53,7 +53,6 @@ const UploadInput: React.FC<IProps> = ({ field, form, label, disabled, accept })
                     <PhotoCamera fontSize={'large'} />
                 </IconButton>
             </>
-
         </InputWrapper>
     );
 };

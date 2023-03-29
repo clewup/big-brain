@@ -1,23 +1,46 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { BlogPostType } from '@/types';
 import { HttpMethodsEnum } from '@/enums';
-import { connectDb } from '@/lib/mongo/db';
+import prisma from '@/lib/prisma';
+import { postMapper, postsMapper } from '@/mappers';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { db } = await connectDb();
-
     switch (req.method) {
         case HttpMethodsEnum.POST:
-            const blogPost = await db.collection('BlogPost').insertOne(req.body);
+            const post = await prisma.post.create({
+                include: {
+                    tags: true,
+                },
+                data: {
+                    customer: req.body.customer,
+                    user: req.body.user,
+                    title: req.body.title,
+                    image: req.body.image,
+                    content: req.body.content,
+                    tags: {
+                        connectOrCreate: req.body.tags.map((tag: string) => ({
+                            where: { name: tag },
+                            create: { name: tag, customer: req.body.customer },
+                        })),
+                    },
+                },
+            });
+
+            const mappedPost = postMapper(post);
 
             res.status(201);
-            return res.json(blogPost);
+            return res.json(mappedPost);
 
         case HttpMethodsEnum.GET:
-            const blogPosts = await db.collection<BlogPostType>('BlogPost').find({}).toArray();
+            const posts = await prisma.post.findMany({
+                include: {
+                    tags: true,
+                },
+            });
+
+            const mappedPosts = postsMapper(posts);
 
             res.status(200);
-            return res.json(blogPosts);
+            return res.json(mappedPosts);
 
         default:
             return res.status(405);

@@ -1,4 +1,6 @@
 import Template from '@/components/templates/Create/Create';
+import { withAuth } from '@/contexts/AuthContext';
+import { RolesEnum } from '@/enums';
 import Head from 'next/head';
 import React from 'react';
 
@@ -17,4 +19,4 @@ const Create = () => {
         </>
     );
 };
-export default Create;
+export default withAuth(Create, RolesEnum.ADMIN);

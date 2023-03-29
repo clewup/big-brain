@@ -15,18 +15,17 @@ export interface ProviderArgs {
 }
 
 export const appProvider = (component: ReactElement, providerArgs?: ProviderArgs) => {
-
-    const accessToken = providerArgs?.initialAccessToken === undefined ? undefined : "mockAccessToken";
+    const accessToken = providerArgs?.initialAccessToken === undefined ? undefined : 'mockAccessToken';
     const user = providerArgs?.initialUser ?? mockUser;
     const variants = providerArgs?.initialVariants ?? [];
 
     return (
-        <AuthProvider providerArgs={{initialAccessToken: accessToken, initialUser: user}}>
-            <VariantProvider providerArgs={{initialVariants: variants}}>
+        <AuthProvider providerArgs={{ initialAccessToken: accessToken, initialUser: user }}>
+            <VariantProvider providerArgs={{ initialVariants: variants }}>
                 <ThemeProvider>
                     <RouterContext.Provider value={mockNextRouter}>{component}</RouterContext.Provider>
                 </ThemeProvider>
             </VariantProvider>
         </AuthProvider>
-    )
+    );
 };

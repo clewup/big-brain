@@ -3,11 +3,14 @@ import FullPageLoader from '@/components/atoms/Loaders/components/FullPageLoader
 import ActionRow from '@/components/organisms/PostForm/components/ActionRow/ActionRow';
 import validationSchema from '@/components/organisms/PostForm/utils/validationSchema';
 import { useAuth } from '@/contexts/AuthContext';
+import { RoutesEnum } from '@/enums';
 import postPost from '@/requests/postPost';
 import { PostFormValues, PostType } from '@/types';
-import { Grid } from '@mui/material';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { Grid, IconButton } from '@mui/material';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import styles from './PostForm.module.scss';
 
@@ -18,7 +21,9 @@ interface IProps {
 
 const PostForm: React.FC<IProps> = ({post, isLoading}) => {
     const formRef = useRef<FormikProps<PostFormValues>>(null);
+
     const { user } = useAuth();
+    const router = useRouter();
 
     if (!user) return <></>;
 
@@ -42,13 +47,14 @@ const PostForm: React.FC<IProps> = ({post, isLoading}) => {
 
     const handleSubmit = (values: PostFormValues) => {
         postPost(values);
+        router.push({pathname: RoutesEnum.POSTS})
     };
 
     const handleCancel = () => {
         formRef.current?.resetForm({ values: initialValues });
     };
 
-    if (isLoading) return <FullPageLoader/>
+    if ((isLoading || router.query.id) && !post) return <FullPageLoader/>
 
     return (
         <Formik
@@ -58,7 +64,7 @@ const PostForm: React.FC<IProps> = ({post, isLoading}) => {
             innerRef={formRef}
             validationSchema={validationSchema}
         >
-            {({ values, handleChange }) => {
+            {({ values, handleChange, setFieldValue, isSubmitting }) => {
                 return (
                     <Form className={styles.form}>
                         <h1>Create/Edit a Blog Post</h1>
@@ -79,13 +85,19 @@ const PostForm: React.FC<IProps> = ({post, isLoading}) => {
                                 <div className={styles.image_container}>
                                     <span className={styles.image_placeholder}>
                                         {values.image ? (
-                                            <Image
-                                                src={values.image}
-                                                alt={'image'}
-                                                height={250}
-                                                width={250}
-                                                className={styles.image}
-                                            />
+                                            <>
+                                                <IconButton className={styles.clear_button} onClick={() => setFieldValue(FormFields.IMAGE, "")}>
+                                                    <HighlightOffIcon fontSize={"large"}/>
+                                                </IconButton>
+                                                <Image
+                                                    src={values.image}
+                                                    alt={'image'}
+                                                    height={250}
+                                                    width={250}
+                                                    className={styles.image}
+                                                />
+                                            </>
+
                                         ) : (
                                             <Field
                                                 name={FormFields.IMAGE}
@@ -112,7 +124,7 @@ const PostForm: React.FC<IProps> = ({post, isLoading}) => {
 
                             <Grid item xs={12}>
                                 {}
-                                <ActionRow onCancel={handleCancel} />
+                                <ActionRow onCancel={handleCancel} isSubmitting={isSubmitting} />
                             </Grid>
                         </Grid>
                     </Form>

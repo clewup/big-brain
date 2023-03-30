@@ -21,4 +21,9 @@
         border: 2px solid var(--foreground);
         object-fit: cover;
     }
+
+    .clear_button {
+        color: var(--foreground);
+        position: fixed;
+    }
 }

@@ -1,11 +1,9 @@
 import { HttpMethodsEnum } from '@/enums';
 import prisma from '@/lib/prisma';
 import { postMapper } from '@/mappers';
-import authMiddleware from '@/middleware/authMiddleware';
-import { AuthorizedNextApiRequest } from '@/types';
-import type { NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== HttpMethodsEnum.GET) return res.status(405);
 
     const id = req.query.id;
@@ -31,4 +29,4 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
         res.json(mappedPost);
         return;
 };
-export default authMiddleware(handler);
+export default handler;

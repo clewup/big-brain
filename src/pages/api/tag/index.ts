@@ -1,6 +1,5 @@
 import { HttpMethodsEnum } from '@/enums/httpMethodsEnum';
 import prisma from '@/lib/prisma';
-import authMiddleware from '@/middleware/authMiddleware';
 import { AuthorizedNextApiRequest } from '@/types';
 import type { NextApiResponse } from 'next';
 
@@ -14,4 +13,4 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
     res.status(200);
     res.json(tagNames);
 };
-export default authMiddleware(handler);
+export default handler;

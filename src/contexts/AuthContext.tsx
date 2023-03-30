@@ -1,4 +1,3 @@
-import { useVariant } from '@/contexts/VariantContext';
 import { RolesEnum, RoutesEnum, UrlsEnum } from '@/enums';
 import postAccessToken from '@/requests/postAccessToken';
 import { AccessTokenType, UserType } from '@/types';
@@ -33,8 +32,6 @@ const AuthProvider = ({ children, providerArgs }: AuthContextProps) => {
     const [user, setUser] = useState<UserType | undefined>(providerArgs?.initialUser);
     const [error, setError] = useState<string>();
 
-    const { setVariants } = useVariant();
-
     const login = async (code: string) => {
         postAccessToken(code)
             .then(async (res) => {
@@ -50,7 +47,6 @@ const AuthProvider = ({ children, providerArgs }: AuthContextProps) => {
                         customer: decodedAccessToken.customer,
                         role: decodedAccessToken.role,
                     });
-                    setVariants(decodedAccessToken.variants);
                 }
             })
             .catch((err) => setError(err.message));
@@ -59,7 +55,6 @@ const AuthProvider = ({ children, providerArgs }: AuthContextProps) => {
     const logout = async () => {
         setAccessToken(undefined);
         setUser(undefined);
-        setVariants([]);
     };
 
     const isLoggedIn = !!accessToken;
@@ -83,9 +78,14 @@ const withAuth = (Component: ComponentType, roleRequirement?: RolesEnum) => {
         const { accessToken, user } = useAuth();
         const router = useRouter();
 
+        const handleNotLoggedIn = () => {
+            window.location.href = UrlsEnum.AUTH;
+            return null;
+        }
+
         useEffect(() => {
             if (!accessToken || !user) {
-                window.location.href = UrlsEnum.AUTH;
+                handleNotLoggedIn();
             }
         }, [accessToken, user]);
 

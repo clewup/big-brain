@@ -6,7 +6,6 @@ export interface AccessTokenType {
     email: string;
     customer: number;
     role: RolesEnum;
-    variants: string[];
     exp: number;
 }
 

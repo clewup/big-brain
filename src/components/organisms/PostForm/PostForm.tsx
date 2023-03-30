@@ -1,16 +1,22 @@
 import { Inputs } from '@/components/atoms/Inputs/Inputs';
+import FullPageLoader from '@/components/atoms/Loaders/components/FullPageLoader/FullPageLoader';
 import ActionRow from '@/components/organisms/PostForm/components/ActionRow/ActionRow';
 import validationSchema from '@/components/organisms/PostForm/utils/validationSchema';
 import { useAuth } from '@/contexts/AuthContext';
 import postPost from '@/requests/postPost';
-import { PostFormValues } from '@/types';
+import { PostFormValues, PostType } from '@/types';
 import { Grid } from '@mui/material';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import Image from 'next/image';
 import React, { useRef } from 'react';
 import styles from './PostForm.module.scss';
 
-const PostForm = () => {
+interface IProps {
+    post: PostType | undefined;
+    isLoading: boolean;
+}
+
+const PostForm: React.FC<IProps> = ({post, isLoading}) => {
     const formRef = useRef<FormikProps<PostFormValues>>(null);
     const { user } = useAuth();
 
@@ -24,13 +30,13 @@ const PostForm = () => {
         TAGS = 'tags',
     }
 
-    const initialValues: PostFormValues = {
+    const initialValues: PostFormValues = post || {
         customer: user?.customer,
         user: user?.id,
         title: '',
         image: '',
         content: '',
-        date: new Date(),
+        date: new Date().toISOString(),
         tags: ['nextjs'],
     };
 
@@ -41,6 +47,8 @@ const PostForm = () => {
     const handleCancel = () => {
         formRef.current?.resetForm({ values: initialValues });
     };
+
+    if (isLoading) return <FullPageLoader/>
 
     return (
         <Formik
@@ -87,7 +95,7 @@ const PostForm = () => {
                                         )}
                                     </span>
 
-                                    <p>{values.date.toDateString()}</p>
+                                    <p>{new Date(values.date).toDateString()}</p>
                                 </div>
                             </Grid>
 

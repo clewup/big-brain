@@ -11,3 +11,16 @@
     display: flex;
     gap: 1rem;
 }
+
+.action_row {
+    position: fixed;
+    right: 15px;
+    .edit_button {
+        color: var(--foreground);
+    }
+
+    .open_button {
+        color: var(--foreground);
+    }
+}
+

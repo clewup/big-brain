@@ -2,11 +2,7 @@ import getPostById from '@/requests/getPostById';
 import { PostType } from '@/types';
 import { useEffect, useState } from 'react';
 
-interface IProps {
-    id?: number;
-}
-
-const usePost = ({ id }: IProps) => {
+const usePost = (id: number | undefined) => {
     const [post, setPost] = useState<PostType>();
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState(null);

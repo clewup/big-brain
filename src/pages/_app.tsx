@@ -1,3 +1,4 @@
+import FullPageLoader from '@/components/atoms/Loaders/components/FullPageLoader/FullPageLoader';
 import Layout from '@/components/molecules/Layout/Layout';
 import { AuthProvider } from '@/contexts/AuthContext';
 import '@/styles/globals.scss';
@@ -10,7 +11,10 @@ export default function App({ Component, pageProps }: AppProps) {
             <AuthProvider>
                 <ThemeProvider>
                     <Layout>
-                        <Component {...pageProps} />
+                        <>
+                            <FullPageLoader/>
+                            <Component {...pageProps} />
+                        </>
                     </Layout>
                 </ThemeProvider>
             </AuthProvider>

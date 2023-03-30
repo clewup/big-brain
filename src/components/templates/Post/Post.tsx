@@ -8,43 +8,44 @@ import React, { useEffect, useState } from 'react';
 import styles from './Post.module.scss';
 
 const Post = () => {
-    const [id, setId] = useState<string>();
+    const [id, setId] = useState<number>();
     const router = useRouter();
 
     useEffect(() => {
-        if (router.query.id && typeof router.query.id === 'string') {
-            setId(router.query.id);
+        if (router.query.id && typeof router.query.id === 'string' && parseInt(router.query.id)) {
+            setId(parseInt(router.query.id));
         }
     }, [router.query.id]);
 
     const AnimatedImage = motion(Image);
 
-    const { post, isLoading, error } = usePost({ id: id });
+    const { post, isLoading, error } = usePost(id);
 
     if (isLoading) return null;
     if (!post) return <p>Not found.</p>;
     if (error) return <p>Whoops! There&apos;s been a problem loading the blog posts.</p>;
 
     return (
-        <div className={styles.post}>
+        <motion.div className={styles.post}>
             <h1>{post.title}</h1>
 
             <div className={styles.main_body}>
                 <div>
-                    <AnimatedImage
-                        src={post.image}
-                        alt={post.title}
-                        width={300}
-                        height={300}
-                        animate={{
-                            scale: [0.8, 1.05, 1],
-                        }}
-                        transition={{
-                            duration: 0.7,
-                            ease: 'easeInOut',
-                        }}
-                        className={styles.image}
-                    />
+                        <AnimatedImage
+                            src={post.image}
+                            alt={post.title}
+                            width={300}
+                            height={300}
+                            animate={{
+                                scale: [0.8, 1.05, 1],
+                            }}
+                            transition={{
+                                duration: 0.7,
+                                ease: 'easeInOut',
+                            }}
+                            className={styles.image}
+                        />
+
 
                     <p>{new Date(post.date).toDateString()}</p>
                     {post.tags?.map((tag) => {
@@ -72,7 +73,7 @@ const Post = () => {
                     {post.content}
                 </motion.p>
             </div>
-        </div>
+        </motion.div>
     );
 };
 export default Post;

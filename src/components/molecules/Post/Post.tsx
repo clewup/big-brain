@@ -8,9 +8,9 @@ import { PostType } from '@/types';
 import EditIcon from '@mui/icons-material/Edit';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { IconButton } from '@mui/material';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Post.module.scss';
 
 interface IProps {
@@ -19,6 +19,9 @@ interface IProps {
 
 const Post: React.FC<IProps> = ({ post }) => {
     const { id, title, image, content, date, tags } = post;
+
+    const [isHovering, setHovering] = useState(false);
+
     const {user} = useAuth();
     const router = useRouter();
 
@@ -32,23 +35,34 @@ const Post: React.FC<IProps> = ({ post }) => {
                 stiffness: 260,
                 damping: 12,
             }}
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
             className={styles.post}
             data-testid={`post post${id}`}
         >
 
-                <motion.div className={styles.action_row}>
-                    {user?.role === RolesEnum.ADMIN &&
-                    <IconButton className={styles.edit_button} onClick={() => router.push({ pathname: RoutesEnum.CREATE, query: {id: id} })}>
-                        <EditIcon/>
-                    </IconButton>
-                    }
-                    <IconButton className={styles.open_button}>
-                        <OpenInNewIcon/>
-                    </IconButton>
-                </motion.div>
+            {isHovering && (
+                <AnimatePresence>
+                    <motion.div className={styles.action_row} initial={{x: 20}} animate={{x: 0}} exit={{x: 20}} transition={{
+                        duration: 0.7,
+                        type: 'spring',
+                        stiffness: 260,
+                        damping: 12,
+                    }}>
+                        {user?.role === RolesEnum.ADMIN &&
+                            <IconButton className={styles.edit_button} onClick={() => router.push({ pathname: RoutesEnum.CREATE, query: {id: id} })}>
+                                <EditIcon/>
+                            </IconButton>
+                        }
+                        <IconButton className={styles.open_button} onClick={() => router.push({pathname: RoutesEnum.POST(id)})}>
+                            <OpenInNewIcon/>
+                        </IconButton>
+                    </motion.div>
+                </AnimatePresence>
+            )}
+
             <Title id={id} title={title} />
             <div className={styles.post_content}>
-
                 <Image image={image} />
                 <Details content={content} date={date} />
             </div>

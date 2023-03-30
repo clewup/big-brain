@@ -14,11 +14,23 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
                 return res.status(400);
             }
 
-            const post = await prisma.post.create({
+            const post = await prisma.post.upsert({
                 include: {
                     tags: true,
                 },
-                data: {
+                where: {id: req.body.id},
+                update: {
+                    title: req.body.title,
+                    image: req.body.image,
+                    content: req.body.content,
+                    tags: {
+                        connectOrCreate: req.body.tags.map((tag: string) => ({
+                            where: { name: tag },
+                            create: { name: tag, customer: customer },
+                        })),
+                    },
+                },
+                create: {
                     customer: req.body.customer,
                     user: req.body.user,
                     title: req.body.title,
@@ -30,7 +42,7 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
                             create: { name: tag, customer: customer },
                         })),
                     },
-                },
+                }
             });
 
             const mappedPost = postMapper(post);

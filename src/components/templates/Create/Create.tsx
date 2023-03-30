@@ -16,8 +16,6 @@ const Create = () => {
         }
     }, [router.query.id]);
 
-    console.log(post)
-
     return (
         <div className={styles.create}>
             <PostForm post={post} isLoading={isLoading}/>

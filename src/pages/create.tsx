@@ -19,4 +19,5 @@ const Create = () => {
         </>
     );
 };
+
 export default withAuth(Create, RolesEnum.ADMIN);

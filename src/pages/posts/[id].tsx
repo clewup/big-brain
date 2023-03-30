@@ -1,5 +1,4 @@
 import Template from '@/components/templates/Post/Post';
-import { withAuth } from '@/contexts/AuthContext';
 import Head from 'next/head';
 import React from 'react';
 
@@ -18,4 +17,4 @@ const Posts = () => {
         </>
     );
 };
-export default withAuth(Posts);
+export default Posts;

@@ -1,5 +1,4 @@
 import Template from '@/components/templates/Tags/Tags';
-import { withAuth } from '@/contexts/AuthContext';
 import Head from 'next/head';
 import React from 'react';
 
@@ -18,4 +17,4 @@ const Tags = () => {
         </>
     );
 };
-export default withAuth(Tags);
+export default Tags;

@@ -1,5 +1,4 @@
 import Template from '@/components/templates/Posts/Posts';
-import { withAuth } from '@/contexts/AuthContext';
 import Head from 'next/head';
 import React from 'react';
 
@@ -18,4 +17,4 @@ const Index = () => {
         </>
     );
 };
-export default withAuth(Index);
+export default Index;

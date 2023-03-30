@@ -31,7 +31,7 @@ const PostForm = () => {
         image: '',
         content: '',
         date: new Date(),
-        tags: ["nextjs"],
+        tags: ['nextjs'],
     };
 
     const handleSubmit = (values: PostFormValues) => {

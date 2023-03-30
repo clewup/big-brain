@@ -1,17 +1,23 @@
 import { HttpMethodsEnum } from '@/enums/httpMethodsEnum';
 import prisma from '@/lib/prisma';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import authMiddleware from '@/middleware/authMiddleware';
+import { AuthorizedNextApiRequest } from '@/types';
+import type { NextApiResponse } from 'next';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
     if (req.method !== HttpMethodsEnum.GET) return res.status(405);
 
-    let customer = req.headers['x-customer'];
+    const customer = req.accessToken?.customer;
 
-        const tags = await prisma.tag.findMany({where: {customer: parseInt(customer as string)}});
+    if (!customer) {
+        return res.status(400);
+    }
 
-        const tagNames: string[] = tags.map((tag) => tag.name);
+    const tags = await prisma.tag.findMany({ where: { customer: customer } });
 
-        res.status(200);
-        res.json(tagNames);
+    const tagNames: string[] = tags.map((tag) => tag.name);
+
+    res.status(200);
+    res.json(tagNames);
 };
-export default handler;
+export default authMiddleware(handler);

@@ -1,11 +1,19 @@
 import { HttpMethodsEnum } from '@/enums';
 import prisma from '@/lib/prisma';
 import { postMapper, postsMapper } from '@/mappers';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import authMiddleware from '@/middleware/authMiddleware';
+import { AuthorizedNextApiRequest } from '@/types';
+import type { NextApiResponse } from 'next';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
         case HttpMethodsEnum.POST:
+            const customer = req.accessToken?.customer;
+
+            if (!customer) {
+                return res.status(400);
+            }
+
             const post = await prisma.post.create({
                 include: {
                     tags: true,
@@ -19,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                     tags: {
                         connectOrCreate: req.body.tags.map((tag: string) => ({
                             where: { name: tag },
-                            create: { name: tag, customer: req.body.customer },
+                            create: { name: tag, customer: customer },
                         })),
                     },
                 },
@@ -46,4 +54,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(405);
     }
 };
-export default handler;
+export default authMiddleware(handler);

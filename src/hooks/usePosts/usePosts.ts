@@ -1,4 +1,3 @@
-import { useAuth } from '@/contexts/AuthContext';
 import getPosts from '@/requests/getPosts';
 import getPostsByTag from '@/requests/getPostsByTag';
 import { PostType } from '@/types';
@@ -13,12 +12,10 @@ const usePosts = ({ tag }: IProps) => {
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const {user} = useAuth();
-
     const fetchPosts = async () => {
         setLoading(true);
 
-        getPosts({customer: user?.customer})
+        getPosts()
             .then(async (res) => setPosts(await res.json()))
             .catch((err) => setError(err))
             .finally(() => setLoading(false));

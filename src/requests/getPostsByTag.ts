@@ -1,17 +1,13 @@
-import { EndpointsEnum, HttpMethodsEnum } from '@/enums';
-import { UserType } from '@/types';
+import { EndpointsEnum, HttpMethodsEnum, LocalStorageEnum } from '@/enums';
 
-interface Request {
-tag: string;
-user: UserType;
-}
+const getPostsByTag = async (tag: string) => {
+    const accessToken = localStorage.getItem(LocalStorageEnum.ACCESS_TOKEN);
 
-const getPostsByTag = async ({tag, user}: Request) => {
     return fetch(EndpointsEnum.POSTS_BY_TAG(tag), {
         method: HttpMethodsEnum.GET,
         headers: {
-            'x-customer': `${user.customer}`
-        }
+            Authorization: `Bearer ${accessToken}`,
+        },
     });
 };
 

@@ -1,15 +1,12 @@
-import { EndpointsEnum } from '@/enums';
-import { UserType } from '@/types';
+import { EndpointsEnum, LocalStorageEnum } from '@/enums';
 
-interface Request {
-    user: UserType;
-}
+const getTags = async () => {
+    const accessToken = localStorage.getItem(LocalStorageEnum.ACCESS_TOKEN);
 
-const getTags = async ({user}: Request) => {
     return fetch(EndpointsEnum.TAG, {
         headers: {
-            'x-customer': `${user.customer}`
-        }
+            Authorization: `Bearer ${accessToken}`,
+        },
     });
 };
 

@@ -1,4 +1,5 @@
 import { RolesEnum } from '@/enums';
+import { NextApiRequest } from 'next';
 
 export interface AccessTokenType {
     id: number;
@@ -7,4 +8,8 @@ export interface AccessTokenType {
     role: RolesEnum;
     variants: string[];
     exp: number;
+}
+
+export interface AuthorizedNextApiRequest extends NextApiRequest {
+    accessToken?: AccessTokenType;
 }

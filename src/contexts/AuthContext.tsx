@@ -41,6 +41,7 @@ const AuthProvider = ({ children, providerArgs }: AuthContextProps) => {
                 if (res.status === 200 && res.body) {
                     const data = await res.json();
                     setAccessToken(data.access_token);
+                    localStorage.setItem('CUAT', data.access_token);
 
                     const decodedAccessToken = jwtDecode<AccessTokenType>(data.access_token);
                     setUser({
@@ -78,27 +79,25 @@ const useAuth = () => {
 };
 
 const withAuth = (Component: ComponentType, roleRequirement?: RolesEnum) => {
-
-    const AuthWrapper: ComponentType = (props: any) => {
-        const {accessToken, user} = useAuth();
+    const AuthWrapper: ComponentType = (props) => {
+        const { accessToken, user } = useAuth();
         const router = useRouter();
 
         useEffect(() => {
             if (!accessToken || !user) {
                 window.location.href = UrlsEnum.AUTH;
             }
-        }, [accessToken, user])
-
+        }, [accessToken, user]);
 
         if (roleRequirement && user && user.role !== roleRequirement) {
-            router.push({pathname: RoutesEnum.HOME})
+            router.push({ pathname: RoutesEnum.HOME });
             return null;
         }
 
-        return <Component {...props} />
+        return <Component {...props} />;
     };
 
     return AuthWrapper;
-}
+};
 
 export { useAuth, AuthProvider, withAuth };

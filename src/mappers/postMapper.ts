@@ -1,7 +1,7 @@
 import { PostType } from '@/types';
 import { Post, Tag } from '@prisma/client';
 
-const postMapper = (postEntity: Post & {tags: Tag[]}): PostType => {
+const postMapper = (postEntity: Post & { tags: Tag[] }): PostType => {
     return {
         id: postEntity.id,
         customer: postEntity.customer,
@@ -11,11 +11,11 @@ const postMapper = (postEntity: Post & {tags: Tag[]}): PostType => {
         content: postEntity.content,
         date: postEntity.createdAt,
         tags: postEntity.tags.map((tag) => tag.name),
-    }
-}
+    };
+};
 
-const postsMapper = (postEntities: (Post & {tags: Tag[]})[]): PostType[] => {
-    return postEntities.map((postEntity) => postMapper(postEntity))
-}
+const postsMapper = (postEntities: (Post & { tags: Tag[] })[]): PostType[] => {
+    return postEntities.map((postEntity) => postMapper(postEntity));
+};
 
-export  {postMapper, postsMapper}
+export { postMapper, postsMapper };

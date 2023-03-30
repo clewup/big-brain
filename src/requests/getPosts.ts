@@ -1,15 +1,13 @@
-import { EndpointsEnum, HttpMethodsEnum } from '@/enums';
+import { EndpointsEnum, HttpMethodsEnum, LocalStorageEnum } from '@/enums';
 
-interface Request {
-    customer: number | undefined;
-}
+const getPosts = async () => {
+    const accessToken = localStorage.getItem(LocalStorageEnum.ACCESS_TOKEN);
 
-const getPosts = async ({customer}: Request) => {
     return fetch(EndpointsEnum.POST, {
         method: HttpMethodsEnum.GET,
         headers: {
-            'x-customer': `${customer}`
-        }
+            Authorization: `Bearer ${accessToken}`,
+        },
     });
 };
 

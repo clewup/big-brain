@@ -15,7 +15,6 @@ import styles from './Header.module.scss';
 const Header = () => {
     const { theme, forcedTheme, setTheme } = useTheme();
     const { user } = useAuth();
-    console.log(user);
 
     return (
         <div className={styles.header} data-testid={'header'}>

@@ -10,12 +10,11 @@ const Tags = () => {
     const [tags, setTags] = useState<string[]>([]);
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {user} = useAuth();
+    const { user } = useAuth();
 
     useEffect(() => {
         setLoading(true);
-        getTags({ customer: user?.customer
-    })
+        getTags()
             .then(async (res) => setTags(await res.json()))
             .catch((err) => setError(err))
             .finally(() => setLoading(false));
@@ -30,9 +29,7 @@ const Tags = () => {
             {tags.map((tag) => {
                 return (
                     <Link key={tag} href={{ pathname: RoutesEnum.POSTS, query: { tag: tag } }}>
-                        <motion.p whileHover={{ scale: 1.2 }}>
-                            #{tag}
-                        </motion.p>
+                        <motion.p whileHover={{ scale: 1.2 }}>#{tag}</motion.p>
                     </Link>
                 );
             })}

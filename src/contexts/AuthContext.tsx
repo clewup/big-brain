@@ -44,7 +44,6 @@ const AuthProvider = ({ children, providerArgs }: AuthContextProps) => {
                     setUser({
                         id: decodedAccessToken.id,
                         email: decodedAccessToken.email,
-                        customer: decodedAccessToken.customer,
                         role: decodedAccessToken.role,
                     });
                 }

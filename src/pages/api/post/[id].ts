@@ -9,9 +9,8 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
     if (req.method !== HttpMethodsEnum.GET) return res.status(405);
 
     const id = req.query.id;
-    const customer = req.accessToken?.customer;
 
-    if (!id || !customer) {
+    if (!id) {
         return res.status(400);
     }
 
@@ -21,7 +20,6 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
             },
             where: {
                 id: parseInt(id as string),
-                customer: customer,
             },
         });
 

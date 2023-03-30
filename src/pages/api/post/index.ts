@@ -8,11 +8,6 @@ import type { NextApiResponse } from 'next';
 const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
         case HttpMethodsEnum.POST:
-            const customer = req.accessToken?.customer;
-
-            if (!customer) {
-                return res.status(400);
-            }
 
             const post = await prisma.post.upsert({
                 include: {
@@ -26,12 +21,11 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
                     tags: {
                         connectOrCreate: req.body.tags.map((tag: string) => ({
                             where: { name: tag },
-                            create: { name: tag, customer: customer },
+                            create: { name: tag},
                         })),
                     },
                 },
                 create: {
-                    customer: req.body.customer,
                     user: req.body.user,
                     title: req.body.title,
                     image: req.body.image,
@@ -39,7 +33,7 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
                     tags: {
                         connectOrCreate: req.body.tags.map((tag: string) => ({
                             where: { name: tag },
-                            create: { name: tag, customer: customer },
+                            create: { name: tag },
                         })),
                     },
                 }

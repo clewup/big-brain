@@ -36,7 +36,6 @@ const PostForm: React.FC<IProps> = ({post, isLoading}) => {
     }
 
     const initialValues: PostFormValues = post || {
-        customer: user?.customer,
         user: user?.id,
         title: '',
         image: '',

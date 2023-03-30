@@ -1,4 +1,3 @@
-import { useAuth } from '@/contexts/AuthContext';
 import { RoutesEnum } from '@/enums';
 import getTags from '@/requests/getTags';
 import { motion } from 'framer-motion';
@@ -10,7 +9,6 @@ const Tags = () => {
     const [tags, setTags] = useState<string[]>([]);
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const { user } = useAuth();
 
     useEffect(() => {
         setLoading(true);
@@ -18,7 +16,7 @@ const Tags = () => {
             .then(async (res) => setTags(await res.json()))
             .catch((err) => setError(err))
             .finally(() => setLoading(false));
-    }, [user?.customer]);
+    }, []);
 
     if (isLoading) return null;
 

@@ -9,9 +9,8 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
     if (req.method !== HttpMethodsEnum.GET) return res.status(405);
 
     const tag = req.query.tag;
-    const customer = req.accessToken?.customer;
 
-    if (!tag || !customer) {
+    if (!tag) {
         return res.status(400);
     }
 
@@ -25,7 +24,6 @@ const handler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
                         name: tag as string,
                     },
                 },
-                customer: customer,
             },
         });
 

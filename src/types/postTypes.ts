@@ -1,6 +1,5 @@
 export interface PostType {
     id: number;
-    customer: number;
     user: number;
     title: string;
     image: string;

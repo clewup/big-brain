@@ -4,7 +4,6 @@ import { NextApiRequest } from 'next';
 export interface AccessTokenType {
     id: number;
     email: string;
-    customer: number;
     role: RolesEnum;
     exp: number;
 }

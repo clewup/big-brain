@@ -2,7 +2,6 @@ import { PostType } from '@/types';
 
 export const mockPost: PostType = {
     id: 1,
-    customer: 1,
     user: 20,
     title: 'Mock Post 1',
     image: 'https://api.lorem.space/image/pizza?w=500&h=500',

@@ -18,9 +18,9 @@ export const appProvider = (component: ReactElement, providerArgs?: ProviderArgs
 
     return (
         <AuthProvider providerArgs={{ initialAccessToken: accessToken, initialUser: user }}>
-                <ThemeProvider>
-                    <RouterContext.Provider value={mockNextRouter}>{component}</RouterContext.Provider>
-                </ThemeProvider>
+            <ThemeProvider>
+                <RouterContext.Provider value={mockNextRouter}>{component}</RouterContext.Provider>
+            </ThemeProvider>
         </AuthProvider>
     );
 };

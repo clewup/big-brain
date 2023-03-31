@@ -80,7 +80,7 @@ const withAuth = (Component: ComponentType, roleRequirement?: RolesEnum) => {
         const handleNotLoggedIn = () => {
             window.location.href = UrlsEnum.AUTH;
             return null;
-        }
+        };
 
         useEffect(() => {
             if (!accessToken || !user) {

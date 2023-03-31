@@ -23,14 +23,20 @@ const Tags = () => {
     if (error) return <p>Whoops! There&apos;s been a problem loading the tags.</p>;
 
     return (
-        <motion.div className={styles.tags} initial={{}} animate={{transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.2,
-            },}}>
+        <motion.div
+            className={styles.tags}
+            initial={{}}
+            animate={{
+                transition: {
+                    staggerChildren: 0.1,
+                    delayChildren: 0.2,
+                },
+            }}
+        >
             {tags.map((tag) => {
                 return (
-                    <motion.div key={tag} initial={{opacity: 0, y: 20}} animate={{opacity: 1, y: 0}}>
-                        <Link  href={{ pathname: RoutesEnum.POSTS, query: { tag: tag } }}>
+                    <motion.div key={tag} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                        <Link href={{ pathname: RoutesEnum.POSTS, query: { tag: tag } }}>
                             <motion.p whileHover={{ scale: 1.2 }}>#{tag}</motion.p>
                         </Link>
                     </motion.div>

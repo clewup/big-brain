@@ -31,21 +31,20 @@ const Post = () => {
 
             <div className={styles.main_body}>
                 <div>
-                        <AnimatedImage
-                            src={post.image}
-                            alt={post.title}
-                            width={300}
-                            height={300}
-                            animate={{
-                                scale: [0.8, 1.05, 1],
-                            }}
-                            transition={{
-                                duration: 0.7,
-                                ease: 'easeInOut',
-                            }}
-                            className={styles.image}
-                        />
-
+                    <AnimatedImage
+                        src={post.image}
+                        alt={post.title}
+                        width={300}
+                        height={300}
+                        animate={{
+                            scale: [0.8, 1.05, 1],
+                        }}
+                        transition={{
+                            duration: 0.7,
+                            ease: 'easeInOut',
+                        }}
+                        className={styles.image}
+                    />
 
                     <p>{new Date(post.date).toDateString()}</p>
                     {post.tags?.map((tag) => {

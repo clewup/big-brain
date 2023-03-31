@@ -8,15 +8,15 @@ import React from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-            <AuthProvider>
-                <ThemeProvider>
-                    <Layout>
-                        <>
-                            <FullPageLoader/>
-                            <Component {...pageProps} />
-                        </>
-                    </Layout>
-                </ThemeProvider>
-            </AuthProvider>
+        <AuthProvider>
+            <ThemeProvider>
+                <Layout>
+                    <>
+                        <FullPageLoader />
+                        <Component {...pageProps} />
+                    </>
+                </Layout>
+            </ThemeProvider>
+        </AuthProvider>
     );
 }

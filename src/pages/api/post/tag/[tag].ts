@@ -12,22 +12,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400);
     }
 
-        const posts = await prisma.post.findMany({
-            include: {
-                tags: true,
-            },
-            where: {
-                tags: {
-                    some: {
-                        name: tag as string,
-                    },
+    const posts = await prisma.post.findMany({
+        include: {
+            tags: true,
+        },
+        where: {
+            tags: {
+                some: {
+                    name: tag as string,
                 },
             },
-        });
+        },
+    });
 
-        const mappedPosts = postsMapper(posts);
+    const mappedPosts = postsMapper(posts);
 
-        res.status(200);
-        return res.json(mappedPosts);
+    res.status(200);
+    return res.json(mappedPosts);
 };
 export default handler;

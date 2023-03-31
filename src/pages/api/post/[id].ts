@@ -12,21 +12,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400);
     }
 
-        const post = await prisma.post.findFirst({
-            include: {
-                tags: true,
-            },
-            where: {
-                id: parseInt(id as string),
-            },
-        });
+    const post = await prisma.post.findFirst({
+        include: {
+            tags: true,
+        },
+        where: {
+            id: parseInt(id as string),
+        },
+    });
 
-        if (!post) return res.status(204);
+    if (!post) return res.status(204);
 
-        const mappedPost = postMapper(post);
+    const mappedPost = postMapper(post);
 
-        res.status(200);
-        res.json(mappedPost);
-        return;
+    res.status(200);
+    res.json(mappedPost);
+    return;
 };
 export default handler;

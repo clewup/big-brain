@@ -6,40 +6,40 @@ import { AuthorizedNextApiRequest } from '@/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const postHandler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
-            const post = await prisma.post.upsert({
-                include: {
-                    tags: true,
-                },
-                where: {id: req.body.id},
-                update: {
-                    title: req.body.title,
-                    image: req.body.image,
-                    content: req.body.content,
-                    tags: {
-                        connectOrCreate: req.body.tags.map((tag: string) => ({
-                            where: { name: tag },
-                            create: { name: tag},
-                        })),
-                    },
-                },
-                create: {
-                    user: req.body.user,
-                    title: req.body.title,
-                    image: req.body.image,
-                    content: req.body.content,
-                    tags: {
-                        connectOrCreate: req.body.tags.map((tag: string) => ({
-                            where: { name: tag },
-                            create: { name: tag },
-                        })),
-                    },
-                }
-            });
+    const post = await prisma.post.upsert({
+        include: {
+            tags: true,
+        },
+        where: { id: req.body.id || 0 },
+        update: {
+            title: req.body.title,
+            image: req.body.image,
+            content: req.body.content,
+            tags: {
+                connectOrCreate: req.body.tags.map((tag: string) => ({
+                    where: { name: tag },
+                    create: { name: tag },
+                })),
+            },
+        },
+        create: {
+            user: req.body.user,
+            title: req.body.title,
+            image: req.body.image,
+            content: req.body.content,
+            tags: {
+                connectOrCreate: req.body.tags.map((tag: string) => ({
+                    where: { name: tag },
+                    create: { name: tag },
+                })),
+            },
+        },
+    });
 
-            const mappedPost = postMapper(post);
+    const mappedPost = postMapper(post);
 
-            res.status(201);
-            return res.json(mappedPost);
+    res.status(201);
+    return res.json(mappedPost);
 };
 
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -53,11 +53,10 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.status(200);
     return res.json(mappedPosts);
-}
+};
 
 const dynamicHandler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) => {
-
-    switch(req.method) {
+    switch (req.method) {
         case HttpMethodsEnum.POST:
             return authMiddleware(postHandler)(req, res);
         case HttpMethodsEnum.GET:
@@ -65,6 +64,6 @@ const dynamicHandler = async (req: AuthorizedNextApiRequest, res: NextApiRespons
         default:
             return res.status(405);
     }
-}
+};
 
 export default dynamicHandler;

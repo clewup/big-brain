@@ -4,6 +4,7 @@ import ActionRow from '@/components/organisms/PostForm/components/ActionRow/Acti
 import validationSchema from '@/components/organisms/PostForm/utils/validationSchema';
 import { useAuth } from '@/contexts/AuthContext';
 import { RoutesEnum } from '@/enums';
+import { SlideX } from '@/lib/anim';
 import postPost from '@/requests/postPost';
 import { PostFormValues, PostType } from '@/types';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
@@ -11,7 +12,7 @@ import { Grid, IconButton } from '@mui/material';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './PostForm.module.scss';
 
 interface IProps {
@@ -19,8 +20,9 @@ interface IProps {
     isLoading: boolean;
 }
 
-const PostForm: React.FC<IProps> = ({post, isLoading}) => {
+const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
     const formRef = useRef<FormikProps<PostFormValues>>(null);
+    const [isHovering, setHovering] = useState(false);
 
     const { user } = useAuth();
     const router = useRouter();
@@ -46,14 +48,14 @@ const PostForm: React.FC<IProps> = ({post, isLoading}) => {
 
     const handleSubmit = (values: PostFormValues) => {
         postPost(values);
-        router.push({pathname: RoutesEnum.POSTS})
+        router.push({ pathname: RoutesEnum.POSTS });
     };
 
     const handleCancel = () => {
         formRef.current?.resetForm({ values: initialValues });
     };
 
-    if ((isLoading || router.query.id) && !post) return <FullPageLoader/>
+    if ((isLoading || router.query.id) && !post) return <FullPageLoader />;
 
     return (
         <Formik
@@ -81,13 +83,25 @@ const PostForm: React.FC<IProps> = ({post, isLoading}) => {
                             </Grid>
 
                             <Grid item xs={12} md={5}>
-                                <div className={styles.image_container}>
-                                    <span className={styles.image_placeholder}>
+                                <div className={styles.image_and_date_container}>
+                                    <span className={styles.image_container}>
                                         {values.image ? (
-                                            <>
-                                                <IconButton className={styles.clear_button} onClick={() => setFieldValue(FormFields.IMAGE, "")}>
-                                                    <HighlightOffIcon fontSize={"large"}/>
-                                                </IconButton>
+                                            <div
+                                                className={styles.uploaded_image}
+                                                onMouseEnter={() => setHovering(true)}
+                                                onMouseLeave={() => setHovering(false)}
+                                            >
+                                                {isHovering && (
+                                                    <SlideX direction={"left"} distance={30}>
+                                                        <IconButton
+                                                            className={styles.clear_button}
+                                                            onClick={() => setFieldValue(FormFields.IMAGE, '')}
+                                                        >
+                                                            <HighlightOffIcon fontSize={'large'} />
+                                                        </IconButton>
+                                                    </SlideX>
+                                                )}
+
                                                 <Image
                                                     src={values.image}
                                                     alt={'image'}
@@ -95,8 +109,7 @@ const PostForm: React.FC<IProps> = ({post, isLoading}) => {
                                                     width={250}
                                                     className={styles.image}
                                                 />
-                                            </>
-
+                                            </div>
                                         ) : (
                                             <Field
                                                 name={FormFields.IMAGE}

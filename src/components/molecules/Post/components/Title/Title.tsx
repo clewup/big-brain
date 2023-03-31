@@ -7,7 +7,7 @@ type IProps = Pick<PostType, 'id' | 'title'>;
 const Title: React.FC<IProps> = ({ id, title }) => {
     return (
         <div className={styles.title} data-testid={'post_title'}>
-                <p>{title}</p>
+            <p>{title}</p>
         </div>
     );
 };

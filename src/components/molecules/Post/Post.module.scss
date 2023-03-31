@@ -5,6 +5,7 @@
     border: 2px solid var(--foreground);
     padding: 1rem;
     border-radius: 1rem;
+    overflow: hidden;
 }
 
 .post_content {
@@ -15,6 +16,7 @@
 .action_row {
     position: fixed;
     right: 15px;
+
     .edit_button {
         color: var(--foreground);
     }
@@ -23,4 +25,3 @@
         color: var(--foreground);
     }
 }
-

@@ -1,6 +1,7 @@
 export const EndpointsEnum = {
     POST: '/api/post',
-    TAG: 'api/tag',
+    TAG: '/api/tag',
+    COMMENT: '/api/comment',
     POSTS_BY_TAG: (tag: string) => `/api/post/tag/${tag}`,
     POST_BY_ID: (id: number) => `/api/post/${id}`,
 

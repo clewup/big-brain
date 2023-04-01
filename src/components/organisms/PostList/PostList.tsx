@@ -1,4 +1,4 @@
-import Post from '@/components/molecules/Post/Post';
+import Post from '@/components/organisms/PostList/components/Post/Post';
 import { PostType } from '@/types';
 import React from 'react';
 import styles from './PostList.module.scss';

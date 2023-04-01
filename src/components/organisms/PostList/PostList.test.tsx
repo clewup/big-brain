@@ -1,4 +1,4 @@
-import { mockPosts } from '@/components/molecules/Post/testUtils/mockData';
+import { mockPosts } from '@/components/organisms/PostList/components/Post/testUtils/mockData';
 import PostList from '@/components/organisms/PostList/PostList';
 import renderHelper from '@/testUtils/renderHelper';
 import { screen } from '@testing-library/react';

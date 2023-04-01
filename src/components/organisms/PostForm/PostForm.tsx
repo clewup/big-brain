@@ -45,11 +45,14 @@ const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
         content: '',
         date: new Date().toISOString(),
         tags: ['nextjs'],
+        comments: [],
+        likes: 0,
     };
 
     const handleSubmit = (values: PostFormValues) => {
-        postPost(values);
-        router.push({ pathname: RoutesEnum.POSTS });
+        postPost(values).then(() => {
+            router.push({ pathname: RoutesEnum.POSTS });
+        });
     };
 
     const handleCancel = () => {

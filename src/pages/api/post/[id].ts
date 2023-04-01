@@ -15,6 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const post = await prisma.post.findFirst({
         include: {
             tags: true,
+            comments: true,
         },
         where: {
             id: parseInt(id as string),

@@ -9,7 +9,7 @@ const Image: React.FC<IProps> = ({ image }) => {
     return (
         <NextImage
             src={image}
-            alt={'Blog Post Image'}
+            alt={'Post Image'}
             width={200}
             height={200}
             className={styles.image}

@@ -13,6 +13,8 @@ export const mockPost: PostType = {
 
     date: new Date().toISOString(),
     tags: ['nextjs'],
+    comments: [],
+    likes: 2,
 };
 
 export const mockPosts: PostType[] = [

@@ -1,7 +1,7 @@
-import Details from '@/components/molecules/Post/components/Details/Details';
-import Image from '@/components/molecules/Post/components/Image/Image';
-import Tags from '@/components/molecules/Post/components/Tags/Tags';
-import Title from '@/components/molecules/Post/components/Title/Title';
+import Details from '@/components/organisms/PostList/components/Post/components/Details/Details';
+import Image from '@/components/organisms/PostList/components/Post/components/Image/Image';
+import Tags from '@/components/organisms/PostList/components/Post/components/Tags/Tags';
+import Title from '@/components/organisms/PostList/components/Post/components/Title/Title';
 import { useAuth } from '@/contexts/AuthContext';
 import { RolesEnum, RoutesEnum } from '@/enums';
 import { slideLeft, slideUp } from '@/lib/anim';

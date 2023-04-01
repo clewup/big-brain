@@ -15,6 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const posts = await prisma.post.findMany({
         include: {
             tags: true,
+            comments: true,
         },
         where: {
             tags: {

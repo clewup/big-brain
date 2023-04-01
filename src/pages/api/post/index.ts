@@ -9,6 +9,7 @@ const postHandler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) 
     const post = await prisma.post.upsert({
         include: {
             tags: true,
+            comments: true,
         },
         where: { id: req.body.id || 0 },
         update: {
@@ -46,6 +47,7 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const posts = await prisma.post.findMany({
         include: {
             tags: true,
+            comments: true,
         },
     });
 

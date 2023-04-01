@@ -1,5 +1,5 @@
-import Image from '@/components/molecules/Post/components/Image/Image';
-import { mockPost } from '@/components/molecules/Post/testUtils/mockData';
+import Image from '@/components/organisms/PostList/components/Post/components/Image/Image';
+import { mockPost } from '@/components/organisms/PostList/components/Post/testUtils/mockData';
 import renderHelper from '@/testUtils/renderHelper';
 import { screen } from '@testing-library/react';
 import React from 'react';

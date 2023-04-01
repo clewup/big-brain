@@ -20,8 +20,7 @@ const Post = () => {
     const { post, isLoading, error } = usePost(id);
 
     if (isLoading) return <FullPageLoader />;
-    if (!post) return <p>Not found.</p>;
-    if (error) return Errors.NotFound("There's been a problem loading the post.");
+    if (error || !post) return Errors.NotFound("There's been a problem loading the post.");
 
     return (
         <div className={styles.post}>

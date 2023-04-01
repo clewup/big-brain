@@ -23,6 +23,7 @@ export interface CommentType {
 
 export type PostFormValues = Required<Omit<PostType, 'id'>>;
 export type CommentFormValues = Required<Omit<CommentType, 'id' | 'user'>> & { user: UserType };
+export type PostSearchFormValues = { search: string };
 
 export type PostDto = (Post & { tags: Tag[]; comments: CommentDto[] }) | (Post & { tags: Tag[] });
 export type CommentDto = Omit<Comment, 'user'> & { user: UserType };

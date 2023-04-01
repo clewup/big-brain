@@ -43,6 +43,26 @@ const postHandler = async (req: AuthorizedNextApiRequest, res: NextApiResponse) 
 };
 
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+    const search = req.query.search;
+
+    if (search && typeof search === 'string') {
+        const posts = await prisma.post.findMany({
+            include: {
+                tags: true,
+            },
+            where: {
+                title: {
+                    contains: search,
+                },
+            },
+        });
+
+        const mappedPosts = postsMapper(posts);
+
+        res.status(200);
+        return res.json(mappedPosts);
+    }
+
     const posts = await prisma.post.findMany({
         include: {
             tags: true,

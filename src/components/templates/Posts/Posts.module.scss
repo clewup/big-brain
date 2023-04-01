@@ -1,7 +1,11 @@
 .posts {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6rem;
+    padding: 0 6rem;
+    min-height: 100vh;
+    gap: 4rem;
+}
+
+.search_bar {
+    top: 0;
 }

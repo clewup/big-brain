@@ -1,4 +1,5 @@
 import PostList from '@/components/organisms/PostList/PostList';
+import SearchForm from '@/components/organisms/SearchForm/SearchForm';
 import usePosts from '@/hooks/usePosts/usePosts';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -9,6 +10,7 @@ const Posts = () => {
 
     const { posts, isLoading, error } = usePosts({
         tag: router.query.tag,
+        search: router.query.search,
     });
 
     if (isLoading) return null;
@@ -16,6 +18,9 @@ const Posts = () => {
 
     return (
         <div className={styles.posts}>
+            <div className={styles.search_bar}>
+                <SearchForm />
+            </div>
             <PostList posts={posts} />
         </div>
     );

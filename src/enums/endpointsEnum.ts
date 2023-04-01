@@ -7,4 +7,5 @@ export const EndpointsEnum = {
 
     CLOUDINARY_UPLOAD: 'https://api.cloudinary.com/v1_1/dliog6kq6/image/upload',
     ACCESS_TOKEN: 'https://auth.clewup.co.uk/api/token',
+    USER_BY_ID: (id: number) => `https://auth.clewup.co.uk/api/user/${id}`,
 };

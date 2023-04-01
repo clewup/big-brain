@@ -1,39 +1,40 @@
-import { PostType } from '@/types';
+import { CommentDto, PostDto, PostType } from '@/types';
 import { CommentType } from '@/types/postTypes';
-import { Comment, Post, Tag } from '@prisma/client';
 
-type PostEntity = Post & { tags: Tag[]; comments: Comment[] };
+const postMapper = (postDto: PostDto): PostType => {
+    const comments = 'comments' in postDto ? commentsMapper(postDto.comments) : [];
 
-const postMapper = (postEntity: PostEntity): PostType => {
+    const post: PostType = {
+        id: postDto.id,
+        user: postDto.user,
+        image: postDto.image,
+        title: postDto.title,
+        content: postDto.content,
+        date: postDto.createdAt.toISOString(),
+        tags: postDto.tags.map((tag) => tag.name),
+        comments,
+        likes: postDto.likes,
+    };
+
+    return post;
+};
+
+const postsMapper = (postDtos: PostDto[]): PostType[] => {
+    return postDtos.map((postDto) => postMapper(postDto));
+};
+
+const commentMapper = (commentDto: CommentDto): CommentType => {
     return {
-        id: postEntity.id,
-        user: postEntity.user,
-        image: postEntity.image,
-        title: postEntity.title,
-        content: postEntity.content,
-        date: postEntity.createdAt.toISOString(),
-        tags: postEntity.tags.map((tag) => tag.name),
-        comments: commentsMapper(postEntity.comments),
-        likes: postEntity.likes,
+        id: commentDto.id,
+        user: commentDto.user,
+        post: commentDto.postId,
+        message: commentDto.message,
+        likes: commentDto.likes,
     };
 };
 
-const postsMapper = (postEntities: PostEntity[]): PostType[] => {
-    return postEntities.map((postEntity) => postMapper(postEntity));
-};
-
-const commentMapper = (commentEntity: Comment): CommentType => {
-    return {
-        id: commentEntity.id,
-        user: commentEntity.user,
-        post: commentEntity.postId,
-        message: commentEntity.message,
-        likes: commentEntity.likes,
-    };
-};
-
-const commentsMapper = (commentEntities: Comment[]): CommentType[] => {
-    return commentEntities.map((commentEntity) => commentMapper(commentEntity));
+const commentsMapper = (commentDtos: CommentDto[]): CommentType[] => {
+    return commentDtos.map((commentDto) => commentMapper(commentDto));
 };
 
 export { postMapper, postsMapper, commentMapper, commentsMapper };

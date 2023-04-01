@@ -15,14 +15,14 @@ interface IProps {
 const CommentForm: React.FC<IProps> = ({ post, setComments }) => {
     const { user } = useAuth();
 
-    if (!user) return <Errors.SignIn />;
+    if (!user) return Errors.SignIn('to leave a comment');
 
     enum FormFields {
         MESSAGE = 'message',
     }
 
     const initialValues: CommentFormValues = {
-        user: user.id,
+        user: user,
         post: post.id,
         message: '',
         likes: 0,

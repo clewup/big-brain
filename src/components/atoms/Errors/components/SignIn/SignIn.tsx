@@ -1,5 +1,11 @@
-const SignIn = () => {
-    return <p>Please sign in to access this content.</p>;
+import React from 'react';
+
+interface IProps {
+    functionality: string;
+}
+
+const SignIn: React.FC<IProps> = ({ functionality }) => {
+    return <p>Please sign in to {functionality}.</p>;
 };
 
 export default SignIn;

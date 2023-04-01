@@ -6,7 +6,7 @@ import React from 'react';
 
 describe('PostForm.ActionRow', () => {
     it('should render the buttons', async () => {
-        renderHelper(<ActionRow onCancel={jest.fn()} />);
+        renderHelper(<ActionRow onCancel={jest.fn()} isSubmitting={false} />);
 
         expect(await screen.findByText(/^cancel/i, { selector: 'button[type="button"]' })).toBeInTheDocument();
         expect(await screen.findByText(/^save/i, { selector: 'button[type="submit"]' })).toBeInTheDocument();
@@ -14,7 +14,7 @@ describe('PostForm.ActionRow', () => {
 
     it('should execute the onCancel function when the cancel button is clicked', async () => {
         const mockOnCancel = jest.fn();
-        renderHelper(<ActionRow onCancel={mockOnCancel} />);
+        renderHelper(<ActionRow onCancel={mockOnCancel} isSubmitting={false} />);
 
         await userEvent.click(await screen.findByText(/^cancel/i, { selector: 'button[type="button"]' }));
 
@@ -24,7 +24,7 @@ describe('PostForm.ActionRow', () => {
     it('should submit the form when the save button is clicked', async () => {
         const mockOnSubmit = jest.fn();
         renderHelper(
-            wrapWithFormik(<ActionRow onCancel={jest.fn()} />, {
+            wrapWithFormik(<ActionRow onCancel={jest.fn()} isSubmitting={false} />, {
                 initialValues: {
                     test: true,
                 },

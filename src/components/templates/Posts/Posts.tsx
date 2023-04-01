@@ -1,3 +1,4 @@
+import FullPageLoader from '@/components/atoms/Loaders/components/FullPageLoader/FullPageLoader';
 import PostList from '@/components/organisms/PostList/PostList';
 import SearchForm from '@/components/organisms/SearchForm/SearchForm';
 import usePosts from '@/hooks/usePosts/usePosts';
@@ -13,7 +14,7 @@ const Posts = () => {
         search: router.query.search,
     });
 
-    if (isLoading) return null;
+    if (isLoading) return <FullPageLoader />;
     if (error) return <p>Whoops! There&apos;s been a problem loading the blog posts.</p>;
 
     return (

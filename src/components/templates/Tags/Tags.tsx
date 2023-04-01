@@ -1,3 +1,4 @@
+import FullPageLoader from '@/components/atoms/Loaders/components/FullPageLoader/FullPageLoader';
 import { RoutesEnum } from '@/enums';
 import getTags from '@/requests/getTags';
 import { motion } from 'framer-motion';
@@ -18,8 +19,7 @@ const Tags = () => {
             .finally(() => setLoading(false));
     }, []);
 
-    if (isLoading) return null;
-
+    if (isLoading) return <FullPageLoader />;
     if (error) return <p>Whoops! There&apos;s been a problem loading the tags.</p>;
 
     return (
@@ -31,8 +31,7 @@ const Tags = () => {
                     staggerChildren: 0.1,
                     delayChildren: 0.2,
                 },
-            }}
-        >
+            }}>
             {tags.map((tag) => {
                 return (
                     <motion.div key={tag} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>

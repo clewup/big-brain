@@ -1,3 +1,4 @@
+import FullPageLoader from '@/components/atoms/Loaders/components/FullPageLoader/FullPageLoader';
 import FullPost from '@/components/molecules/FullPost/FullPost';
 import CommentsList from '@/components/organisms/CommentsList/CommentsList';
 import usePost from '@/hooks/usePost/usePost';
@@ -17,7 +18,7 @@ const Post = () => {
 
     const { post, isLoading, error } = usePost(id);
 
-    if (isLoading) return null;
+    if (isLoading) return <FullPageLoader />;
     if (!post) return <p>Not found.</p>;
     if (error) return <p>Whoops! There&apos;s been a problem loading the blog posts.</p>;
 

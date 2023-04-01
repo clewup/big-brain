@@ -50,7 +50,7 @@ const Post: React.FC<IProps> = ({ post }) => {
                 </motion.div>
             )}
 
-            <Title id={id} title={title} />
+            <Title title={title} />
             <div className={styles.post_content}>
                 <Image image={image} />
                 <Details content={content} date={date} />

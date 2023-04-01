@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const slideLeft = {
     initial: { x: 40 },
     animate: { x: 0 },

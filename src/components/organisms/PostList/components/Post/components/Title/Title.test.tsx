@@ -6,7 +6,7 @@ import React from 'react';
 
 describe('Post.Title', () => {
     it('should render the title', async () => {
-        renderHelper(<Title id={mockPost.id} title={mockPost.title} />);
+        renderHelper(<Title title={mockPost.title} />);
 
         expect(await screen.findByText(/^mock blog post/i)).toBeInTheDocument();
     });

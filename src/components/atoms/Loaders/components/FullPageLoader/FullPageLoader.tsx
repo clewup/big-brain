@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TailSpin as Loader } from 'react-loader-spinner';
 import styles from './FullPageLoader.module.scss';
 

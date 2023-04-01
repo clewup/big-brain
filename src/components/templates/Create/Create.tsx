@@ -8,7 +8,7 @@ const Create = () => {
     const [id, setId] = useState<number>();
     const router = useRouter();
 
-    const { post, isLoading, error } = usePost(id);
+    const { post, isLoading } = usePost(id);
 
     useEffect(() => {
         if (router.query.id && typeof router.query.id === 'string' && parseInt(router.query.id)) {

@@ -1,5 +1,6 @@
 import { RoutesEnum } from '@/enums';
 import usePost from '@/hooks/usePost/usePost';
+import { slideUp } from '@/lib/anim';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -58,19 +59,7 @@ const Post = () => {
                     })}
                 </div>
 
-                <motion.p
-                    initial={{ y: '2.5rem', opacity: 0 }}
-                    whileInView={{ y: '0rem', opacity: 1 }}
-                    transition={{
-                        duration: 1,
-                        type: 'spring',
-                        stiffness: 100,
-                        damping: 12,
-                        delay: 0.6,
-                    }}
-                >
-                    {post.content}
-                </motion.p>
+                <motion.p {...slideUp}>{post.content}</motion.p>
             </div>
         </motion.div>
     );

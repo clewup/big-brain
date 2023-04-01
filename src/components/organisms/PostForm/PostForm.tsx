@@ -4,12 +4,13 @@ import ActionRow from '@/components/organisms/PostForm/components/ActionRow/Acti
 import validationSchema from '@/components/organisms/PostForm/utils/validationSchema';
 import { useAuth } from '@/contexts/AuthContext';
 import { RoutesEnum } from '@/enums';
-import { SlideX } from '@/lib/anim';
+import { slideLeft } from '@/lib/anim';
 import postPost from '@/requests/postPost';
 import { PostFormValues, PostType } from '@/types';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Grid, IconButton } from '@mui/material';
 import { Field, Form, Formik, FormikProps } from 'formik';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
@@ -63,8 +64,7 @@ const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
             onSubmit={handleSubmit}
             enableReinitialize
             innerRef={formRef}
-            validationSchema={validationSchema}
-        >
+            validationSchema={validationSchema}>
             {({ values, handleChange, setFieldValue, isSubmitting }) => {
                 return (
                     <Form className={styles.form}>
@@ -89,17 +89,15 @@ const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
                                             <div
                                                 className={styles.uploaded_image}
                                                 onMouseEnter={() => setHovering(true)}
-                                                onMouseLeave={() => setHovering(false)}
-                                            >
+                                                onMouseLeave={() => setHovering(false)}>
                                                 {isHovering && (
-                                                    <SlideX direction={"left"} distance={30}>
+                                                    <motion.div {...slideLeft}>
                                                         <IconButton
                                                             className={styles.clear_button}
-                                                            onClick={() => setFieldValue(FormFields.IMAGE, '')}
-                                                        >
+                                                            onClick={() => setFieldValue(FormFields.IMAGE, '')}>
                                                             <HighlightOffIcon fontSize={'large'} />
                                                         </IconButton>
-                                                    </SlideX>
+                                                    </motion.div>
                                                 )}
 
                                                 <Image

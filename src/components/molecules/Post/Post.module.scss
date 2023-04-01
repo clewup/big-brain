@@ -6,6 +6,7 @@
     padding: 1rem;
     border-radius: 1rem;
     overflow: hidden;
+    position: relative;;
 }
 
 .post_content {
@@ -14,7 +15,7 @@
 }
 
 .action_row {
-    position: fixed;
+    position: absolute;
     right: 15px;
 
     .edit_button {

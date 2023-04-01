@@ -1,6 +1,7 @@
 import PostForm from '@/components/organisms/PostForm/PostForm';
 import usePost from '@/hooks/usePost/usePost';
-import { SlideY } from '@/lib/anim';
+import { slideUp } from '@/lib/anim';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styles from './Create.module.scss';
@@ -19,9 +20,9 @@ const Create = () => {
 
     return (
         <div className={styles.create}>
-            <SlideY direction={"up"} distance={100}>
+            <motion.div {...slideUp}>
                 <PostForm post={post} isLoading={isLoading} />
-            </SlideY>
+            </motion.div>
         </div>
     );
 };

@@ -4,7 +4,7 @@ import ActionRow from '@/components/organisms/PostForm/components/ActionRow/Acti
 import validationSchema from '@/components/organisms/PostForm/utils/validationSchema';
 import { useAuth } from '@/contexts/AuthContext';
 import { RoutesEnum } from '@/enums';
-import { slideLeft } from '@/lib/anim';
+import { slideLeft, slideUp } from '@/lib/anim';
 import postPost from '@/requests/postPost';
 import { PostFormValues, PostType } from '@/types';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
@@ -68,75 +68,77 @@ const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
             {({ values, handleChange, setFieldValue, isSubmitting }) => {
                 return (
                     <Form className={styles.form}>
-                        <h1>Create/Edit a Blog Post</h1>
-                        <br />
+                        <motion.div {...slideUp}>
+                            <h1>Create/Edit a Blog Post</h1>
+                            <br />
 
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <Field
-                                    name={FormFields.TITLE}
-                                    component={Inputs.TEXT}
-                                    onChange={handleChange}
-                                    value={values.title}
-                                    label={'Title'}
-                                />
-                            </Grid>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Field
+                                        name={FormFields.TITLE}
+                                        component={Inputs.TEXT}
+                                        onChange={handleChange}
+                                        value={values.title}
+                                        label={'Title'}
+                                    />
+                                </Grid>
 
-                            <Grid item xs={12} md={5}>
-                                <div className={styles.image_and_date_container}>
-                                    <span className={styles.image_container}>
-                                        {values.image ? (
-                                            <div
-                                                className={styles.uploaded_image}
-                                                onMouseEnter={() => setHovering(true)}
-                                                onMouseLeave={() => setHovering(false)}>
-                                                {isHovering && (
-                                                    <motion.div {...slideLeft}>
-                                                        <IconButton
-                                                            className={styles.clear_button}
-                                                            onClick={() => setFieldValue(FormFields.IMAGE, '')}>
-                                                            <HighlightOffIcon fontSize={'large'} />
-                                                        </IconButton>
-                                                    </motion.div>
-                                                )}
+                                <Grid item xs={12} md={5}>
+                                    <div className={styles.image_and_date_container}>
+                                        <span className={styles.image_container}>
+                                            {values.image ? (
+                                                <div
+                                                    className={styles.uploaded_image}
+                                                    onMouseEnter={() => setHovering(true)}
+                                                    onMouseLeave={() => setHovering(false)}>
+                                                    {isHovering && (
+                                                        <motion.div {...slideLeft}>
+                                                            <IconButton
+                                                                className={styles.clear_button}
+                                                                onClick={() => setFieldValue(FormFields.IMAGE, '')}>
+                                                                <HighlightOffIcon fontSize={'large'} />
+                                                            </IconButton>
+                                                        </motion.div>
+                                                    )}
 
-                                                <Image
-                                                    src={values.image}
-                                                    alt={'image'}
-                                                    height={250}
-                                                    width={250}
-                                                    className={styles.image}
+                                                    <Image
+                                                        src={values.image}
+                                                        alt={'image'}
+                                                        height={250}
+                                                        width={250}
+                                                        className={styles.image}
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <Field
+                                                    name={FormFields.IMAGE}
+                                                    component={Inputs.UPLOAD}
+                                                    accept={'image/*'}
                                                 />
-                                            </div>
-                                        ) : (
-                                            <Field
-                                                name={FormFields.IMAGE}
-                                                component={Inputs.UPLOAD}
-                                                accept={'image/*'}
-                                            />
-                                        )}
-                                    </span>
+                                            )}
+                                        </span>
 
-                                    <p>{new Date(values.date).toDateString()}</p>
-                                </div>
-                            </Grid>
+                                        <p>{new Date(values.date).toDateString()}</p>
+                                    </div>
+                                </Grid>
 
-                            <Grid item xs={12} md={7}>
-                                <Field
-                                    name={FormFields.CONTENT}
-                                    component={Inputs.TEXT_AREA}
-                                    onChange={handleChange}
-                                    value={values.content}
-                                    rows={20}
-                                    label={'Content'}
-                                />
-                            </Grid>
+                                <Grid item xs={12} md={7}>
+                                    <Field
+                                        name={FormFields.CONTENT}
+                                        component={Inputs.TEXT_AREA}
+                                        onChange={handleChange}
+                                        value={values.content}
+                                        rows={20}
+                                        label={'Content'}
+                                    />
+                                </Grid>
 
-                            <Grid item xs={12}>
-                                {}
-                                <ActionRow onCancel={handleCancel} isSubmitting={isSubmitting} />
+                                <Grid item xs={12}>
+                                    {}
+                                    <ActionRow onCancel={handleCancel} isSubmitting={isSubmitting} />
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </motion.div>
                     </Form>
                 );
             }}

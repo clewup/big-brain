@@ -1,3 +1,4 @@
+import { Errors } from '@/components/atoms/Errors/Errors';
 import FullPageLoader from '@/components/atoms/Loaders/components/FullPageLoader/FullPageLoader';
 import PostList from '@/components/organisms/PostList/PostList';
 import SearchForm from '@/components/organisms/SearchForm/SearchForm';
@@ -15,7 +16,7 @@ const Posts = () => {
     });
 
     if (isLoading) return <FullPageLoader />;
-    if (error) return <p>Whoops! There&apos;s been a problem loading the blog posts.</p>;
+    if (error) return Errors.NotFound("There's been a problem loading the posts.");
 
     return (
         <div className={styles.posts}>

@@ -1,3 +1,4 @@
+import { Errors } from '@/components/atoms/Errors/Errors';
 import FullPageLoader from '@/components/atoms/Loaders/components/FullPageLoader/FullPageLoader';
 import { RoutesEnum } from '@/enums';
 import getTags from '@/requests/getTags';
@@ -20,7 +21,7 @@ const Tags = () => {
     }, []);
 
     if (isLoading) return <FullPageLoader />;
-    if (error) return <p>Whoops! There&apos;s been a problem loading the tags.</p>;
+    if (error) return Errors.NotFound("There's been a problem loading the tags.");
 
     return (
         <motion.div

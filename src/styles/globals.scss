@@ -1,8 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700&display=swap');
 
 :root {
-    --background: 'white';
-    --foreground: 'black';
+    // Dark
+    --dark-primary-background: #121826;
+    --dark-secondary-background: #2F3E63;
+    --dark-primary-foreground: #FFFFFF;
+
+    // Light
+    --light-primary-background: #FFFFFF;
+    --light-secondary-background: #CCCCCC;
+    --light-primary-foreground: #000000;
+
+    // Theme
+    --background: var(--light-primary-background);
+    --background-alt: var(--light-secondary-background);
+    --foreground: var(--light-primary-background);
 }
 
 * {
@@ -32,11 +44,13 @@ h1 {
 }
 
 [data-theme='dark'] {
-    --background: #121826;
-    --foreground: white;
+    --background: var(--dark-primary-background);
+    --background-alt: var(--dark-secondary-background);
+    --foreground: var(--dark-primary-foreground);
 }
 
 [data-theme='light'] {
-    --background: white;
-    --foreground: #121826;
+    --background: var(--light-primary-background);
+    --background-alt: var(--light-secondary-background);
+    --foreground: var(--light-primary-foreground);
 }

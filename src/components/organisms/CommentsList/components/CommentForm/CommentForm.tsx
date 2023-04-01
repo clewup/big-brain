@@ -1,5 +1,9 @@
 import { Errors } from '@/components/atoms/Errors/Errors';
 import { Inputs } from '@/components/atoms/Inputs/Inputs';
+import {
+    CommentFormFields,
+    validationSchema,
+} from '@/components/organisms/CommentsList/components/CommentForm/utils/formHelpers';
 import { useAuth } from '@/contexts/AuthContext';
 import postComment from '@/requests/postComment';
 import { CommentFormValues, CommentType, PostType } from '@/types/postTypes';
@@ -17,15 +21,11 @@ const CommentForm: React.FC<IProps> = ({ post, setComments }) => {
 
     if (!user) return Errors.SignIn('to leave a comment');
 
-    enum FormFields {
-        MESSAGE = 'message',
-    }
-
     const initialValues: CommentFormValues = {
-        user: user,
-        post: post.id,
-        message: '',
-        likes: 0,
+        [CommentFormFields.USER]: user,
+        [CommentFormFields.POST]: post.id,
+        [CommentFormFields.MESSAGE]: '',
+        [CommentFormFields.LIKES]: 0,
     };
 
     const handleSubmit = (values: CommentFormValues) => {
@@ -38,12 +38,12 @@ const CommentForm: React.FC<IProps> = ({ post, setComments }) => {
     };
 
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
             {({ values, handleChange }) => {
                 return (
                     <Form>
                         <Field
-                            name={FormFields.MESSAGE}
+                            name={CommentFormFields.MESSAGE}
                             component={Inputs.TEXT_AREA}
                             onChange={handleChange}
                             value={values.message}

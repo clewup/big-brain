@@ -1,7 +1,8 @@
+import { Errors } from '@/components/atoms/Errors/Errors';
 import { Inputs } from '@/components/atoms/Inputs/Inputs';
 import FullPageLoader from '@/components/atoms/Loaders/components/FullPageLoader/FullPageLoader';
 import ActionRow from '@/components/organisms/PostForm/components/ActionRow/ActionRow';
-import validationSchema from '@/components/organisms/PostForm/utils/validationSchema';
+import { PostFormFields, validationSchema } from '@/components/organisms/PostForm/utils/formHelpers';
 import { useAuth } from '@/contexts/AuthContext';
 import { RoutesEnum } from '@/enums';
 import { slideLeft, slideUp } from '@/lib/anim';
@@ -28,25 +29,17 @@ const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
     const { user } = useAuth();
     const router = useRouter();
 
-    if (!user) return <></>;
-
-    enum FormFields {
-        TITLE = 'title',
-        IMAGE = 'image',
-        CONTENT = 'content',
-        DATE = 'date',
-        TAGS = 'tags',
-    }
+    if (!user) return Errors.SignIn('create a post');
 
     const initialValues: PostFormValues = post || {
-        user: user?.id,
-        title: '',
-        image: '',
-        content: '',
-        date: new Date().toISOString(),
-        tags: ['nextjs'],
-        comments: [],
-        likes: 0,
+        [PostFormFields.USER]: user?.id,
+        [PostFormFields.TITLE]: '',
+        [PostFormFields.IMAGE]: '',
+        [PostFormFields.CONTENT]: '',
+        [PostFormFields.DATE]: new Date().toISOString(),
+        [PostFormFields.TAGS]: ['nextjs'],
+        [PostFormFields.COMMENTS]: [],
+        [PostFormFields.LIKES]: 0,
     };
 
     const handleSubmit = (values: PostFormValues) => {
@@ -78,7 +71,7 @@ const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <Field
-                                        name={FormFields.TITLE}
+                                        name={PostFormFields.TITLE}
                                         component={Inputs.TEXT}
                                         onChange={handleChange}
                                         value={values.title}
@@ -98,7 +91,7 @@ const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
                                                         <motion.div {...slideLeft}>
                                                             <IconButton
                                                                 className={styles.clear_button}
-                                                                onClick={() => setFieldValue(FormFields.IMAGE, '')}>
+                                                                onClick={() => setFieldValue(PostFormFields.IMAGE, '')}>
                                                                 <HighlightOffIcon fontSize={'large'} />
                                                             </IconButton>
                                                         </motion.div>
@@ -114,7 +107,7 @@ const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
                                                 </div>
                                             ) : (
                                                 <Field
-                                                    name={FormFields.IMAGE}
+                                                    name={PostFormFields.IMAGE}
                                                     component={Inputs.UPLOAD}
                                                     accept={'image/*'}
                                                 />
@@ -127,7 +120,7 @@ const PostForm: React.FC<IProps> = ({ post, isLoading }) => {
 
                                 <Grid item xs={12} md={7}>
                                     <Field
-                                        name={FormFields.CONTENT}
+                                        name={PostFormFields.CONTENT}
                                         component={Inputs.TEXT_AREA}
                                         onChange={handleChange}
                                         value={values.content}

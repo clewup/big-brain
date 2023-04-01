@@ -19,7 +19,7 @@ const Comment: React.FC<IProps> = ({ comment }) => {
                     height={50}
                     width={50}
                 />
-                <p>{comment.user.email}</p>
+                <p>{comment.user.username}</p>
             </div>
             <p>{comment.message}</p>
         </div>

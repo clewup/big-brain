@@ -1,3 +1,4 @@
+import { publicUserMapper } from '@/mappers/userMapper';
 import { CommentDto, PostDto, PostType } from '@/types';
 import { CommentType } from '@/types/postTypes';
 
@@ -26,7 +27,7 @@ const postsMapper = (postDtos: PostDto[]): PostType[] => {
 const commentMapper = (commentDto: CommentDto): CommentType => {
     return {
         id: commentDto.id,
-        user: commentDto.user,
+        user: publicUserMapper(commentDto.user),
         post: commentDto.postId,
         message: commentDto.message,
         likes: commentDto.likes,

@@ -5,3 +5,8 @@ export interface UserType {
     email: string;
     role: RolesEnum;
 }
+
+export interface PublicUserType {
+    id: number;
+    username: string;
+}

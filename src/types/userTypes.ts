@@ -1,4 +1,4 @@
-import { RolesEnum } from '@/enums';
+import { RolesEnum } from '@/data/rolesEnum';
 
 export interface UserType {
     id: number;

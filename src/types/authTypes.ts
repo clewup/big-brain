@@ -1,4 +1,4 @@
-import { RolesEnum } from '@/enums';
+import { RolesEnum } from '@/data/rolesEnum';
 import { NextApiRequest } from 'next';
 
 export interface AccessTokenType {

@@ -1,13 +1,3 @@
-import { RolesEnum } from '@/data/rolesEnum';
-import { NextApiRequest } from 'next';
+import { UserType } from '@/types/userTypes'
 
-export interface AccessTokenType {
-    id: number;
-    email: string;
-    role: RolesEnum;
-    exp: number;
-}
-
-export interface AuthorizedNextApiRequest extends NextApiRequest {
-    accessToken?: AccessTokenType;
-}
+export type TokenType = Omit<UserType, 'id'> & { sub: string }

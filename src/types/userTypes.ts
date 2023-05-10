@@ -1,12 +1,19 @@
-import { RolesEnum } from '@/data/rolesEnum';
-
-export interface UserType {
-    id: number;
-    email: string;
-    role: RolesEnum;
+export type UserType = {
+    id: string
+    email: string
+    emailVerified: string
+    image: string
+    name: string
+    role: string
+    phoneNumber: string
+    gender: string
+    additionalInformation: UserAdditionalInformationType
+    address: UserAddressType
+    preferences: UserPreferencesType
+    socialPlatforms: UserSocialPlatformsType
 }
 
-export interface PublicUserType {
-    id: number;
-    username: string;
-}
+type UserAdditionalInformationType = {}
+type UserAddressType = {}
+type UserPreferencesType = {}
+type UserSocialPlatformsType = {}

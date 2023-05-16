@@ -16,7 +16,7 @@ export default function Header() {
                     <p>hello@clewup.co.uk</p>
                 </span>
             </div>
-            <div className="h-14 bg-branding-black mt-2 text-branding-beige text-4xl flex items-center justify-center gap-20">
+            <div className="h-14 bg-branding-black mt-2 text-branding-beige text-3xl flex items-center justify-center gap-20">
                 <Link href={'/'}>
                     <p>HOME</p>
                 </Link>

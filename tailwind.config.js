@@ -6,25 +6,36 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Garamond', ...defaultTheme.fontFamily.sans],
+                sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
                 chomsky: ['Chomsky', 'sans'],
                 satisfice: ['Satisfice', 'sans'],
                 steelfish: ['Steelfish', 'sans'],
                 abaddon: ['Abaddon', 'sans'],
             },
             height: {
-                'screen-header': '75vh',
+                'screen-header': '80vh',
             },
             minHeight: {
-                'screen-header': '75vh',
-            },
-            colors: {
-                branding: {
-                    beige: '#f8fcda',
-                    black: '#111111',
-                },
+                'screen-header': '80vh',
             },
         },
     },
-    plugins: [],
+    plugins: [require('@tailwindcss/typography'), require('daisyui')],
+    daisyui: {
+        themes: [
+            {
+                blog: {
+                    primary: '#3a86ff',
+                    secondary: '#FF1654',
+                    accent: '#1FB2A5',
+                    neutral: '#CCCCCC',
+                    'base-100': '#FFFFFF',
+                    info: '#3ABFF8',
+                    success: '#198754',
+                    warning: '#FBBD23',
+                    error: '#d9534f',
+                },
+            },
+        ],
+    },
 }

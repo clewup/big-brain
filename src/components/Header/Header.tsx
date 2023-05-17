@@ -3,13 +3,14 @@
 import useLockr from '@/lib/lockr-auth/hooks/useLockr'
 import Avvvatars from 'avvvatars-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default function Header() {
     const { signIn, signOut, user } = useLockr({ redirectUri: 'http://localhost:3000', applicationId: 1 })
 
     return (
-        <div className="h-[20vh]">
+        <div className="h-[20vh] p-2">
             <div className="flex  justify-between">
                 <span className="flex items-center font-chomsky">
                     <div className="w-28 h-28 bg-secondary text-base-100 text-9xl flex justify-center items-center">
@@ -18,7 +19,12 @@ export default function Header() {
                     <h1 className="text-9xl">aily Blog</h1>
                 </span>
             </div>
-            <div className="h-14 bg-base-300 mt-2 flex items-center justify-end gap-20 px-2">
+            <div className="h-14 bg-base-300 mt-2 flex items-center justify-between gap-20 px-2 rounded-xl">
+                <span className="flex gap-20 mx-10">
+                    <Link href={'/'}>Latest</Link>
+                    <Link href={'/'}>All Posts</Link>
+                    <Link href={'/'}>Categories</Link>
+                </span>
                 <div className="flex gap-2 items-center justify-center">
                     <div className="form-control">
                         <input type="text" placeholder="Search" className="input input-bordered" />

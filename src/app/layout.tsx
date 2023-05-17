@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="en" data-theme="lockr">
             <LockrProvider>
                 <body>
-                    <div className="w-screen p-2">
+                    <div className="w-screen">
                         <Header />
                         <div className="min-h-screen-header">{children}</div>
                     </div>

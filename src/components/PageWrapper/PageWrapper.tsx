@@ -7,7 +7,7 @@ interface PageWrapperProps {
 }
 
 const PageWrapper: FC<PageWrapperProps> = ({ children, className }) => {
-    return <main className={cx('py-5 min-h-screen-header', className)}>{children}</main>
+    return <main className={cx('p-5 min-h-screen-header', className)}>{children}</main>
 }
 
 export default PageWrapper

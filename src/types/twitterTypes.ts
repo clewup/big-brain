@@ -15,3 +15,10 @@ type TwitterMetrics = {
     quoteRetweets: number
     impressions: number
 }
+
+export type TwitterUserType = {
+    id: string
+    image: string
+    username: string
+    name: string
+}

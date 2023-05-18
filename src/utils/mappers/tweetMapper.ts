@@ -1,10 +1,10 @@
-import { TweetType } from '@/types/twitterTypes'
+import { TweetType, TwitterUserType } from '@/types/twitterTypes'
 
 export function mapLikedTweet(apiData: any): TweetType {
     const mappedTweet: TweetType = {
         author: apiData.author_id,
         createdAt: apiData.created_at,
-        image: apiData.entities?.urls?.length > 0 ? apiData.entities.urls[0].display_url : '',
+        image: apiData.entities?.urls?.[0]?.images?.length > 0 ? apiData.entities.urls[0].images[0].url : '',
         language: apiData.lang,
         metrics: {
             retweets: apiData.public_metrics.retweet_count,
@@ -24,4 +24,17 @@ export function mapLikedTweets(apiData: any): TweetType[] {
     const likedTweets = apiData.data as Array<any>
 
     return likedTweets?.map((likedTweet) => mapLikedTweet(likedTweet))
+}
+
+export function mapTwitterUser(apiData: any) {
+    const user = apiData.data
+
+    const mappedUser: TwitterUserType = {
+        id: user.id,
+        image: user.profile_image_url,
+        name: user.name,
+        username: user.username,
+    }
+
+    return mappedUser
 }

@@ -1,8 +1,28 @@
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
+import Tweet from '@/components/Tweet/Tweet'
+import { mapLikedTweets } from '@/utils/mappers/tweetMapper'
 import React from 'react'
 
+async function getLikedTweets() {
+    const twitterResponse = await fetch(
+        `https://api.twitter.com/2/users/${process.env.TWITTER_USER_ID}/liked_tweets?tweet.fields=lang,author_id,created_at,public_metrics,entities`,
+        {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
+            },
+        }
+    )
+    const twitterData = await twitterResponse.json()
+    console.log(twitterData)
+
+    return mapLikedTweets(twitterData)
+}
+
 export default async function Home() {
+    const likedTweets = await getLikedTweets()
+
     const posts = [
         {
             title: 'Post 1',
@@ -31,6 +51,9 @@ export default async function Home() {
         <PageWrapper className="flex">
             <div className="w-1/4 h-full min-h-screen-header">
                 <h1 className="text-6xl font-satisfice">THE LATEST</h1>
+                {likedTweets?.map((likedTweet, index) => (
+                    <Tweet key={index} tweet={likedTweet} />
+                ))}
             </div>
             <span className="divider divider-horizontal" />
             <div className="w-full">

@@ -19,32 +19,13 @@ async function getLikedTweets() {
     return mapLikedTweets(twitterData)
 }
 
+async function getPosts() {
+    return prisma.post.findMany({ orderBy: { createdAt: 'desc' } })
+}
+
 export default async function Home() {
     const likedTweets = await getLikedTweets()
-
-    const posts = [
-        {
-            title: 'Post 1',
-            image: 'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1336&q=80',
-            content: '',
-            categories: ['cat1', 'cat2'],
-            comments: [],
-        },
-        {
-            title: 'Post 1',
-            image: 'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1336&q=80',
-            content: '',
-            categories: ['cat1', 'cat2'],
-            comments: [],
-        },
-        {
-            title: 'Post 1',
-            image: 'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1336&q=80',
-            content: '',
-            categories: ['cat1', 'cat2'],
-            comments: [],
-        },
-    ]
+    const posts = await getPosts()
 
     return (
         <PageWrapper className="flex">
@@ -57,11 +38,14 @@ export default async function Home() {
                 </span>
             </div>
             <span className="divider divider-horizontal" />
-            <div className="w-full">
-                <div className="grid grid-cols-3 w-full gap-5">
-                    {posts.map((post, index) => (
-                        <Post key={index} post={post} isLatest={index === 0} />
-                    ))}
+            <div className="w-full flex flex-col gap-5">
+                <div>
+                    <h1 className="text-6xl font-satisfice">IN OTHER NEWS</h1>
+                    <div className="grid grid-cols-3 w-full gap-5">
+                        {posts.map((post, index) => (
+                            <Post key={index} post={post} isLatest={index === 0} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </PageWrapper>

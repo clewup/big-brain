@@ -1,8 +1,8 @@
-import { PostType } from '@/types/postTypes'
+import { Post } from '@prisma/client'
 import { FC } from 'react'
 
 interface PostProps {
-    post: PostType
+    post: Post
     isLatest?: boolean
 }
 

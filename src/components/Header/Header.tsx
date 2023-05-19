@@ -57,12 +57,9 @@ export default function Header() {
                                 className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                 <li>
                                     <a className="justify-between">
-                                        Profile
-                                        <span className="badge">New</span>
+                                        Create
+                                        <span className="badge badge-secondary">New</span>
                                     </a>
-                                </li>
-                                <li>
-                                    <a>Settings</a>
                                 </li>
                                 <li onClick={signOut}>
                                     <a>Logout</a>

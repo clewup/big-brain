@@ -52,18 +52,15 @@ export default function Create() {
                                 <label className="label">Content</label>
                                 <Field name="content" type="text" className="input input-bordered" />
                             </span>
+
                             <span className="form-control">
                                 <label className="label">Categories</label>
-                                <Field name="title">
-                                    {() => (
-                                        <select className="select select-bordered">
-                                            <option>Select...</option>
-                                            <option>Technology</option>
-                                            <option>Gaming</option>
-                                            <option>News</option>
-                                        </select>
-                                    )}
-                                </Field>
+                                <select className="select select-bordered">
+                                    <option>Select...</option>
+                                    <option>Technology</option>
+                                    <option>Gaming</option>
+                                    <option>News</option>
+                                </select>
                             </span>
 
                             <div className="mt-10">

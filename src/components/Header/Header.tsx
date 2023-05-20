@@ -24,7 +24,7 @@ export default function Header() {
             <div className="h-14 bg-base-300 mt-2 flex items-center justify-between gap-20 px-2 rounded-xl">
                 <span className="flex gap-20 mx-10">
                     <Link href={'/'}>Latest</Link>
-                    <Link href={'/'}>All Posts</Link>
+                    <Link href={'/posts'}>All Posts</Link>
                 </span>
                 <div className="flex gap-2 items-center justify-center">
                     <div className="form-control">

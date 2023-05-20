@@ -10,7 +10,11 @@ const Post: FC<PostProps> = ({ post, isLatest = false }) => {
     return (
         <div className="card w-full bg-base-100 shadow-xl">
             <figure>
-                <img src={post.image} alt={post.title} className="h-60 w-full object-cover object-center" />
+                <img
+                    src={post.image}
+                    alt={post.title}
+                    className="aspect-video max-h-[50vh] object-cover w-full object-center"
+                />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">

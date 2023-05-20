@@ -3,7 +3,9 @@ import Post from '@/components/Post/Post'
 import Tweet from '@/components/Tweet/Tweet'
 import prisma from '@/lib/prisma'
 import { mapLikedTweets } from '@/utils/mappers/tweetMapper'
+import Link from 'next/link'
 import React from 'react'
+import { ArrowRightCircle as NextIcon } from 'react-feather'
 
 async function getLikedTweets() {
     const params = 'tweet.fields=lang,author_id,created_at,public_metrics,entities&media.fields=url,height'
@@ -21,7 +23,7 @@ async function getLikedTweets() {
 }
 
 async function getPosts() {
-    return prisma.post.findMany({ orderBy: { createdAt: 'desc' } })
+    return prisma.post.findMany({ orderBy: { createdAt: 'desc' }, take: 6 })
 }
 
 export default async function Home() {
@@ -30,7 +32,7 @@ export default async function Home() {
 
     return (
         <PageWrapper className="flex">
-            <div className="w-1/4 h-full min-h-screen-header">
+            <div className="w-1/4 h-full">
                 <h1 className="text-6xl font-satisfice">THE LATEST</h1>
                 <span className="flex flex-col gap-5">
                     {likedTweets?.slice(0, 5).map((likedTweet, index) => (
@@ -39,13 +41,23 @@ export default async function Home() {
                 </span>
             </div>
             <span className="divider divider-horizontal" />
-            <div className="w-full flex flex-col gap-5">
+            <div className="w-full flex flex-col gap-10">
+                <div>
+                    <h1 className="text-6xl font-satisfice">THIS JUST IN</h1>
+                    <Post post={posts[0]} isLatest={true} />
+                </div>
                 <div>
                     <h1 className="text-6xl font-satisfice">IN OTHER NEWS</h1>
-                    <div className="grid grid-cols-3 w-full mt-5 gap-5">
-                        {posts.map((post, index) => (
-                            <Post key={index} post={post} isLatest={index === 0} />
+                    <div className="grid grid-cols-3 grid-rows-2 gap-5">
+                        {posts.slice(1, 6).map((post, index) => (
+                            <Post key={index} post={post} />
                         ))}
+                        <Link
+                            href={'/posts'}
+                            className="h-full w-full flex flex-col justify-center items-center text-2xl gap-5">
+                            <NextIcon size={40} />
+                            <p>View More</p>
+                        </Link>
                     </div>
                 </div>
             </div>

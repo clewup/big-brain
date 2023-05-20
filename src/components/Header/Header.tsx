@@ -1,13 +1,15 @@
 'use client'
 
-import useLockr from '@/lib/lockr-auth/hooks/useLockr'
+import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
+import useAuth from '@/lib/lockr-auth/hooks/useAuth'
 import Avvvatars from 'avvvatars-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 export default function Header() {
-    const { signIn, signOut, user } = useLockr({ redirectUri: 'http://localhost:3000', applicationId: 1 })
+    const { signIn, signOut } = useAuth({ redirectUri: 'http://localhost:3000', applicationId: 1 })
+    const { user, isAdmin } = useLockr()
 
     return (
         <div className="h-[20vh] p-2">
@@ -23,7 +25,6 @@ export default function Header() {
                 <span className="flex gap-20 mx-10">
                     <Link href={'/'}>Latest</Link>
                     <Link href={'/'}>All Posts</Link>
-                    <Link href={'/'}>Categories</Link>
                 </span>
                 <div className="flex gap-2 items-center justify-center">
                     <div className="form-control">
@@ -55,12 +56,8 @@ export default function Header() {
                             <ul
                                 tabIndex={0}
                                 className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                                <li>
-                                    <Link href="/create" className="justify-between">
-                                        Create
-                                        <span className="badge badge-secondary">New</span>
-                                    </Link>
-                                </li>
+                                {isAdmin && <AdminLinks />}
+
                                 <li onClick={signOut}>
                                     <a>Logout</a>
                                 </li>
@@ -70,5 +67,18 @@ export default function Header() {
                 </div>
             </div>
         </div>
+    )
+}
+
+function AdminLinks() {
+    return (
+        <>
+            <li>
+                <Link href="/create" className="justify-between">
+                    Create
+                    <span className="badge badge-secondary">New</span>
+                </Link>
+            </li>
+        </>
     )
 }

@@ -2,16 +2,18 @@
 
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import constants from '@/constants/constants'
-import { LockrContext } from '@/lib/lockr-auth/contexts/LockrContext'
+import useApi from '@/hooks/useApi/useApi'
+import { Post } from '@prisma/client'
+import cx from 'classnames'
 import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik'
-import { useContext, useRef } from 'react'
+import { useRef } from 'react'
 import { MultiValue } from 'react-select'
 import Select from 'react-select/creatable'
 import * as yup from 'yup'
 
 export default function Create() {
     const formRef = useRef<FormikProps<CreateFormValues>>(null)
-    const { user } = useContext(LockrContext)
+    const { post } = useApi()
 
     type CreateFormValues = {
         title: string
@@ -50,16 +52,8 @@ export default function Create() {
     })
 
     async function onSubmit(formValues: FormikValues, formHelpers: FormikHelpers<CreateFormValues>) {
-        if (!user) return
-
         formHelpers.setSubmitting(true)
-        await fetch('/api/post', {
-            method: 'POST',
-            body: JSON.stringify(formValues),
-            headers: {
-                'x-user': user.email,
-            },
-        })
+        await post<Post>('/api/post', formValues)
         formHelpers.setSubmitting(false)
     }
 
@@ -80,22 +74,25 @@ export default function Create() {
         formRef?.current?.setFieldValue('image', cloudinaryData.url)
     }
 
-    const ValidationError = (message: string) => <p className="text-error">{message}</p>
-
     return (
-        <PageWrapper>
+        <PageWrapper requireAdminRole={true}>
             <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
                 innerRef={formRef}
                 validationSchema={validationSchema}>
-                {({ values, setFieldValue, handleChange }) => {
+                {({ values, setFieldValue, handleChange, isSubmitting }) => {
                     return (
                         <Form>
                             <span className="form-control">
                                 <label className="label">Title</label>
 
-                                <Field name="title" type="text" className="input input-bordered" />
+                                <Field
+                                    name="title"
+                                    type="text"
+                                    className="input input-bordered"
+                                    disabled={isSubmitting}
+                                />
                                 <ErrorMessage name="title" component="p" className="text-error" />
                             </span>
 
@@ -109,6 +106,7 @@ export default function Create() {
                                                 name="content"
                                                 className="textarea textarea-bordered h-96"
                                                 onChange={handleChange}
+                                                disabled={isSubmitting}
                                             />
                                         )
                                     }}
@@ -128,6 +126,7 @@ export default function Create() {
                                 <input
                                     type="file"
                                     className="file-input file-input-bordered"
+                                    disabled={isSubmitting}
                                     onChange={({ target: { files } }) => uploadImage(files?.[0])}
                                 />
                                 <ErrorMessage name="image" component="p" className="text-error" />
@@ -159,12 +158,17 @@ export default function Create() {
                                             outline: '0 0 0 2px #CCCCCC',
                                         }),
                                     }}
+                                    isDisabled={isSubmitting}
                                 />
                                 <ErrorMessage name="categories" component="p" className="text-error" />
                             </span>
 
                             <div className="mt-10">
-                                <button className="btn btn-primary">Create</button>
+                                <button
+                                    className={cx('btn btn-primary', { loading: isSubmitting })}
+                                    disabled={isSubmitting}>
+                                    Create
+                                </button>
                             </div>
                         </Form>
                     )

@@ -4,12 +4,12 @@ import jwt from 'jsonwebtoken'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 
-interface UseLockrProps {
+interface UseAuthProps {
     redirectUri?: string
     applicationId?: number
 }
 
-const useLockr = ({ redirectUri, applicationId }: UseLockrProps) => {
+const useAuth = ({ redirectUri, applicationId }: UseAuthProps) => {
     const context = useContext(LockrContext)
     const searchParams = useSearchParams()
     const pathname = usePathname()
@@ -18,9 +18,9 @@ const useLockr = ({ redirectUri, applicationId }: UseLockrProps) => {
     const [isAuthing, setAuthing] = useState(false)
 
     if (!context) {
-        throw new Error('useLockr may only be used within the LockrContext')
+        throw new Error('useAuth may only be used within the LockrContext')
     }
-    const { user, setUser } = context
+    const { user, setUser, setAdmin } = context
 
     const router = useRouter()
 
@@ -61,6 +61,8 @@ const useLockr = ({ redirectUri, applicationId }: UseLockrProps) => {
 
         const decodedToken = jwt.decode(accessToken) as UserType
         setUser(decodedToken)
+        setAdmin(decodedToken.role === 'Admin')
+
         router.push(pathname)
     }
 
@@ -69,6 +71,7 @@ const useLockr = ({ redirectUri, applicationId }: UseLockrProps) => {
         if (accessToken) {
             const decodedToken = jwt.decode(accessToken) as UserType
             setUser(decodedToken)
+            setAdmin(decodedToken.role === 'Admin')
         }
 
         if (code && !user && !isAuthing) {
@@ -79,11 +82,10 @@ const useLockr = ({ redirectUri, applicationId }: UseLockrProps) => {
     }, [code])
 
     return {
-        ...context,
         signIn,
         signOut,
         isAuthing,
     }
 }
 
-export default useLockr
+export default useAuth

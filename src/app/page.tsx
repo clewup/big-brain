@@ -1,6 +1,7 @@
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
 import Tweet from '@/components/Tweet/Tweet'
+import prisma from '@/lib/prisma'
 import { mapLikedTweets } from '@/utils/mappers/tweetMapper'
 import React from 'react'
 
@@ -41,7 +42,7 @@ export default async function Home() {
             <div className="w-full flex flex-col gap-5">
                 <div>
                     <h1 className="text-6xl font-satisfice">IN OTHER NEWS</h1>
-                    <div className="grid grid-cols-3 w-full gap-5">
+                    <div className="grid grid-cols-3 w-full mt-5 gap-5">
                         {posts.map((post, index) => (
                             <Post key={index} post={post} isLatest={index === 0} />
                         ))}

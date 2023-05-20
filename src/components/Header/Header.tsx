@@ -36,7 +36,7 @@ export default function Header() {
                     <Formik
                         initialValues={{ search: searchParams.get('search') || '' }}
                         onSubmit={(formValues) => {
-                            const updatedQuery = { ...queryParams, search: formValues.search }
+                            const updatedQuery = { ...queryParams, search: formValues.search, page: null }
                             setQueryParams(updatedQuery, '/posts')
                         }}>
                         <Form>

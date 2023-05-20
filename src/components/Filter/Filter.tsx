@@ -3,54 +3,25 @@
 import AutoSubmit from '@/components/AutoSubmit/AutoSubmit'
 import useApi from '@/hooks/useApi/useApi'
 import useQueryParams from '@/hooks/useQueryParams/useQueryParams'
+import { SearchResponseType } from '@/types/searchTypes'
 import { Field, Form, Formik, FormikValues } from 'formik'
 import { useSearchParams } from 'next/navigation'
-import { stringify } from 'querystring'
-import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
-import { Post } from '.prisma/client'
+import React, { FC, useEffect, useState } from 'react'
 
 interface FilterProps {
-    setPosts: Dispatch<SetStateAction<Post[]>>
-    setLoading: Dispatch<SetStateAction<boolean>>
-}
-
-type SearchRequestType = {
-    search?: string
-    category?: string
-}
-
-type SearchResponseType = {
-    page: number
-    results: Post[]
-    resultsCount: number
-    totalCount: number
+    searchResults: SearchResponseType
 }
 
 type FilterFormValues = {
     category: string
 }
 
-const Filter: FC<FilterProps> = ({ setPosts, setLoading }) => {
+const Filter: FC<FilterProps> = ({ searchResults }) => {
     const searchParams = useSearchParams()
     const { queryParams, setQueryParams } = useQueryParams()
     const { get } = useApi()
 
     const [categories, setCategories] = useState<string[]>([])
-    const [count, setCount] = useState({
-        results: 0,
-        total: 0,
-    })
-
-    async function getFilteredPosts(query: string) {
-        const searchResponse = await get(`/api/search?${query}`)
-        const searchData: SearchResponseType = await searchResponse.json()
-        setPosts(searchData.results)
-        setCount({
-            results: searchData.resultsCount,
-            total: searchData.totalCount,
-        })
-        setLoading(false)
-    }
 
     async function getCategories() {
         const categoriesResponse = await get('/api/category')
@@ -58,31 +29,9 @@ const Filter: FC<FilterProps> = ({ setPosts, setLoading }) => {
         setCategories(categoriesData)
     }
 
-    function updateQueryString(key: string, value: string | null) {
-        const updatedQuery = {
-            ...queryParams,
-            [key]: value,
-        }
-
-        setQueryParams(updatedQuery)
-    }
-
     useEffect(() => {
-        if (!categories.length) {
-            getCategories()
-        }
-
-        setLoading(true)
-        const search = searchParams.get('search')
-        const category = searchParams.get('category')
-
-        const queryObject: SearchRequestType = {}
-        if (search) queryObject.search = search
-        if (category) queryObject.category = category
-
-        const formattedQuery = stringify(queryObject)
-        getFilteredPosts(formattedQuery)
-    }, [searchParams])
+        getCategories()
+    }, [])
 
     const initialValues: FilterFormValues = {
         category: searchParams.get('category') || 'default',
@@ -93,7 +42,13 @@ const Filter: FC<FilterProps> = ({ setPosts, setLoading }) => {
 
         Object.entries(formValues).forEach(([key, value]) => {
             const isNotFiltered = reservedValues.includes(value)
-            updateQueryString(key, isNotFiltered ? null : value)
+
+            const updatedQuery = {
+                ...queryParams,
+                page: null,
+                [key]: isNotFiltered ? null : value,
+            }
+            setQueryParams(updatedQuery)
         })
     }
 
@@ -123,7 +78,9 @@ const Filter: FC<FilterProps> = ({ setPosts, setLoading }) => {
                             </Field>
                         </span>
                         <p className="text-lg">
-                            {count.results}/{count.total} results
+                            {searchResults.pagination.pageResults +
+                                searchResults.pagination.resultsPerPage * (searchResults.pagination.page - 1)}
+                            /{searchResults.pagination.totalResults} results
                         </p>
                         <AutoSubmit />
                     </Form>

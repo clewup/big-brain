@@ -3,19 +3,58 @@
 import Filter from '@/components/Filter/Filter'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
-import React, { useState } from 'react'
-import { Post as PrismaPost } from '.prisma/client'
+import useApi from '@/hooks/useApi/useApi'
+import useQueryParams from '@/hooks/useQueryParams/useQueryParams'
+import { SearchRequestType, SearchResponseType } from '@/types/searchTypes'
+import cx from 'classnames'
+import { useSearchParams } from 'next/navigation'
+import { stringify } from 'querystring'
+import React, { useEffect, useState } from 'react'
 
 export default function Posts() {
-    const [posts, setPosts] = useState<PrismaPost[]>([])
+    const { queryParams, setQueryParams } = useQueryParams()
+    const searchParams = useSearchParams()
+    const { get } = useApi()
+
+    const [searchResults, setSearchResults] = useState<SearchResponseType>({
+        results: [],
+        pagination: {
+            totalResults: 0,
+            pageResults: 0,
+            page: 1,
+            totalPages: 1,
+            resultsPerPage: 0,
+        },
+    })
     const [isLoading, setLoading] = useState(true)
-    const [page, setPage] = useState(1)
+
+    async function getFilteredPosts(query: string) {
+        const searchResponse = await get(`/api/search?${query}`)
+        const searchData: SearchResponseType = await searchResponse.json()
+        setSearchResults(searchData)
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        setLoading(true)
+        const search = searchParams.get('search')
+        const category = searchParams.get('category')
+        const page = searchParams.get('page')
+
+        const queryObject: SearchRequestType = {}
+        if (search) queryObject.search = search
+        if (category) queryObject.category = category
+        if (page) queryObject.page = page
+
+        const formattedQuery = stringify(queryObject)
+        getFilteredPosts(formattedQuery)
+    }, [searchParams])
 
     return (
         <PageWrapper className="relative">
             <h1 className="text-8xl font-satisfice">READ ALL ABOUT IT!</h1>
             <div className="flex flex-col gap-5 pb-20">
-                <Filter setPosts={setPosts} setLoading={setLoading} />
+                <Filter searchResults={searchResults} />
 
                 {isLoading ? (
                     <div className="w-full h-60 flex justify-center items-center">
@@ -23,17 +62,30 @@ export default function Posts() {
                     </div>
                 ) : (
                     <div className="grid grid-cols-3 gap-5">
-                        {posts.map((post, index) => (
+                        {searchResults.results.map((post, index) => (
                             <Post key={index} post={post} isLatest={index === 0} />
                         ))}
                     </div>
                 )}
 
                 <div className="btn-group absolute bottom-0 mb-5">
-                    <button className="btn btn-active">1</button>
-                    <button className="btn">2</button>
-                    <button className="btn">3</button>
-                    <button className="btn">4</button>
+                    {Array.from({ length: searchResults.pagination.totalPages }, (_, index) => index + 1).map(
+                        (pageNumber) => {
+                            return (
+                                <button
+                                    className={cx('btn', {
+                                        'btn-active': pageNumber === searchResults.pagination.page,
+                                    })}
+                                    onClick={() => {
+                                        const updatedQuery = { ...queryParams, page: pageNumber }
+                                        setQueryParams(updatedQuery)
+                                    }}
+                                    disabled={isLoading}>
+                                    {pageNumber}
+                                </button>
+                            )
+                        }
+                    )}
                 </div>
             </div>
         </PageWrapper>

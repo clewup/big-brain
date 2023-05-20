@@ -39,7 +39,7 @@ export default function Create() {
         content: yup
             .string()
             .typeError('Content must be a string')
-            .min(30, 'Content must be 5 characters or more')
+            .min(30, 'Content must be 30 characters or more')
             .required('Content is required'),
         image: yup.string().typeError('Image must be a string').required('Image is required'),
         categories: yup
@@ -89,7 +89,7 @@ export default function Create() {
                 onSubmit={onSubmit}
                 innerRef={formRef}
                 validationSchema={validationSchema}>
-                {({ values, setFieldValue }) => {
+                {({ values, setFieldValue, handleChange }) => {
                     return (
                         <Form>
                             <span className="form-control">
@@ -102,8 +102,16 @@ export default function Create() {
                             <span className="form-control">
                                 <label className="label">Content</label>
 
-                                <Field name="content" type="text">
-                                    {() => <textarea className="textarea textarea-bordered h-96"></textarea>}
+                                <Field name="content">
+                                    {() => {
+                                        return (
+                                            <textarea
+                                                name="content"
+                                                className="textarea textarea-bordered h-96"
+                                                onChange={handleChange}
+                                            />
+                                        )
+                                    }}
                                 </Field>
                                 <ErrorMessage name="content" component="p" className="text-error" />
                             </span>

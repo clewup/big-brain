@@ -1,15 +1,21 @@
 'use client'
 
+import useQueryParams from '@/hooks/useQueryParams/useQueryParams'
 import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import useAuth from '@/lib/lockr-auth/hooks/useAuth'
 import Avvvatars from 'avvvatars-react'
+import { Field, Form, Formik } from 'formik'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
+import { Search as SearchIcon } from 'react-feather'
 
 export default function Header() {
     const { signIn, signOut } = useAuth({ redirectUri: 'http://localhost:3000', applicationId: 1 })
     const { user, isAdmin } = useLockr()
+    const { queryParams, setQueryParams } = useQueryParams()
+    const searchParams = useSearchParams()
 
     return (
         <div className="h-[20vh] p-2">
@@ -27,9 +33,27 @@ export default function Header() {
                     <Link href={'/posts'}>All Posts</Link>
                 </span>
                 <div className="flex gap-2 items-center justify-center">
-                    <div className="form-control">
-                        <input type="text" placeholder="Search" className="input input-bordered" />
-                    </div>
+                    <Formik
+                        initialValues={{ search: searchParams.get('search') || '' }}
+                        onSubmit={(formValues) => {
+                            const updatedQuery = { ...queryParams, search: formValues.search }
+                            setQueryParams(updatedQuery, '/posts')
+                        }}>
+                        <Form>
+                            <div className="input-group">
+                                <Field
+                                    name="search"
+                                    type="text"
+                                    placeholder="Search"
+                                    className="input input-bordered"
+                                />
+                                <button className="btn btn-square btn-primary">
+                                    <SearchIcon />
+                                </button>
+                            </div>
+                        </Form>
+                    </Formik>
+
                     {!user ? (
                         <span>
                             <button onClick={signIn}>Sign In</button>

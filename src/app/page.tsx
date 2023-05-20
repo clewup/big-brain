@@ -33,7 +33,7 @@ export default async function Home() {
     return (
         <PageWrapper className="flex">
             <div className="w-1/4 h-full">
-                <h1 className="text-6xl font-satisfice">THE LATEST</h1>
+                <h1 className="text-8xl font-satisfice">THE LATEST</h1>
                 <span className="flex flex-col gap-5">
                     {likedTweets?.slice(0, 5).map((likedTweet, index) => (
                         <Tweet key={index} tweet={likedTweet} />
@@ -43,11 +43,11 @@ export default async function Home() {
             <span className="divider divider-horizontal" />
             <div className="w-full flex flex-col gap-10">
                 <div>
-                    <h1 className="text-6xl font-satisfice">THIS JUST IN</h1>
+                    <h1 className="text-8xl font-satisfice">THIS JUST IN</h1>
                     <Post post={posts[0]} isLatest={true} />
                 </div>
                 <div>
-                    <h1 className="text-6xl font-satisfice">IN OTHER NEWS</h1>
+                    <h1 className="text-8xl font-satisfice">IN OTHER NEWS</h1>
                     <div className="grid grid-cols-3 grid-rows-2 gap-5">
                         {posts.slice(1, 6).map((post, index) => (
                             <Post key={index} post={post} />

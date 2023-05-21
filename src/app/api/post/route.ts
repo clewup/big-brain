@@ -1,6 +1,22 @@
 import prisma from '@/lib/prisma'
 import { NextRequest, NextResponse as response } from 'next/server'
 
+export async function GET(request: NextRequest) {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+
+    if (id) {
+        const post = await prisma.post.findUnique({ where: { id: Number(id) } })
+
+        if (!post) return response.json({ error: `Post ${id} not found` }, { status: 404 })
+
+        return response.json(post)
+    }
+
+    const posts = await prisma.post.findMany()
+    return response.json(posts)
+}
+
 export async function POST(request: NextRequest) {
     const body = await request.json()
 
@@ -10,9 +26,24 @@ export async function POST(request: NextRequest) {
     const { isValid, errors } = validate(body)
     if (!isValid) return response.json({ error: `Invalid ${errors.join(', ')}` }, { status: 400 })
 
-    const createdPost = await prisma.post.create({
+    if (!body.id) {
+        const createdPost = await prisma.post.create({
+            data: {
+                createdBy: user,
+                updatedBy: user,
+                title: body.title,
+                content: body.content,
+                image: body.image,
+                categories: body.categories,
+            },
+        })
+
+        return response.json(createdPost)
+    }
+
+    const updatedPost = await prisma.post.update({
+        where: { id: body.id },
         data: {
-            createdBy: user,
             updatedBy: user,
             title: body.title,
             content: body.content,
@@ -21,7 +52,7 @@ export async function POST(request: NextRequest) {
         },
     })
 
-    return response.json(createdPost)
+    return response.json(updatedPost)
 }
 
 function validate(body: any) {
@@ -31,7 +62,6 @@ function validate(body: any) {
     if (!body.content) errors.push('content')
     if (!body.image) errors.push('image')
     if (!body.categories) errors.push('categories')
-    if (!body.comments) errors.push('comments')
 
     return {
         isValid: errors.length === 0,

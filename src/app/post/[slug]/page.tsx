@@ -16,7 +16,7 @@ export default async function PostSlug({ params }: PageContext) {
 
     return (
         <PageWrapper>
-            <Post post={post} />
+            <Post post={post} isFullPost={true} />
         </PageWrapper>
     )
 }

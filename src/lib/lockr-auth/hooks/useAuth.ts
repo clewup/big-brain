@@ -67,7 +67,7 @@ const useAuth = ({ redirectUri, applicationId }: UseAuthProps) => {
     }
 
     useEffect(() => {
-        let accessToken = localStorage.getItem('lockr.at')
+        const accessToken = localStorage.getItem('lockr.at')
         if (accessToken) {
             const decodedToken = jwt.decode(accessToken) as UserType
             setUser(decodedToken)

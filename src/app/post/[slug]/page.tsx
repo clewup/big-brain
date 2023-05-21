@@ -3,6 +3,7 @@ import Post from '@/components/Post/Post'
 import constants from '@/constants/constants'
 import { PageContext } from '@/types/nextTypes'
 import { Post as PrismaPost } from '@prisma/client'
+import React from 'react'
 
 async function getPostById(id: number): Promise<PrismaPost> {
     const postResponse = await fetch(`${constants.APP_URL}/api/post?id=${id}`, {

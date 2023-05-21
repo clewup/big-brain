@@ -1,7 +1,7 @@
 'use client'
 
 import { UserType } from '@/lib/lockr-auth/types/userTypes'
-import { createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useState } from 'react'
+import React, { createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useState } from 'react'
 
 interface LockrContextValues {
     user: UserType | null

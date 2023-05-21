@@ -6,7 +6,7 @@ import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import { Post } from '@prisma/client'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { Edit as EditIcon, Trash as DeleteIcon } from 'react-feather'
 
 interface PostProps {

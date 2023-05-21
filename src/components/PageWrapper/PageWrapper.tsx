@@ -3,7 +3,7 @@
 import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import cx from 'classnames'
 import { useRouter } from 'next/navigation'
-import { FC, ReactNode } from 'react'
+import React, { FC, ReactNode } from 'react'
 
 interface PageWrapperProps {
     children: ReactNode

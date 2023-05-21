@@ -181,7 +181,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                                     control: () => 'h-12',
                                 }}
                                 styles={{
-                                    control: (provided, state) => ({
+                                    control: (provided) => ({
                                         ...provided,
                                         outline: '0 0 0 2px #CCCCCC',
                                     }),

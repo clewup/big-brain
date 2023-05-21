@@ -71,9 +71,10 @@ export default function Posts() {
 
                 <div className="btn-group absolute bottom-0 mb-5 w-full left-[50%]">
                     {Array.from({ length: searchResults.pagination.totalPages }, (_, index) => index + 1).map(
-                        (pageNumber) => {
+                        (pageNumber, index) => {
                             return (
                                 <button
+                                    key={index}
                                     className={cx('btn', {
                                         'btn-active': pageNumber === searchResults.pagination.page,
                                     })}

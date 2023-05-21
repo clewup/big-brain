@@ -1,6 +1,6 @@
 import { TweetType } from '@/types/twitterTypes'
 import moment from 'moment'
-import { FC } from 'react'
+import React, { FC } from 'react'
 import {
     BarChart2 as ImpressionsIcon,
     Heart as LikeIcon,

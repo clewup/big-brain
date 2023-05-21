@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires,no-undef
 const withFonts = require('next-fonts')
 
 /** @type {import('next').NextConfig} */
@@ -8,4 +9,5 @@ const nextConfig = {
     },
 }
 
+// eslint-disable-next-line no-undef
 module.exports = withFonts(nextConfig)

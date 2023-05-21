@@ -55,6 +55,18 @@ export async function POST(request: NextRequest) {
     return response.json(updatedPost)
 }
 
+export async function DELETE(request: NextRequest) {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+
+    if (!id) return response.json({ error: `Post ${id} not found` }, { status: 404 })
+
+    const deletedPost = await prisma.post.delete({ where: { id: Number(id) } })
+    if (!deletedPost) return response.json({ error: `There was a problem deleting post ${id}` }, { status: 400 })
+
+    return response.json({ message: `Post ${id} successfully deleted` })
+}
+
 function validate(body: any) {
     const errors: string[] = []
 

@@ -1,10 +1,13 @@
 'use client'
 
+import Toast from '@/components/Toast/Toast'
+import useApi from '@/hooks/useApi/useApi'
 import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import { Post } from '@prisma/client'
 import Link from 'next/link'
-import { FC } from 'react'
-import { Edit as EditIcon } from 'react-feather'
+import { useRouter } from 'next/navigation'
+import { FC, useState } from 'react'
+import { Edit as EditIcon, Trash as DeleteIcon } from 'react-feather'
 
 interface PostProps {
     post: Post
@@ -14,6 +17,19 @@ interface PostProps {
 
 const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => {
     const { isAdmin } = useLockr()
+    const { del } = useApi()
+    const router = useRouter()
+
+    const [isDeleted, setDeleted] = useState(false)
+
+    async function deletePost() {
+        const deletedResponse = await del(`/api/post?id=${post.id}`)
+        const deletedData = await deletedResponse.json()
+
+        if (!deletedResponse.ok) throw new Error(deletedData.error)
+
+        setDeleted(true)
+    }
 
     return (
         <Link href={`/post/${post.id}`} className="card w-full bg-base-100 shadow-xl">
@@ -43,9 +59,12 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
                         <Link href={`/create?id=${post.id}`}>
                             <EditIcon />
                         </Link>
+                        <DeleteIcon onClick={deletePost} />
                     </div>
                 )}
             </div>
+
+            {isDeleted && <Toast text="Post successfully deleted." variant="error" callback={() => router.push('/')} />}
         </Link>
     )
 }

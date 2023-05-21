@@ -1,8 +1,9 @@
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
 import Tweet from '@/components/Tweet/Tweet'
-import prisma from '@/lib/prisma'
+import constants from '@/constants/constants'
 import { mapLikedTweets } from '@/utils/mappers/tweetMapper'
+import { Post as PrismaPost } from '@prisma/client'
 import Link from 'next/link'
 import React from 'react'
 import { ArrowRightCircle as NextIcon } from 'react-feather'
@@ -22,8 +23,16 @@ async function getLikedTweets() {
     return mapLikedTweets(twitterData)
 }
 
-async function getPosts() {
-    return prisma.post.findMany({ orderBy: { createdAt: 'desc' }, take: 6 })
+async function getPosts(): Promise<PrismaPost[]> {
+    const postsResponse = await fetch(`${constants.APP_URL}/api/post`, {
+        method: 'GET',
+        cache: 'no-store',
+    })
+    const postsData = await postsResponse.json()
+
+    if (!postsResponse.ok) throw new Error(postsData.error)
+
+    return postsData
 }
 
 export default async function Home() {
@@ -46,20 +55,22 @@ export default async function Home() {
                     <h1 className="text-8xl font-satisfice">THIS JUST IN</h1>
                     <Post post={posts[0]} isLatest={true} />
                 </div>
-                <div>
-                    <h1 className="text-8xl font-satisfice">IN OTHER NEWS</h1>
-                    <div className="grid grid-cols-3 grid-rows-2 gap-5">
-                        {posts.slice(1, 6).map((post, index) => (
-                            <Post key={index} post={post} />
-                        ))}
-                        <Link
-                            href={'/posts'}
-                            className="h-full w-full flex flex-col justify-center items-center text-2xl gap-5">
-                            <NextIcon size={40} />
-                            <p>View More</p>
-                        </Link>
+                {posts.length > 1 && (
+                    <div>
+                        <h1 className="text-8xl font-satisfice">IN OTHER NEWS</h1>
+                        <div className="grid grid-cols-3 grid-rows-2 gap-5">
+                            {posts.slice(1, 6).map((post, index) => (
+                                <Post key={index} post={post} />
+                            ))}
+                            <Link
+                                href={'/posts'}
+                                className="h-full w-full flex flex-col justify-center items-center text-2xl gap-5">
+                                <NextIcon size={40} />
+                                <p>View More</p>
+                            </Link>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </PageWrapper>
     )

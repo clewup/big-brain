@@ -13,8 +13,11 @@ export async function GET(request: NextRequest) {
     const posts = await prisma.post.findMany({ orderBy: { createdAt: 'desc' } })
 
     let filteredPosts = posts
-    if (search) filteredPosts = filteredPosts.filter((post) => post.title.includes(search))
-    if (category) filteredPosts = filteredPosts.filter((post) => post.categories.includes(category))
+    if (search) filteredPosts = filteredPosts.filter((post) => post.title.toLowerCase().includes(search.toLowerCase()))
+    if (category)
+        filteredPosts = filteredPosts.filter((post) =>
+            post.categories.some((cat) => cat.toLowerCase() === category.toLowerCase())
+        )
 
     const paginatedPosts = filteredPosts.slice((Number(page) - 1) * PAGE_SIZE, Number(page) * PAGE_SIZE)
     const totalPages = Math.ceil(filteredPosts.length / PAGE_SIZE)

@@ -1,4 +1,5 @@
 import { Post } from '@prisma/client'
+import Link from 'next/link'
 import { FC } from 'react'
 
 interface PostProps {
@@ -8,7 +9,7 @@ interface PostProps {
 
 const Post: FC<PostProps> = ({ post, isLatest = false }) => {
     return (
-        <div className="card w-full bg-base-100 shadow-xl">
+        <Link href={`/post/${post.id}`} className="card w-full bg-base-100 shadow-xl">
             <figure>
                 <img
                     src={post.image}
@@ -30,7 +31,7 @@ const Post: FC<PostProps> = ({ post, isLatest = false }) => {
                     ))}
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

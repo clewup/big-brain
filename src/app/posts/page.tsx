@@ -10,6 +10,7 @@ import cx from 'classnames'
 import { useSearchParams } from 'next/navigation'
 import { stringify } from 'querystring'
 import React, { useEffect, useState } from 'react'
+import { TailSpin } from 'react-loader-spinner'
 
 export default function Posts() {
     const { queryParams, setQueryParams } = useQueryParams()
@@ -58,7 +59,7 @@ export default function Posts() {
 
                 {isLoading ? (
                     <div className="w-full h-60 flex justify-center items-center">
-                        <p className="text-lg">Printing Press</p>
+                        <TailSpin color="#111111" />
                     </div>
                 ) : (
                     <div className="grid grid-cols-3 gap-5">

@@ -1,5 +1,6 @@
 'use client'
 
+import constants from '@/constants/constants'
 import useQueryParams from '@/hooks/useQueryParams/useQueryParams'
 import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import useAuth from '@/lib/lockr-auth/hooks/useAuth'
@@ -12,7 +13,7 @@ import React from 'react'
 import { Search as SearchIcon } from 'react-feather'
 
 export default function Header() {
-    const { signIn, signOut } = useAuth({ redirectUri: 'http://localhost:3000', applicationId: 1 })
+    const { signIn, signOut } = useAuth({ redirectUri: constants.APP_URL, applicationId: 1 })
     const { user, isAdmin } = useLockr()
     const { queryParams, setQueryParams } = useQueryParams()
     const searchParams = useSearchParams()

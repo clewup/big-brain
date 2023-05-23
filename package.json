@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-        "test": "jest"
+        "test": "jest",
+        "postinstall": "prisma generate"
     },
     "husky": {
         "hooks": {
@@ -52,6 +53,7 @@
         "next-fonts": "^1.5.1",
         "next-themes": "^0.2.1",
         "postcss": "^8.4.23",
+        "postinstall": "^0.8.0",
         "query-string": "^8.1.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",

@@ -3,6 +3,7 @@ import PostForm from '@/components/PostForm/PostForm'
 import constants from '@/constants/constants'
 import { PageContext } from '@/types/nextTypes'
 import { Post } from '@prisma/client'
+import { Metadata, ResolvingMetadata } from 'next'
 import React from 'react'
 
 async function getPostById(id: string | undefined): Promise<Post | undefined> {
@@ -15,6 +16,18 @@ async function getPostById(id: string | undefined): Promise<Post | undefined> {
         cache: 'no-store',
     })
     return postResponse.json()
+}
+
+export async function generateMetadata({ searchParams }: PageContext, parent?: ResolvingMetadata): Promise<Metadata> {
+    const initialPost = await getPostById(searchParams.id)
+    const previousImages = (await parent)?.openGraph?.images || []
+
+    return {
+        title: initialPost?.title ? `Blog - ${initialPost.title}` : 'Blog - Create',
+        openGraph: {
+            images: [initialPost?.image || '', ...previousImages],
+        },
+    }
 }
 
 export default async function Create({ searchParams }: PageContext) {

@@ -2,8 +2,10 @@ import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
 import Tweet from '@/components/Tweet/Tweet'
 import constants from '@/constants/constants'
+import { PageContext } from '@/types/nextTypes'
 import { mapLikedTweets } from '@/utils/mappers/tweetMapper'
 import { Post as PrismaPost } from '@prisma/client'
+import { Metadata, ResolvingMetadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
 import { ArrowRightCircle as NextIcon } from 'react-feather'
@@ -33,6 +35,18 @@ async function getPosts(): Promise<PrismaPost[]> {
     if (!postsResponse.ok) throw new Error(postsData.error)
 
     return postsData
+}
+
+// eslint-disable-next-line no-empty-pattern
+export async function generateMetadata({}: PageContext, parent?: ResolvingMetadata): Promise<Metadata> {
+    const previousImages = (await parent)?.openGraph?.images || []
+
+    return {
+        title: 'Blog',
+        openGraph: {
+            images: [...previousImages],
+        },
+    }
 }
 
 export default async function Home() {

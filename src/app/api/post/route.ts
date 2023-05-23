@@ -59,7 +59,7 @@ export async function DELETE(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
 
-    if (!id) return response.json({ error: `Post ${id} not found` }, { status: 404 })
+    if (!id) return response.json({ error: `Missing id` }, { status: 404 })
 
     const deletedPost = await prisma.post.delete({ where: { id: Number(id) } })
     if (!deletedPost) return response.json({ error: `There was a problem deleting post ${id}` }, { status: 400 })

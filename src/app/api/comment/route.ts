@@ -30,14 +30,21 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
     const body = await request.json()
 
+    if (!body.id) return response.json({ error: `Missing id` }, { status: 404 })
+
     const user = request.headers.get('x-user')
     if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
 
     const { isValid, errors } = validate(body)
     if (!isValid) return response.json({ error: `Invalid ${errors.join(', ')}` }, { status: 400 })
 
+    const comment = await prisma.comment.findUnique({ where: { id: Number(body.id) } })
+    if (!comment) return response.json({ error: `There was a problem finding comment ${body.id}` }, { status: 400 })
+    if (comment.createdBy !== user)
+        return response.json({ error: `Comment ${body.id} was not created by user ${user}` }, { status: 400 })
+
     const updatedComment = await prisma.comment.update({
-        where: { id: body.post },
+        where: { id: body.id },
         data: {
             updatedBy: user,
             content: body.content,
@@ -51,7 +58,7 @@ export async function DELETE(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
 
-    if (!id) return response.json({ error: `Comment ${id} not found` }, { status: 404 })
+    if (!id) return response.json({ error: `Missing id` }, { status: 404 })
 
     const user = request.headers.get('x-user')
     if (!user) return response.json({ error: 'Missing user' }, { status: 400 })

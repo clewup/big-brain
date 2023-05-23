@@ -1,4 +1,6 @@
+import { UserType } from '@/lib/lockr-auth/types/userTypes'
 import prisma from '@/lib/prisma'
+import { Comment } from '@prisma/client'
 import { NextRequest, NextResponse as response } from 'next/server'
 
 export async function GET(request: NextRequest) {
@@ -11,16 +13,25 @@ export async function GET(request: NextRequest) {
         if (!post) return response.json({ error: `Post ${id} not found` }, { status: 404 })
 
         // map the user information to the comments
-        post.comments = post.comments.map((comment) => ({
-            ...comment,
-            user: {
-                id: '1',
-                name: 'Test User',
-                email: 'test@comment.com',
-                image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1684696514/xqlrb2zgkwc77a53zbyr.png',
-                role: 'User',
-            },
-        }))
+        const commentsWithUsers: (Comment & { user: UserType })[] = []
+
+        for (const comment of post.comments) {
+            const userResponse = await fetch(`${process.env.LOCKR_URL}/api/user?id=${comment.createdBy}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${process.env.LOCKR_APPLICATION_SECRET}`,
+                },
+            })
+            const userData = await userResponse.json()
+            console.log(userData)
+
+            commentsWithUsers.push({
+                ...comment,
+                user: userData,
+            })
+        }
+
+        post.comments = commentsWithUsers
 
         return response.json(post)
     }

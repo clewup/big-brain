@@ -14,7 +14,10 @@ interface CommentFormProps {
 const CommentForm: FC<CommentFormProps> = ({ post }) => {
     const { post: apiPost } = useApi()
     const { user } = useLockr()
-    const { signIn } = useAuth({ redirectUri: `${constants.APP_URL}/post/${post}`, applicationId: 1 })
+    const { signIn } = useAuth({
+        redirectUri: `${constants.APP_URL}/post/${post}`,
+        applicationId: constants.APPLICATION_ID,
+    })
 
     const [hasSubmitted, setSubmitted] = useState(false)
 

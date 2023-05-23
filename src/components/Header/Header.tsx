@@ -13,7 +13,7 @@ import React from 'react'
 import { Search as SearchIcon } from 'react-feather'
 
 export default function Header() {
-    const { signIn, signOut } = useAuth({ redirectUri: constants.APP_URL, applicationId: 1 })
+    const { signIn, signOut } = useAuth({ redirectUri: constants.APP_URL, applicationId: constants.APPLICATION_ID })
     const { user, isAdmin } = useLockr()
     const { queryParams, setQueryParams } = useQueryParams()
     const searchParams = useSearchParams()

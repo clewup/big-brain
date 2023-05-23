@@ -1,18 +1,20 @@
+import Comment from '@/components/Comment/Comment'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
 import constants from '@/constants/constants'
+import { UserType } from '@/lib/lockr-auth/types/userTypes'
 import { PageContext } from '@/types/nextTypes'
-import { Post as PrismaPost } from '@prisma/client'
+import { Comment as PrismaComment, Post as PrismaPost } from '@prisma/client'
 import { Metadata, ResolvingMetadata } from 'next'
 import React from 'react'
 
-async function getPostById(id: number): Promise<PrismaPost> {
+async function getPostById(id: number): Promise<PrismaPost & { comments: (PrismaComment & { user: UserType })[] }> {
     const postResponse = await fetch(`${constants.APP_URL}/api/post?id=${id}`, {
         method: 'GET',
         cache: 'no-store',
     })
     const postData = await postResponse.json()
-    if (!postResponse.ok) throw new Error(postData.error)
+    if (!postResponse.ok) throw new Error((postData as any).error)
 
     return postData
 }
@@ -39,6 +41,15 @@ export default async function PostSlug({ params }: PageContext) {
     return (
         <PageWrapper>
             <Post post={post} isFullPost={true} />
+
+            <h1 className="text-8xl font-satisfice mt-10">COMMENTS</h1>
+            <span className="divider" />
+
+            <div className="flex flex-col gap-5">
+                {post.comments.map((comment, index) => (
+                    <Comment key={index} comment={comment} user={comment.user} />
+                ))}
+            </div>
         </PageWrapper>
     )
 }

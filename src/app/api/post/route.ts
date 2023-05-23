@@ -6,9 +6,21 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get('id')
 
     if (id) {
-        const post = await prisma.post.findUnique({ where: { id: Number(id) } })
+        const post = await prisma.post.findUnique({ include: { comments: true }, where: { id: Number(id) } })
 
         if (!post) return response.json({ error: `Post ${id} not found` }, { status: 404 })
+
+        // map the user information to the comments
+        post.comments = post.comments.map((comment) => ({
+            ...comment,
+            user: {
+                id: '1',
+                name: 'Test User',
+                email: 'test@comment.com',
+                image: 'https://res.cloudinary.com/dliog6kq6/image/upload/v1684696514/xqlrb2zgkwc77a53zbyr.png',
+                role: 'User',
+            },
+        }))
 
         return response.json(post)
     }

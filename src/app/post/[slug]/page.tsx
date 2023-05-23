@@ -1,4 +1,5 @@
 import Comment from '@/components/Comment/Comment'
+import CommentForm from '@/components/CommentForm/CommentForm'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
 import constants from '@/constants/constants'
@@ -49,6 +50,9 @@ export default async function PostSlug({ params }: PageContext) {
                 {post.comments.map((comment, index) => (
                     <Comment key={index} comment={comment} user={comment.user} />
                 ))}
+            </div>
+            <div className="mt-10 w-full">
+                <CommentForm post={post.id} />
             </div>
         </PageWrapper>
     )

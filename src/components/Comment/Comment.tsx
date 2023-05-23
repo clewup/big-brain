@@ -18,7 +18,7 @@ const Comment: FC<CommentProps> = ({ comment, user }) => {
                 </span>
                 <p className="text-lg">{user.name}</p>
             </div>
-            <p className="text-neutral">{moment(comment.updatedAt).format('DD/MM/YYYY HH:MM')}</p>
+            <p className="text-neutral">{moment(comment.updatedAt).format('DD/MM/YYYY HH:mm')}</p>
         </div>
     )
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import { LockrContext } from '@/lib/lockr-auth/contexts/LockrContext'
 import { UserType } from '@/lib/lockr-auth/types/userTypes'
 import jwt from 'jsonwebtoken'

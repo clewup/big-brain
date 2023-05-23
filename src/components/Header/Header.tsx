@@ -57,7 +57,9 @@ export default function Header() {
 
                     {!user ? (
                         <span>
-                            <button onClick={signIn}>Sign In</button>
+                            <button className="btn btn-ghost" onClick={signIn}>
+                                Log in
+                            </button>
                         </span>
                     ) : (
                         <div className="dropdown dropdown-end">

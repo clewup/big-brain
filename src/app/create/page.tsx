@@ -18,7 +18,7 @@ async function getPostById(id: string | undefined): Promise<Post | undefined> {
     return postResponse.json()
 }
 
-export async function generateMetadata({ searchParams }: PageContext, parent?: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: PageContext, parent: ResolvingMetadata): Promise<Metadata> {
     const initialPost = await getPostById(searchParams.id)
     const previousImages = (await parent)?.openGraph?.images || []
 

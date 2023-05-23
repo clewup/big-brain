@@ -38,7 +38,7 @@ async function getPosts(): Promise<PrismaPost[]> {
 }
 
 // eslint-disable-next-line no-empty-pattern
-export async function generateMetadata({}: PageContext, parent?: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata({}: PageContext, parent: ResolvingMetadata): Promise<Metadata> {
     const previousImages = (await parent)?.openGraph?.images || []
 
     return {

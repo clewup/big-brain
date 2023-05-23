@@ -20,9 +20,9 @@ async function getPostById(id: number): Promise<PrismaPost & { comments: (Prisma
     return postData
 }
 
-export async function generateMetadata({ params }: PageContext, parent?: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata({ params }: PageContext, parent: ResolvingMetadata): Promise<Metadata> {
     const post = await getPostById(Number(params.slug))
-    const previousImages = (await parent)?.openGraph?.images || []
+    const previousImages = (await parent).openGraph?.images || []
 
     return {
         title: `Blog - ${post.title}`,

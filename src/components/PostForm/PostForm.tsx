@@ -1,6 +1,7 @@
 'use client'
 
 import constants from '@/constants/constants'
+import metadata from '@/constants/metadata'
 import { useNotification } from '@/contexts/NotificationContext/NotificationContext'
 import useApi from '@/hooks/useApi/useApi'
 import { Post } from '@prisma/client'
@@ -112,12 +113,82 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
             {({ values, setFieldValue, handleChange, isSubmitting }) => {
                 return (
                     <Form>
-                        <span className="form-control">
-                            <label className="label">Title</label>
+                        <div className="flex items-center justify-center gap-20 mb-10">
+                            {isImageLoading ? (
+                                <div className="my-5">
+                                    <TailSpin color="#111111" width={50} height={50} />
+                                </div>
+                            ) : values.image ? (
+                                <div className="mt-5 h-[300px] w-[300px] avatar">
+                                    <img src={values.image} alt="post_image" className="mask mask-squircle" />
+                                </div>
+                            ) : (
+                                <div className="mt-5 h-[300px] w-[300px] avatar">
+                                    <img
+                                        src={metadata.images.placeholder}
+                                        alt="post_image"
+                                        className="mask mask-squircle"
+                                    />
+                                </div>
+                            )}
 
-                            <Field name="title" type="text" className="input input-bordered" disabled={isSubmitting} />
-                            <ErrorMessage name="title" component="p" className="text-error" />
-                        </span>
+                            <div>
+                                <span className="form-control">
+                                    <label className="label">Image</label>
+
+                                    <input
+                                        type="file"
+                                        className="file-input file-input-bordered"
+                                        disabled={isSubmitting}
+                                        onChange={({ target: { files } }) => uploadImage(files?.[0])}
+                                    />
+                                    <ErrorMessage name="image" component="p" className="text-error" />
+                                </span>
+                                <span className="form-control">
+                                    <label className="label">Title</label>
+
+                                    <Field
+                                        name="title"
+                                        type="text"
+                                        className="input input-bordered"
+                                        disabled={isSubmitting}
+                                    />
+                                    <ErrorMessage name="title" component="p" className="text-error" />
+                                </span>
+
+                                <span className="form-control">
+                                    <label className="label">Categories</label>
+
+                                    <Select
+                                        isMulti={true}
+                                        onChange={(options: MultiValue<{ label: string; value: string }>) => {
+                                            const flattenedOptions = options.flatMap((option) => option.value)
+                                            setFieldValue('categories', flattenedOptions)
+                                        }}
+                                        theme={(theme) => ({
+                                            ...theme,
+                                            borderRadius: 7,
+                                            colors: {
+                                                ...theme.colors,
+                                                primary: '#CCCCCC',
+                                            },
+                                        })}
+                                        classNames={{
+                                            control: () => 'h-12',
+                                        }}
+                                        styles={{
+                                            control: (provided) => ({
+                                                ...provided,
+                                                outline: '0 0 0 2px #CCCCCC',
+                                            }),
+                                        }}
+                                        isDisabled={isSubmitting}
+                                        value={formatSelectOptions(values.categories)}
+                                    />
+                                    <ErrorMessage name="categories" component="p" className="text-error" />
+                                </span>
+                            </div>
+                        </div>
 
                         <span className="form-control">
                             <label className="label">Content</label>
@@ -136,62 +207,6 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                                 }}
                             </Field>
                             <ErrorMessage name="content" component="p" className="text-error" />
-                        </span>
-
-                        {isImageLoading ? (
-                            <div className="my-5">
-                                <TailSpin color="#111111" width={50} height={50} />
-                            </div>
-                        ) : (
-                            values.image && (
-                                <div className="mt-5 h-[300px] w-[300px] avatar">
-                                    <img src={values.image} alt="post_image" className="mask mask-squircle" />
-                                </div>
-                            )
-                        )}
-
-                        <span className="form-control">
-                            <label className="label">Image</label>
-
-                            <input
-                                type="file"
-                                className="file-input file-input-bordered"
-                                disabled={isSubmitting}
-                                onChange={({ target: { files } }) => uploadImage(files?.[0])}
-                            />
-                            <ErrorMessage name="image" component="p" className="text-error" />
-                        </span>
-
-                        <span className="form-control">
-                            <label className="label">Categories</label>
-
-                            <Select
-                                isMulti={true}
-                                onChange={(options: MultiValue<{ label: string; value: string }>) => {
-                                    const flattenedOptions = options.flatMap((option) => option.value)
-                                    setFieldValue('categories', flattenedOptions)
-                                }}
-                                theme={(theme) => ({
-                                    ...theme,
-                                    borderRadius: 7,
-                                    colors: {
-                                        ...theme.colors,
-                                        primary: '#CCCCCC',
-                                    },
-                                })}
-                                classNames={{
-                                    control: () => 'h-12',
-                                }}
-                                styles={{
-                                    control: (provided) => ({
-                                        ...provided,
-                                        outline: '0 0 0 2px #CCCCCC',
-                                    }),
-                                }}
-                                isDisabled={isSubmitting}
-                                value={formatSelectOptions(values.categories)}
-                            />
-                            <ErrorMessage name="categories" component="p" className="text-error" />
                         </span>
 
                         <div className="mt-10">

@@ -70,6 +70,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
 
         formHelpers.setSubmitting(false)
         setSubmitted(true)
+        router.refresh()
     }
 
     async function uploadImage(image: Blob | undefined) {

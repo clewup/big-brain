@@ -10,8 +10,6 @@ interface CommentProps {
 }
 
 const Comment: FC<CommentProps> = ({ comment, user }) => {
-    console.log(user.image)
-
     return (
         <div className="w-full h-fit flex flex-col gap-2">
             <p className="text-2xl">{comment.content}</p>

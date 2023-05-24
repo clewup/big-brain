@@ -23,8 +23,6 @@ export async function GET(request: NextRequest) {
                 },
             })
             const userData = await userResponse.json()
-            console.log(userData)
-
             commentsWithUsers.push({
                 ...comment,
                 user: userData,

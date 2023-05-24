@@ -5,7 +5,8 @@ import useApi from '@/hooks/useApi/useApi'
 import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import useAuth from '@/lib/lockr-auth/hooks/useAuth'
 import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikValues } from 'formik'
-import React, { FC, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import React, { FC } from 'react'
 
 interface CommentFormProps {
     post: number
@@ -18,8 +19,7 @@ const CommentForm: FC<CommentFormProps> = ({ post }) => {
         redirectUri: `${constants.APP_URL}/post/${post}`,
         applicationId: constants.APPLICATION_ID,
     })
-
-    const [hasSubmitted, setSubmitted] = useState(false)
+    const router = useRouter()
 
     type CommentFormValues = {
         content: string
@@ -38,7 +38,7 @@ const CommentForm: FC<CommentFormProps> = ({ post }) => {
         if (!commentResponse.ok) throw new Error('There was a problem creating the comment')
 
         formHelpers.setSubmitting(false)
-        setSubmitted(true)
+        router.refresh()
     }
 
     if (!user) {
@@ -71,7 +71,7 @@ const CommentForm: FC<CommentFormProps> = ({ post }) => {
                                             value={values.content}
                                             className="textarea textarea-bordered h-20"
                                             onChange={handleChange}
-                                            disabled={isSubmitting || hasSubmitted}
+                                            disabled={isSubmitting}
                                         />
                                     )
                                 }}

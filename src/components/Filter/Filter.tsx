@@ -53,7 +53,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
     }
 
     return (
-        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        <Formik initialValues={initialValues} enableReinitialize={true} onSubmit={onSubmit}>
             {({ values, handleChange }) => {
                 return (
                     <Form className="flex items-center justify-between gap-20 py-1">

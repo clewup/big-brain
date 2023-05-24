@@ -43,8 +43,8 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
     }
 
     return (
-        <Link href={`/post/${post.id}`} className="card w-full bg-base-100 shadow-xl">
-            <figure>
+        <div className="card w-full bg-base-100 shadow-xl">
+            <figure onClick={() => router.push(`/post/${post.id}`)} className="cursor-pointer">
                 <img
                     src={post.image}
                     alt={post.title}
@@ -60,9 +60,9 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
                 {isFullPost ? <p>{post.content}</p> : <p>{post.content.substring(0, 200)}...</p>}
                 <div className="card-actions justify-start">
                     {post.categories.map((category, index) => (
-                        <div key={index} className="text-secondary">
+                        <Link href={`/posts?category=${category}`} key={index} className="text-secondary">
                             {category}
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
@@ -92,7 +92,7 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
                     },
                 ]}
             />
-        </Link>
+        </div>
     )
 }
 

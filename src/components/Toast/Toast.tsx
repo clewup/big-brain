@@ -1,28 +1,12 @@
-'use client'
-
 import cx from 'classnames'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 
 interface ToastProps {
     text: string
     variant?: 'success' | 'info' | 'error' | 'warning'
-    callback?: () => void
 }
 
-const Toast: FC<ToastProps> = ({ text, variant = 'success', callback }) => {
-    const [isRendered, setRendered] = useState(true)
-
-    useEffect(() => {
-        setTimeout(() => {
-            setRendered(false)
-            callback?.()
-        }, 4000)
-    }, [])
-
-    if (!isRendered) {
-        return null
-    }
-
+const Toast: FC<ToastProps> = ({ text, variant = 'success' }) => {
     return (
         <div className="toast">
             <div

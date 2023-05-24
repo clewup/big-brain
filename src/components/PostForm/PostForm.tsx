@@ -1,7 +1,7 @@
 'use client'
 
-import Toast from '@/components/Toast/Toast'
 import constants from '@/constants/constants'
+import { useNotification } from '@/contexts/NotificationContext/NotificationContext'
 import useApi from '@/hooks/useApi/useApi'
 import { Post } from '@prisma/client'
 import cx from 'classnames'
@@ -21,9 +21,8 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
     const formRef = useRef<FormikProps<CreateFormValues>>(null)
     const { post } = useApi()
     const router = useRouter()
+    const { pushNotification } = useNotification()
 
-    const [hasSubmitted, setSubmitted] = useState(false)
-    const [id, setId] = useState(initialPost?.id)
     const [isImageLoading, setImageLoading] = useState(false)
 
     type CreateFormValues = {
@@ -66,11 +65,18 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
         const postResponse = await post<Post>('/api/post', formValues)
         if (!postResponse.ok) throw new Error('There was a problem creating the post')
         const postData: Post = await postResponse.json()
-        setId(postData.id)
 
         formHelpers.setSubmitting(false)
-        setSubmitted(true)
-        router.refresh()
+
+        pushNotification({
+            text: 'Post created!',
+            variant: 'success',
+        })
+
+        setTimeout(() => {
+            router.refresh()
+            router.push(`/post/${postData.id}`)
+        }, 100)
     }
 
     async function uploadImage(image: Blob | undefined) {
@@ -109,12 +115,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                         <span className="form-control">
                             <label className="label">Title</label>
 
-                            <Field
-                                name="title"
-                                type="text"
-                                className="input input-bordered"
-                                disabled={isSubmitting || hasSubmitted}
-                            />
+                            <Field name="title" type="text" className="input input-bordered" disabled={isSubmitting} />
                             <ErrorMessage name="title" component="p" className="text-error" />
                         </span>
 
@@ -129,7 +130,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                                             value={values.content}
                                             className="textarea textarea-bordered h-96"
                                             onChange={handleChange}
-                                            disabled={isSubmitting || hasSubmitted}
+                                            disabled={isSubmitting}
                                         />
                                     )
                                 }}
@@ -155,7 +156,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                             <input
                                 type="file"
                                 className="file-input file-input-bordered"
-                                disabled={isSubmitting || hasSubmitted}
+                                disabled={isSubmitting}
                                 onChange={({ target: { files } }) => uploadImage(files?.[0])}
                             />
                             <ErrorMessage name="image" component="p" className="text-error" />
@@ -187,7 +188,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                                         outline: '0 0 0 2px #CCCCCC',
                                     }),
                                 }}
-                                isDisabled={isSubmitting || hasSubmitted}
+                                isDisabled={isSubmitting}
                                 value={formatSelectOptions(values.categories)}
                             />
                             <ErrorMessage name="categories" component="p" className="text-error" />
@@ -196,17 +197,10 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                         <div className="mt-10">
                             <button
                                 className={cx('btn btn-primary', { loading: isSubmitting })}
-                                disabled={isSubmitting || hasSubmitted}>
+                                disabled={isSubmitting}>
                                 {initialPost ? 'Update' : 'Create'}
                             </button>
                         </div>
-
-                        {hasSubmitted && (
-                            <Toast
-                                text={`Post successfully ${initialPost ? 'updated' : 'created'}.`}
-                                callback={() => router.push(`/post/${id}`)}
-                            />
-                        )}
                     </Form>
                 )
             }}

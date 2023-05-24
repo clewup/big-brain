@@ -1,6 +1,7 @@
 'use client'
 
 import Modal from '@/components/Modal/Modal'
+import { useNotification } from '@/contexts/NotificationContext/NotificationContext'
 import useApi from '@/hooks/useApi/useApi'
 import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import { Post } from '@prisma/client'
@@ -19,6 +20,7 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
     const { isAdmin } = useLockr()
     const { del } = useApi()
     const router = useRouter()
+    const { pushNotification } = useNotification()
 
     const [isModalOpen, setModalOpen] = useState(false)
 
@@ -29,6 +31,12 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
         if (!deletedResponse.ok) throw new Error(deletedData.error)
 
         setModalOpen(false)
+
+        pushNotification({
+            text: 'Post deleted!',
+            variant: 'error',
+        })
+
         router.refresh()
         router.push('/')
     }
@@ -70,7 +78,7 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
                 id="delete-post"
                 isOpen={isModalOpen}
                 title="Are you sure?"
-                text="This action is irreversible and can not be undone."
+                text="This action can not be undone."
                 buttons={[
                     {
                         text: 'No',

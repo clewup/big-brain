@@ -1,6 +1,6 @@
 'use client'
 
-import Toast from '@/components/Toast/Toast'
+import Modal from '@/components/Modal/Modal'
 import useApi from '@/hooks/useApi/useApi'
 import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import { Post } from '@prisma/client'
@@ -20,7 +20,7 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
     const { del } = useApi()
     const router = useRouter()
 
-    const [isDeleted, setDeleted] = useState(false)
+    const [isModalOpen, setModalOpen] = useState(false)
 
     async function deletePost() {
         const deletedResponse = await del(`/api/post?id=${post.id}`)
@@ -28,7 +28,9 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
 
         if (!deletedResponse.ok) throw new Error(deletedData.error)
 
-        setDeleted(true)
+        setModalOpen(false)
+        router.refresh()
+        router.push('/')
     }
 
     return (
@@ -59,12 +61,27 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
                         <Link href={`/create?id=${post.id}`}>
                             <EditIcon />
                         </Link>
-                        <DeleteIcon onClick={deletePost} />
+                        <DeleteIcon onClick={() => setModalOpen(true)} />
                     </div>
                 )}
             </div>
 
-            {isDeleted && <Toast text="Post successfully deleted." variant="error" callback={() => router.push('/')} />}
+            <Modal
+                id="delete-post"
+                isOpen={isModalOpen}
+                title="Are you sure?"
+                text="This action is irreversible and can not be undone."
+                buttons={[
+                    {
+                        text: 'No',
+                    },
+                    {
+                        text: 'Yes',
+                        variant: 'error',
+                        onClick: deletePost,
+                    },
+                ]}
+            />
         </Link>
     )
 }

@@ -4,6 +4,7 @@ import constants from '@/constants/constants'
 import metadata from '@/constants/metadata'
 import { useNotification } from '@/contexts/NotificationContext/NotificationContext'
 import useApi from '@/hooks/useApi/useApi'
+import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import { Post } from '@prisma/client'
 import cx from 'classnames'
 import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik'
@@ -23,6 +24,11 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
     const { post } = useApi()
     const router = useRouter()
     const { pushNotification } = useNotification()
+    const { user, isAdmin } = useLockr()
+
+    if (!user || (initialPost && initialPost.createdBy !== user.email && !isAdmin)) {
+        router.push('/')
+    }
 
     const [isImageLoading, setImageLoading] = useState(false)
 

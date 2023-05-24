@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
-import { Search as SearchIcon } from 'react-feather'
+import { Edit as EditIcon, Search as SearchIcon } from 'react-feather'
 
 export default function Header() {
     const { signIn, signOut } = useAuth({ redirectUri: constants.APP_URL, applicationId: constants.APPLICATION_ID })
@@ -19,20 +19,26 @@ export default function Header() {
     const searchParams = useSearchParams()
 
     return (
-        <div className="h-[20vh] p-2">
-            <div className="flex  justify-between">
-                <span className="flex items-center font-chomsky">
-                    <div className="w-28 h-28 bg-secondary text-base-100 text-9xl flex justify-center items-center">
+        <div className="h-[8vh] p-2 px-40 flex justify-between">
+            <div className="flex justify-between">
+                <Link href="/" className="flex items-center font-chomsky">
+                    <div className="w-12 h-12 bg-secondary text-base-100 text-6xl flex justify-center items-center">
                         <h1>D</h1>
                     </div>
-                    <h1 className="text-9xl">aily Blog</h1>
+                    <h1 className="text-6xl">aily Blog</h1>
+                </Link>
+                <span className="flex gap-10 mx-10 items-center text-lg">
+                    <Link href="/">Latest</Link>
+                    <Link href="/posts">All Posts</Link>
+                    <Link href="/">Authors</Link>
+                    <Link href="/">Subscribe</Link>
                 </span>
             </div>
-            <div className="h-14 bg-base-300 mt-2 flex items-center justify-between gap-20 px-2 rounded-xl">
-                <span className="flex gap-20 mx-10">
-                    <Link href={'/'}>Latest</Link>
-                    <Link href={'/posts'}>All Posts</Link>
-                </span>
+            <div className=" flex items-center justify-between gap-10 rounded-xl">
+                <Link href="/create" className="flex gap-2 items-center text-lg">
+                    Write
+                    <EditIcon size={20} />
+                </Link>
                 <div className="flex gap-2 items-center justify-center">
                     <Formik
                         initialValues={{ search: searchParams.get('search') || '' }}
@@ -83,8 +89,6 @@ export default function Header() {
                             <ul
                                 tabIndex={0}
                                 className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                                {isAdmin && <AdminLinks />}
-
                                 <li onClick={signOut}>
                                     <a>Logout</a>
                                 </li>
@@ -100,12 +104,7 @@ export default function Header() {
 function AdminLinks() {
     return (
         <>
-            <li>
-                <Link href="/create" className="justify-between">
-                    Create
-                    <span className="badge badge-secondary">New</span>
-                </Link>
-            </li>
+            <li></li>
         </>
     )
 }

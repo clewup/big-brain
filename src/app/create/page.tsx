@@ -34,7 +34,7 @@ export default async function Create({ searchParams }: PageContext) {
     const initialPost = await getPostById(searchParams.id)
 
     return (
-        <PageWrapper requireAdminRole={true}>
+        <PageWrapper>
             <PostForm initialPost={initialPost} />
         </PageWrapper>
     )

@@ -34,7 +34,7 @@ const PageWrapper: FC<PageWrapperProps> = ({
         if (!isAdmin) return redirectToHome()
     }
 
-    return <main className={cx('p-5 min-h-screen-header', className)}>{children}</main>
+    return <main className={cx('p-5 px-40 min-h-screen-header', className)}>{children}</main>
 }
 
 export default PageWrapper

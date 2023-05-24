@@ -43,7 +43,7 @@ export default async function PostSlug({ params }: PageContext) {
         <PageWrapper>
             <Post post={post} isFullPost={true} />
 
-            <h1 className="text-8xl font-satisfice mt-10">COMMENTS</h1>
+            <h1 className="text-6xl font-satisfice mt-10">COMMENTS</h1>
             <span className="divider" />
 
             <div className="flex flex-col gap-5">

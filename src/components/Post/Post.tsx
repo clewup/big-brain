@@ -5,6 +5,7 @@ import { useNotification } from '@/contexts/NotificationContext/NotificationCont
 import useApi from '@/hooks/useApi/useApi'
 import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import { Post } from '@prisma/client'
+import moment from 'moment/moment'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { FC, useState } from 'react'
@@ -17,7 +18,7 @@ interface PostProps {
 }
 
 const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => {
-    const { isAdmin } = useLockr()
+    const { user, isAdmin } = useLockr()
     const { del } = useApi()
     const router = useRouter()
     const { pushNotification } = useNotification()
@@ -53,19 +54,20 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
             <div className="card-body">
                 <h2 className="card-title">
                     {post.title}
+                    <p className="text-neutral text-lg">{moment(post.createdAt).format('DD/MM/YYYY')}</p>
                     {isLatest && <div className="badge badge-secondary">NEW</div>}
                 </h2>
-                {isFullPost ? <p>{post.content}</p> : <p>{post.content.substring(0, 30)}</p>}
-                <div className="card-actions justify-end">
+                {isFullPost ? <p>{post.content}</p> : <p>{post.content.substring(0, 200)}...</p>}
+                <div className="card-actions justify-start">
                     {post.categories.map((category, index) => (
-                        <div key={index} className="badge badge-outline">
+                        <div key={index} className="text-secondary">
                             {category}
                         </div>
                     ))}
                 </div>
 
-                {isFullPost && isAdmin && (
-                    <div className="card-actions justify-end">
+                {isFullPost && (isAdmin || post.createdBy === user?.email) && (
+                    <div className="card-actions justify-end my-2">
                         <Link href={`/create?id=${post.id}`}>
                             <EditIcon />
                         </Link>

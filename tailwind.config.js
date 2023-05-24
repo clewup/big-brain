@@ -15,10 +15,10 @@ module.exports = {
                 abaddon: ['Abaddon', 'sans'],
             },
             height: {
-                'screen-header': '80vh',
+                'screen-header': '92vh',
             },
             minHeight: {
-                'screen-header': '80vh',
+                'screen-header': '92vh',
             },
         },
     },

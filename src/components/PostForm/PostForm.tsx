@@ -184,6 +184,12 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                                         }}
                                         isDisabled={isSubmitting}
                                         value={formatSelectOptions(values.categories)}
+                                        components={{
+                                            Menu: () => null, // Remove menu
+                                            MenuList: () => null, // Remove menu list
+                                            DropdownIndicator: () => null, // Remove dropdown icon
+                                            IndicatorSeparator: () => null, // Remove separator
+                                        }}
                                     />
                                     <ErrorMessage name="categories" component="p" className="text-error" />
                                 </span>

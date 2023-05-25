@@ -34,7 +34,7 @@ export default async function Create({ searchParams }: PageContext) {
     const initialPost = await getPostById(searchParams.id)
 
     return (
-        <PageWrapper>
+        <PageWrapper requireLoggedIn={true}>
             <PostForm initialPost={initialPost} />
         </PageWrapper>
     )

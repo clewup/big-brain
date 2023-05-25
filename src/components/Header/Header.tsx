@@ -35,7 +35,7 @@ export default function Header() {
                 </span>
             </div>
             <div className=" flex items-center justify-between gap-10 rounded-xl">
-                <Link href="/create" className="flex gap-2 items-center text-lg">
+                <Link href="/write" className="flex gap-2 items-center text-lg">
                     Write
                     <EditIcon size={20} />
                 </Link>

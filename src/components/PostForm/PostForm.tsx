@@ -225,7 +225,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                             <button
                                 className={cx('btn btn-primary', { loading: isSubmitting })}
                                 disabled={isSubmitting}>
-                                {initialPost ? 'Update' : 'Create'}
+                                {initialPost ? 'Update' : 'Publish'}
                             </button>
                         </div>
                     </Form>

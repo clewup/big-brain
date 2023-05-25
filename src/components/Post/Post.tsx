@@ -68,7 +68,7 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
 
                 {isFullPost && (isAdmin || post.createdBy === user?.email) && (
                     <div className="card-actions justify-end my-2">
-                        <Link href={`/create?id=${post.id}`}>
+                        <Link href={`/write?id=${post.id}`}>
                             <EditIcon />
                         </Link>
                         <DeleteIcon onClick={() => setModalOpen(true)} />

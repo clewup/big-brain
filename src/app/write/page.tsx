@@ -30,7 +30,7 @@ export async function generateMetadata({ searchParams }: PageContext, parent: Re
     }
 }
 
-export default async function Create({ searchParams }: PageContext) {
+export default async function Write({ searchParams }: PageContext) {
     const initialPost = await getPostById(searchParams.id)
 
     return (

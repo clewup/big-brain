@@ -78,7 +78,7 @@ export default async function Home() {
                             </Link>
                         </div>
                         <span className="divider" />
-                        <div className="grid grid-cols-3 grid-rows-2 gap-5">
+                        <div className="grid grid-cols-3 gap-5">
                             {posts.slice(1, 7).map((post, index) => (
                                 <Post key={index} post={post} />
                             ))}

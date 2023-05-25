@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
 import { NotificationProvider } from '@/contexts/NotificationContext/NotificationContext'
 import { LockrProvider } from '@/lib/lockr-auth/contexts/LockrContext'
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         <div className="w-screen">
                             <Header />
                             <div className="min-h-screen-header">{children}</div>
+                            <Footer />
                         </div>
                     </body>
                 </NotificationProvider>

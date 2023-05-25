@@ -30,7 +30,7 @@ export default function Header() {
                 <span className="flex gap-10 mx-10 items-center text-lg">
                     <Link href="/">Latest</Link>
                     <Link href="/posts">All Posts</Link>
-                    <Link href="/">Authors</Link>
+                    <Link href="/authors">Authors</Link>
                     <Link href="/">Subscribe</Link>
                 </span>
             </div>

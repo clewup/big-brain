@@ -31,7 +31,6 @@ export default function Header() {
                     <Link href="/">Latest</Link>
                     <Link href="/posts">All Posts</Link>
                     <Link href="/authors">Authors</Link>
-                    <Link href="/">Subscribe</Link>
                 </span>
             </div>
             <div className=" flex items-center justify-between gap-10 rounded-xl">

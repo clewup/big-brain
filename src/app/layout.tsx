@@ -1,3 +1,4 @@
+import CookieBanner from '@/components/CookieBanner/CookieBanner'
 import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
 import { NotificationProvider } from '@/contexts/NotificationContext/NotificationContext'
@@ -12,13 +13,14 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" data-theme="lockr">
+        <html lang="en" data-theme="blog">
             <LockrProvider>
                 <NotificationProvider>
                     <body>
                         <div className="w-screen">
                             <Header />
                             <div className="min-h-screen-header">{children}</div>
+                            <CookieBanner />
                             <Footer />
                         </div>
                     </body>

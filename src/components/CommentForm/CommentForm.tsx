@@ -38,6 +38,7 @@ const CommentForm: FC<CommentFormProps> = ({ post }) => {
         if (!commentResponse.ok) throw new Error('There was a problem creating the comment')
 
         formHelpers.setSubmitting(false)
+        formHelpers.resetForm({ values: initialValues })
 
         router.refresh()
     }

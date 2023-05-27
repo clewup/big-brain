@@ -117,7 +117,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
             {({ values, setFieldValue, handleChange, isSubmitting }) => {
                 return (
                     <Form>
-                        <div className="flex items-center justify-center gap-20 mb-10">
+                        <div className="flex flex-col items-center justify-center mb-10 md:flex-row md:gap-20">
                             {isImageLoading ? (
                                 <div className="my-5">
                                     <TailSpin color="#111111" width={50} height={50} />

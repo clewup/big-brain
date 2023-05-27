@@ -35,7 +35,7 @@ export default function Header() {
     ]
 
     return (
-        <div className="h-[8vh] p-2 px-40 flex justify-between">
+        <div className="p-2 flex flex-col justify-between gap-5 md:h-[8vh] md:px-40 md:flex-row">
             <div className="flex justify-between">
                 <m.div
                     variants={{
@@ -54,7 +54,7 @@ export default function Header() {
                         <div className="w-12 h-12 bg-secondary text-base-100 text-6xl flex justify-center items-center">
                             <h1>D</h1>
                         </div>
-                        <h1 className="text-6xl">aily Blog</h1>
+                        <h1 className="hidden text-6xl md:block">aily Blog</h1>
                     </Link>
                 </m.div>
 
@@ -74,7 +74,7 @@ export default function Header() {
                     }}
                     initial="hidden"
                     animate="visible"
-                    className="flex gap-10 mx-10 items-center text-lg">
+                    className="flex gap-5 mx-5 md:gap-10 md:mx-10 items-center md:text-lg">
                     {routes.map((route, index) => (
                         <Link key={index} href={route.path}>
                             {route.label}
@@ -82,8 +82,8 @@ export default function Header() {
                     ))}
                 </m.span>
             </div>
-            <div className=" flex items-center justify-between gap-10 rounded-xl">
-                <Link href="/write" className="flex gap-2 items-center text-lg">
+            <div className=" flex flex-col gap-5 items-center justify-between md:flex-row md:gap-10">
+                <Link href="/write" className="hidden flex gap-2 items-center text-lg md:block">
                     Write
                     <EditIcon size={20} />
                 </Link>
@@ -140,6 +140,12 @@ export default function Header() {
                                     className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                     <li onClick={signOut}>
                                         <a>Logout</a>
+                                    </li>
+                                    <li>
+                                        <Link href="/write" className="flex gap-2 items-center">
+                                            Write
+                                            <EditIcon size={15} />
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>

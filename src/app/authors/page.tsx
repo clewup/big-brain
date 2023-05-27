@@ -23,7 +23,7 @@ export default async function Authors() {
         <PageWrapper>
             <h1 className="text-6xl font-satisfice">TOP CONTRIBUTORS</h1>
             <span className="divider" />
-            <div className="grid grid-cols-5">
+            <div className="grid grid-cols-2 md:grid-cols-5">
                 {authors.map((author, index) => (
                     <Author author={author} index={index} key={index} />
                 ))}

@@ -51,7 +51,7 @@ export default function Posts() {
     }, [searchParams])
 
     return (
-        <PageWrapper className="relative">
+        <PageWrapper className="relative w-full">
             <h1 className="text-6xl font-satisfice">READ ALL ABOUT IT!</h1>
             <span className="divider" />
             <div className="flex flex-col gap-5 pb-20">
@@ -62,14 +62,14 @@ export default function Posts() {
                         <TailSpin color="#111111" />
                     </div>
                 ) : (
-                    <div className="grid grid-cols-3 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {searchResults.results.map((post, index) => (
                             <Post key={index} post={post} isLatest={index === 0} />
                         ))}
                     </div>
                 )}
 
-                <div className="btn-group absolute bottom-0 mb-5 w-full left-[50%]">
+                <div className="btn-group absolute bottom-0 mb-5">
                     {Array.from({ length: searchResults.pagination.totalPages }, (_, index) => index + 1).map(
                         (pageNumber, index) => {
                             return (

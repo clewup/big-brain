@@ -54,14 +54,14 @@ export default async function Home() {
             <div className="w-full flex flex-col gap-10">
                 <div className="hero bg-base-200 rounded-2xl text-center">
                     <div className="hero-content flex-col">
-                        <div className="flex flex-col items-center p-10 gap-5">
-                            <h1 className="text-xl -tracking-tighter uppercase font-bold text-gray-500">
+                        <div className="flex flex-col items-center py-5 md:p-10 gap-5">
+                            <h1 className="md:text-xl -tracking-tighter uppercase font-bold text-gray-500">
                                 WELCOME TO THE DAILY BLOG
                             </h1>
-                            <span className="flex gap-1">
-                                <p className="text-2xl">Write, </p>
-                                <p className="text-2xl text-secondary">Inspire</p>
-                                <p className="text-2xl">and Collaborate! 💫</p>
+                            <span className="flex gap-1 text-xl md:text-2xl">
+                                <p>Write, </p>
+                                <p className="text-secondary">Inspire</p>
+                                <p>and Collaborate! 💫</p>
                             </span>
                         </div>
                     </div>
@@ -78,7 +78,7 @@ export default async function Home() {
                             </Link>
                         </div>
                         <span className="divider" />
-                        <div className="grid grid-cols-3 gap-5">
+                        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
                             {posts.slice(1, 7).map((post, index) => (
                                 <Post key={index} post={post} />
                             ))}

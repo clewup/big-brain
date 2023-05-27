@@ -5,6 +5,7 @@ import { useNotification } from '@/contexts/NotificationContext/NotificationCont
 import useApi from '@/hooks/useApi/useApi'
 import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
 import { Post } from '@prisma/client'
+import { motion as m } from 'framer-motion'
 import moment from 'moment/moment'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -43,7 +44,20 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
     }
 
     return (
-        <div className="card w-full bg-base-100 shadow-xl">
+        <m.div
+            className="card w-full bg-base-100 shadow-xl"
+            variants={{
+                hidden: {
+                    y: 75,
+                    opacity: 0,
+                },
+                visible: {
+                    y: 0,
+                    opacity: 1,
+                },
+            }}
+            initial="hidden"
+            animate="visible">
             <figure onClick={() => router.push(`/post/${post.id}`)} className="cursor-pointer">
                 <img
                     src={post.image}
@@ -92,7 +106,7 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
                     },
                 ]}
             />
-        </div>
+        </m.div>
     )
 }
 

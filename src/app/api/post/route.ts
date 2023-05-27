@@ -1,4 +1,4 @@
-import { UserType } from '@/lib/lockr-auth/types/userTypes'
+import { UserType } from '@/lib/common/types/userTypes'
 import prisma from '@/lib/prisma'
 import { Comment, Post } from '@prisma/client'
 import { NextRequest, NextResponse as response } from 'next/server'

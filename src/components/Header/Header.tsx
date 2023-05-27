@@ -2,8 +2,8 @@
 
 import constants from '@/constants/constants'
 import useQueryParams from '@/hooks/useQueryParams/useQueryParams'
-import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
-import useAuth from '@/lib/lockr-auth/hooks/useAuth'
+import { useLockr } from '@/lib/common/contexts/LockrContext'
+import useAuth from '@/lib/common/hooks/useAuth'
 import Avvvatars from 'avvvatars-react'
 import { Field, Form, Formik } from 'formik'
 import { motion as m } from 'framer-motion'

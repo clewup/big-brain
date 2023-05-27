@@ -2,7 +2,7 @@ import CookieBanner from '@/components/CookieBanner/CookieBanner'
 import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
 import { NotificationProvider } from '@/contexts/NotificationContext/NotificationContext'
-import { LockrProvider } from '@/lib/lockr-auth/contexts/LockrContext'
+import { LockrProvider } from '@/lib/common/contexts/LockrContext'
 import React from 'react'
 import './global.css'
 

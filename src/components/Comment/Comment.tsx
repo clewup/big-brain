@@ -1,4 +1,4 @@
-import { UserType } from '@/lib/lockr-auth/types/userTypes'
+import { UserType } from '@/lib/common/types/userTypes'
 import { Comment } from '@prisma/client'
 import Avvvatars from 'avvvatars-react'
 import moment from 'moment'

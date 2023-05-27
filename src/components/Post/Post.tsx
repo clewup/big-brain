@@ -3,7 +3,7 @@
 import Modal from '@/components/Modal/Modal'
 import { useNotification } from '@/contexts/NotificationContext/NotificationContext'
 import useApi from '@/hooks/useApi/useApi'
-import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
+import { useLockr } from '@/lib/common/contexts/LockrContext'
 import { AuthorType } from '@/types/authorTypes'
 import { Post } from '@prisma/client'
 import Avvvatars from 'avvvatars-react'

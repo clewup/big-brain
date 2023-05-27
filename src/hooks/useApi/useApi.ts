@@ -1,6 +1,6 @@
 'use client'
 
-import { useLockr } from '@/lib/lockr-auth/contexts/LockrContext'
+import { useLockr } from '@/lib/common/contexts/LockrContext'
 
 enum RequestMethod {
     GET = 'GET',

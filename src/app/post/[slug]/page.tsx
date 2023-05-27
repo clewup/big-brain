@@ -15,7 +15,7 @@ async function getPostById(id: number): Promise<PrismaPost & { comments: (Prisma
         cache: 'no-store',
     })
     const postData = await postResponse.json()
-    if (!postResponse.ok) throw new Error((postData as any).error)
+    if (!postResponse.ok) throw new Error(postData.error)
 
     return postData
 }

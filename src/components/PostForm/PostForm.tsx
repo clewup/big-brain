@@ -69,9 +69,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
     async function onSubmit(formValues: FormikValues, formHelpers: FormikHelpers<CreateFormValues>) {
         formHelpers.setSubmitting(true)
 
-        const postResponse = await post<Post>('/api/post', formValues)
-        if (!postResponse.ok) throw new Error('There was a problem creating the post')
-        const postData: Post = await postResponse.json()
+        const postData = await post<Post>('/api/post', formValues)
 
         formHelpers.setSubmitting(false)
 

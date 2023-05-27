@@ -9,7 +9,7 @@ import { Field, Form, Formik } from 'formik'
 import { motion as m } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import { Edit as EditIcon, Search as SearchIcon } from 'react-feather'
 
@@ -18,7 +18,6 @@ export default function Header() {
     const { user } = useLockr()
     const { queryParams, setQueryParams } = useQueryParams()
     const searchParams = useSearchParams()
-    const pathname = usePathname()
 
     const routes = [
         {
@@ -149,13 +148,5 @@ export default function Header() {
                 </div>
             </div>
         </div>
-    )
-}
-
-function AdminLinks() {
-    return (
-        <>
-            <li></li>
-        </>
     )
 }

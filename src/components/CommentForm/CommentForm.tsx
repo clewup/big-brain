@@ -34,8 +34,7 @@ const CommentForm: FC<CommentFormProps> = ({ post }) => {
     async function onSubmit(formValues: FormikValues, formHelpers: FormikHelpers<CommentFormValues>) {
         formHelpers.setSubmitting(true)
 
-        const commentResponse = await apiPost('/api/comment', formValues)
-        if (!commentResponse.ok) throw new Error('There was a problem creating the comment')
+        await apiPost('/api/comment', formValues)
 
         formHelpers.setSubmitting(false)
         formHelpers.resetForm({ values: initialValues })

@@ -1,6 +1,6 @@
 import { UserType } from '@/lib/lockr-auth/types/userTypes'
 import prisma from '@/lib/prisma'
-import { Comment } from '@prisma/client'
+import { Comment, Post } from '@prisma/client'
 import { NextRequest, NextResponse as response } from 'next/server'
 
 export async function GET(request: NextRequest) {
@@ -88,7 +88,7 @@ export async function DELETE(request: NextRequest) {
     return response.json({ message: `Post ${id} successfully deleted` })
 }
 
-function validate(body: any) {
+function validate(body: Partial<Post>) {
     const errors: string[] = []
 
     if (!body.title) errors.push('title')

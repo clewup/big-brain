@@ -12,10 +12,6 @@ interface FilterProps {
     searchResults: SearchResponseType
 }
 
-type FilterFormValues = {
-    category: string
-}
-
 const Filter: FC<FilterProps> = ({ searchResults }) => {
     const searchParams = useSearchParams()
     const { queryParams, setQueryParams } = useQueryParams()
@@ -24,14 +20,19 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
     const [categories, setCategories] = useState<string[]>([])
 
     async function getCategories() {
-        const categoriesResponse = await get('/api/category')
-        const categoriesData: string[] = await categoriesResponse.json()
+        const categoriesData = await get<string[]>('/api/category', {
+            cache: 'no-store',
+        })
         setCategories(categoriesData)
     }
 
     useEffect(() => {
         getCategories()
     }, [])
+
+    type FilterFormValues = {
+        category: string
+    }
 
     const initialValues: FilterFormValues = {
         category: searchParams.get('category') || 'default',

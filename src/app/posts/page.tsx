@@ -30,8 +30,7 @@ export default function Posts() {
     const [isLoading, setLoading] = useState(true)
 
     async function getFilteredPosts(query: string) {
-        const searchResponse = await get(`/api/search?${query}`)
-        const searchData: SearchResponseType = await searchResponse.json()
+        const searchData = await get<SearchResponseType>(`/api/search?${query}`, { cache: 'no-store' })
         setSearchResults(searchData)
         setLoading(false)
     }

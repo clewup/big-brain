@@ -1,4 +1,5 @@
 import prisma from '@/lib/prisma'
+import { Comment } from '@prisma/client'
 import { NextResponse as response } from 'next/dist/server/web/spec-extension/response'
 import { NextRequest } from 'next/server'
 
@@ -74,7 +75,7 @@ export async function DELETE(request: NextRequest) {
     return response.json({ message: `Comment ${id} successfully deleted` })
 }
 
-function validate(body: any) {
+function validate(body: Partial<Comment & { post: string }>) {
     const errors: string[] = []
 
     if (!body.post) errors.push('post')

@@ -11,7 +11,7 @@ async function getAuthors(): Promise<AuthorType[]> {
     })
 
     const authorsData = await authorsResponse.json()
-    if (!authorsResponse.ok) throw new Error((authorsData as any).error)
+    if (!authorsResponse.ok) throw new Error(authorsData.error)
 
     return authorsData
 }

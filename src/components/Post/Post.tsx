@@ -27,11 +27,7 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false }) => 
     const [isModalOpen, setModalOpen] = useState(false)
 
     async function deletePost() {
-        const deletedResponse = await del(`/api/post?id=${post.id}`)
-        const deletedData = await deletedResponse.json()
-
-        if (!deletedResponse.ok) throw new Error(deletedData.error)
-
+        await del(`/api/post?id=${post.id}`)
         setModalOpen(false)
 
         pushNotification({

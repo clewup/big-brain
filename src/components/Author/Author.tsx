@@ -9,7 +9,7 @@ interface AuthorProps {
     index: number
 }
 
-const Author: FC<AuthorProps> = ({ author: { id, name, image, posts }, index }) => {
+const Author: FC<AuthorProps> = ({ author: { name, image, posts }, index }) => {
     return (
         <div className="card shadow-2xl">
             <div className="card-body">

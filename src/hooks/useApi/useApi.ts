@@ -13,36 +13,40 @@ enum RequestMethod {
 export default function useApi() {
     const { user } = useLockr()
 
-    async function makeRequest<T = unknown>(url: string, method: RequestMethod, body?: unknown) {
-        return await fetch(url, {
+    async function makeRequest<T = unknown>(url: string, method: RequestMethod, body?: unknown, options?: RequestInit) {
+        const headers: HeadersInit & { 'x-user'?: string } = {
+            ...options?.headers,
+        }
+        if (user && user.email) headers['x-user'] = user.email
+
+        const response = await fetch(url, {
+            ...options,
             method: method,
             body: body ? JSON.stringify(body) : undefined,
-            headers: user
-                ? {
-                      'x-user': user.email,
-                  }
-                : undefined,
+            headers: headers,
         })
+
+        return (await response.json()) as T
     }
 
-    async function get<T>(url: string) {
-        return makeRequest(url, RequestMethod.GET)
+    async function get<T>(url: string, options?: RequestInit) {
+        return makeRequest<T>(url, RequestMethod.GET, undefined, options)
     }
 
-    async function post<T>(url: string, body: unknown) {
-        return makeRequest(url, RequestMethod.POST, body)
+    async function post<T>(url: string, body: unknown, options?: RequestInit) {
+        return makeRequest<T>(url, RequestMethod.POST, body, options)
     }
 
-    async function patch<T>(url: string, body: unknown) {
-        return makeRequest(url, RequestMethod.PATCH, body)
+    async function patch<T>(url: string, body: unknown, options?: RequestInit) {
+        return makeRequest<T>(url, RequestMethod.PATCH, body, options)
     }
 
-    async function put<T>(url: string, body: unknown) {
-        return makeRequest(url, RequestMethod.PUT, body)
+    async function put<T>(url: string, body: unknown, options?: RequestInit) {
+        return makeRequest<T>(url, RequestMethod.PUT, body, options)
     }
 
-    async function del<T>(url: string) {
-        return makeRequest(url, RequestMethod.DELETE)
+    async function del<T>(url: string, options?: RequestInit) {
+        return makeRequest<T>(url, RequestMethod.DELETE, undefined, options)
     }
 
     return {

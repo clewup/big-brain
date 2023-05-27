@@ -14,7 +14,6 @@ export async function GET(request: NextRequest) {
 
         // map the user information to the comments
         const commentsWithUsers: (Comment & { user: UserType })[] = []
-
         for (const comment of post.comments) {
             const userResponse = await fetch(`${process.env.LOCKR_URL}/api/user?id=${comment.createdBy}`, {
                 method: 'GET',
@@ -28,7 +27,6 @@ export async function GET(request: NextRequest) {
                 user: userData,
             })
         }
-
         post.comments = commentsWithUsers
 
         return response.json(post)

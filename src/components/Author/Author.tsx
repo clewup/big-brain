@@ -1,3 +1,5 @@
+'use client'
+
 import { AuthorType } from '@/types/authorTypes'
 import Avvvatars from 'avvvatars-react'
 import cx from 'classnames'

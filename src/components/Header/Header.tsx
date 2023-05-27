@@ -83,7 +83,7 @@ export default function Header() {
                 </m.span>
             </div>
             <div className=" flex flex-col gap-5 items-center justify-between md:flex-row md:gap-10">
-                <Link href="/write" className="hidden flex gap-2 items-center text-lg md:block">
+                <Link href="/write" className="hidden gap-2 items-center text-lg md:block md:flex md:flex-row">
                     Write
                     <EditIcon size={20} />
                 </Link>
@@ -141,7 +141,7 @@ export default function Header() {
                                     <li onClick={signOut}>
                                         <a>Logout</a>
                                     </li>
-                                    <li>
+                                    <li className="block md:hidden">
                                         <Link href="/write" className="flex gap-2 items-center">
                                             Write
                                             <EditIcon size={15} />

@@ -1,6 +1,6 @@
 'use client'
 
-import AutoSubmit from '@/components/AutoSubmit/AutoSubmit'
+import AutoSubmit from '@/lib/common/components/AutoSubmit/AutoSubmit'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { SearchResponseType } from '@/types/searchTypes'

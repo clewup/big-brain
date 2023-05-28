@@ -1,6 +1,6 @@
 'use client'
 
-import { useLockr } from '@/lib/common/contexts/LockrContext'
+import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import cx from 'classnames'
 import { useRouter } from 'next/navigation'
 import React, { FC, ReactNode } from 'react'

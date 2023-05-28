@@ -1,9 +1,9 @@
 'use client'
 
 import constants from '@/constants/constants'
-import useQueryParams from '@/hooks/useQueryParams/useQueryParams'
-import { useLockr } from '@/lib/common/contexts/LockrContext'
-import useAuth from '@/lib/common/hooks/useAuth'
+import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
+import useAuth from '@/lib/common/hooks/useAuth/useAuth'
+import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import Avvvatars from 'avvvatars-react'
 import { Field, Form, Formik } from 'formik'
 import { motion as m } from 'framer-motion'

@@ -1,9 +1,9 @@
 'use client'
 
 import constants from '@/constants/constants'
-import useApi from '@/hooks/useApi/useApi'
-import { useLockr } from '@/lib/common/contexts/LockrContext'
-import useAuth from '@/lib/common/hooks/useAuth'
+import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
+import useApi from '@/lib/common/hooks/useApi/useApi'
+import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikValues } from 'formik'
 import { useRouter } from 'next/navigation'
 import React, { FC } from 'react'

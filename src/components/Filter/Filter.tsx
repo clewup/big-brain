@@ -1,8 +1,8 @@
 'use client'
 
 import AutoSubmit from '@/components/AutoSubmit/AutoSubmit'
-import useApi from '@/hooks/useApi/useApi'
-import useQueryParams from '@/hooks/useQueryParams/useQueryParams'
+import useApi from '@/lib/common/hooks/useApi/useApi'
+import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { SearchResponseType } from '@/types/searchTypes'
 import { Field, Form, Formik, FormikValues } from 'formik'
 import { useSearchParams } from 'next/navigation'

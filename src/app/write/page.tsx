@@ -1,7 +1,7 @@
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import PostForm from '@/components/PostForm/PostForm'
 import constants from '@/constants/constants'
-import { PageContext } from '@/types/nextTypes'
+import { PageContext } from '@/lib/common/types/nextTypes'
 import { Post } from '@prisma/client'
 import { Metadata, ResolvingMetadata } from 'next'
 import React from 'react'

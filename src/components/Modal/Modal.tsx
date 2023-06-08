@@ -18,7 +18,7 @@ interface ModalProps {
 const Modal: FC<ModalProps> = ({ id, isOpen, title, text, buttons }) => {
     return (
         <>
-            <input type="checkbox" id={id} className="modal-toggle" checked={isOpen} />
+            <input type="checkbox" id={id} className="modal-toggle" checked={isOpen} onChange={() => null} />
             <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{title}</h3>

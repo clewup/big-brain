@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer/Footer'
 import Header from '@/components/Header/Header'
 import { NotificationProvider } from '@/contexts/NotificationContext/NotificationContext'
-import CookieBanner from '@/lib/common/components/CookieBanner/CookieBanner'
+import CookiePopup from '@/lib/common/components/CookiePopup/CookiePopup'
 import { LockrProvider } from '@/lib/common/contexts/LockrContext/LockrContext'
 import React from 'react'
 import './global.css'
@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         <div className="w-screen">
                             <Header />
                             <div className="min-h-screen-header">{children}</div>
-                            <CookieBanner />
+                            <CookiePopup />
                             <Footer />
                         </div>
                     </body>

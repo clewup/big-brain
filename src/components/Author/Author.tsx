@@ -13,7 +13,7 @@ interface AuthorProps {
 
 const Author: FC<AuthorProps> = ({ author: { name, image, posts }, index }) => {
     return (
-        <div className="card shadow-2xl">
+        <div className="card bg-base-200">
             <div className="card-body">
                 <figure className="w-full">
                     {image ? <img src={image} alt={name} /> : <Avvvatars value={name} size={100} />}

@@ -1,11 +1,11 @@
+import Heading from '@/components/Heading/Heading'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import React from 'react'
 
 export default function Privacy() {
     return (
         <PageWrapper>
-            <h1 className="text-6xl font-satisfice">PRIVACY POLICY</h1>
-            <span className="divider" />
+            <Heading>PRIVACY POLICY</Heading>
 
             <div className="flex flex-col gap-10">
                 <p>

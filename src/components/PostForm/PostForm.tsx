@@ -116,7 +116,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
             validationSchema={validationSchema}>
             {({ values, setFieldValue, handleChange, isSubmitting }) => {
                 return (
-                    <Form>
+                    <Form className="bg-base-200 p-10 rounded-2xl">
                         <div className="flex flex-col items-center justify-center mb-10 md:flex-row md:gap-20">
                             {isImageLoading ? (
                                 <div className="my-5">
@@ -221,7 +221,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
 
                         <div className="mt-10">
                             <button
-                                className={cx('btn btn-primary', { loading: isSubmitting })}
+                                className={cx('btn btn-success', { loading: isSubmitting })}
                                 disabled={isSubmitting}>
                                 {initialPost ? 'Update' : 'Publish'}
                             </button>

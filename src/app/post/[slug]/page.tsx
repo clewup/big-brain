@@ -1,5 +1,6 @@
 import Comment from '@/components/Comment/Comment'
 import CommentForm from '@/components/CommentForm/CommentForm'
+import Heading from '@/components/Heading/Heading'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
 import constants from '@/constants/constants'
@@ -55,16 +56,17 @@ export default async function PostSlug({ params }: PageContext) {
         <PageWrapper>
             <Post post={post} isFullPost={true} author={author} />
 
-            <h1 className="text-6xl font-satisfice mt-10">COMMENTS</h1>
-            <span className="divider" />
+            <div className="py-5 flex flex-col gap-10">
+                <Heading>COMMENTS</Heading>
 
-            <div className="flex flex-col gap-5">
-                {post.comments.map((comment, index) => (
-                    <Comment key={index} comment={comment} user={comment.user} />
-                ))}
-            </div>
-            <div className="mt-10 w-full">
-                <CommentForm post={post.id} />
+                <div className="flex flex-col gap-5">
+                    {post.comments.map((comment, index) => (
+                        <Comment key={index} comment={comment} user={comment.user} />
+                    ))}
+                </div>
+                <div className="w-full">
+                    <CommentForm post={post.id} />
+                </div>
             </div>
         </PageWrapper>
     )

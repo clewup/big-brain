@@ -70,7 +70,7 @@ const CommentForm: FC<CommentFormProps> = ({ post }) => {
                                         <textarea
                                             name="content"
                                             value={values.content}
-                                            className="textarea textarea-bordered h-20"
+                                            className="textarea bg-white text-black h-20"
                                             onChange={handleChange}
                                             disabled={isSubmitting}
                                         />

@@ -57,15 +57,14 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
         <Formik initialValues={initialValues} enableReinitialize={true} onSubmit={onSubmit}>
             {({ values, handleChange }) => {
                 return (
-                    <Form className="flex flex-col items-center justify-between gap-5 py-1 md:flex-row md:gap-20">
-                        <span className="form-control flex-row gap-2">
-                            <label className="label">Category</label>
+                    <Form className="flex flex-col items-end justify-between gap-5 py-1 md:flex-row md:gap-20">
+                        <span className="input-group flex-row">
+                            <label className="label bg-primary px-3">Category</label>
                             <Field name="category">
                                 {() => (
                                     <select
                                         name="category"
-                                        className="select select-bordered w-60"
-                                        disabled={!categories.length}
+                                        className="select font-normal bg-white text-black w-60"
                                         value={values.category}
                                         onChange={handleChange}>
                                         <option value={'default'}>Select...</option>
@@ -78,7 +77,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                                 )}
                             </Field>
                         </span>
-                        <p className="text-lg">
+                        <p className="w-full text-right">
                             {searchResults.pagination.pageResults +
                                 searchResults.pagination.resultsPerPage * (searchResults.pagination.page - 1)}
                             /{searchResults.pagination.totalResults} results

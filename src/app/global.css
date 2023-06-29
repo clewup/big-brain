@@ -3,49 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: 'Chomsky';
-    src: url('/fonts/Chomsky.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+* {
+    color: white;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('/fonts/OpenSans.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Abaddon';
-    src: url('/fonts/Abaddon.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Garamond';
-    src: url('/fonts/Garamond.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Steelfish';
-    src: url('/fonts/Steelfish.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Satisfice';
-    src: url('/fonts/Satisfice.otf') format('opentype');
+    font-family: 'Porkys';
+    src: url('/fonts/Porkys.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

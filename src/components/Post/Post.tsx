@@ -44,7 +44,7 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false, autho
 
     return (
         <m.div
-            className="card w-full bg-base-100 shadow-xl"
+            className="card w-full bg-base-200"
             variants={{
                 hidden: {
                     y: 75,
@@ -73,17 +73,19 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false, autho
                 )}
                 <h2 className="card-title">
                     {post.title}
-                    <p className="text-neutral text-lg">{moment(post.createdAt).format('DD/MM/YYYY')}</p>
-                    {isLatest && <div className="badge badge-secondary">NEW</div>}
+                    <p className="text-lg">{moment(post.createdAt).format('DD/MM/YYYY')}</p>
+                    {isLatest && <div className="badge badge-primary text-white">NEW</div>}
                 </h2>
+
                 {isFullPost ? (
                     <p className="whitespace-pre-line">{post.content}</p>
                 ) : (
                     <p>{post.content.substring(0, 200)}...</p>
                 )}
+
                 <div className="card-actions justify-start">
                     {post.categories.map((category, index) => (
-                        <Link href={`/posts?category=${category}`} key={index} className="text-secondary">
+                        <Link href={`/posts?category=${category}`} key={index} className="underline">
                             {category}
                         </Link>
                     ))}

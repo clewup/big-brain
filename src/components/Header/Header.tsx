@@ -21,43 +21,45 @@ export default function Header() {
 
     const routes = [
         {
-            label: 'Latest',
+            label: 'LATEST',
             path: '/',
         },
         {
-            label: 'All Posts',
+            label: 'ALL IDEAS',
             path: '/posts',
         },
         {
-            label: 'Authors',
+            label: 'AUTHORS',
             path: '/authors',
+        },
+        {
+            label: 'SHARE',
+            path: '/write',
         },
     ]
 
     return (
-        <div className="p-2 flex flex-col justify-between gap-5 md:h-[8vh] md:px-40 md:flex-row">
-            <div className="flex justify-between">
-                <m.div
-                    variants={{
-                        hidden: {
-                            y: -75,
-                            opacity: 0,
-                        },
-                        visible: {
-                            y: 0,
-                            opacity: 1,
-                        },
-                    }}
-                    initial="hidden"
-                    animate="visible">
-                    <Link href="/" className="flex items-center font-chomsky">
-                        <div className="w-12 h-12 bg-secondary text-base-100 text-6xl flex justify-center items-center">
-                            <h1>D</h1>
-                        </div>
-                        <h1 className="hidden text-6xl md:block">aily Blog</h1>
-                    </Link>
-                </m.div>
+        <div className="relative p-2 flex flex-col justify-between gap-5 md:h-[15vh] md:flex-row items-center px-40">
+            <m.div
+                variants={{
+                    hidden: {
+                        y: -75,
+                        opacity: 0,
+                    },
+                    visible: {
+                        y: 0,
+                        opacity: 1,
+                    },
+                }}
+                initial="hidden"
+                animate="visible"
+                className="absolute w-full left-0 flex justify-center z-10">
+                <Link href="/">
+                    <Image src="/images/logo.png" alt="logo" width={200} height={30} />
+                </Link>
+            </m.div>
 
+            <div className="flex justify-between z-20">
                 <m.span
                     variants={{
                         hidden: {
@@ -74,7 +76,7 @@ export default function Header() {
                     }}
                     initial="hidden"
                     animate="visible"
-                    className="flex gap-5 mx-5 md:gap-10 md:mx-10 items-center md:text-lg">
+                    className="flex gap-5 font-bold mr-5 md:gap-10 md:mr-10 items-center">
                     {routes.map((route, index) => (
                         <Link key={index} href={route.path}>
                             {route.label}
@@ -82,11 +84,8 @@ export default function Header() {
                     ))}
                 </m.span>
             </div>
-            <div className=" flex flex-col gap-5 items-center justify-between md:flex-row md:gap-10">
-                <Link href="/write" className="hidden gap-2 items-center text-lg md:block md:flex md:flex-row">
-                    Write
-                    <EditIcon size={20} />
-                </Link>
+
+            <div className=" flex flex-col gap-5 items-center justify-between md:flex-row md:gap-10 z-20">
                 <div className="flex gap-2 items-center justify-center">
                     <Formik
                         initialValues={{ search: searchParams.get('search') || '' }}
@@ -100,7 +99,7 @@ export default function Header() {
                                     name="search"
                                     type="text"
                                     placeholder="Search"
-                                    className="input input-bordered"
+                                    className="input bg-white text-black"
                                 />
                                 <button className="btn btn-square btn-primary">
                                     <SearchIcon />
@@ -118,7 +117,7 @@ export default function Header() {
                             </span>
                         ) : (
                             <div className="dropdown dropdown-end">
-                                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                <label tabIndex={0} className="btn btn-ghost btn-circle">
                                     <div className="w-10">
                                         {user.image ? (
                                             <span className="avatar">
@@ -137,7 +136,7 @@ export default function Header() {
                                 </label>
                                 <ul
                                     tabIndex={0}
-                                    className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+                                    className="mt-3 bg-base-200 p-2 menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                     <li onClick={signOut}>
                                         <a>Logout</a>
                                     </li>

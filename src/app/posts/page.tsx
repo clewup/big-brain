@@ -52,8 +52,6 @@ export default function Posts() {
 
     return (
         <PageWrapper className="relative w-full">
-            <h1 className="text-6xl font-satisfice">READ ALL ABOUT IT!</h1>
-            <span className="divider" />
             <div className="flex flex-col gap-5 pb-20">
                 <Filter searchResults={searchResults} />
 

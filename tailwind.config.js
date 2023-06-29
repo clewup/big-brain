@@ -9,10 +9,7 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
-                chomsky: ['Chomsky', 'sans'],
-                satisfice: ['Satisfice', 'sans'],
-                steelfish: ['Steelfish', 'sans'],
-                abaddon: ['Abaddon', 'sans'],
+                porkys: ['Porkys', 'sans'],
             },
             height: {
                 'screen-header': '92vh',
@@ -28,11 +25,10 @@ module.exports = {
         themes: [
             {
                 blog: {
-                    primary: '#3a86ff',
-                    secondary: '#FF1654',
-                    accent: '#1FB2A5',
+                    primary: '#ff64b1',
+                    secondary: '#7bf6f2',
                     neutral: '#CCCCCC',
-                    'base-100': '#FFFFFF',
+                    'base-100': '#6495ED',
                     info: '#3ABFF8',
                     success: '#198754',
                     warning: '#FBBD23',

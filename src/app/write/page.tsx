@@ -23,7 +23,7 @@ export async function generateMetadata({ searchParams }: PageContext, parent: Re
     const previousImages = (await parent)?.openGraph?.images || []
 
     return {
-        title: initialPost?.title ? `Blog - ${initialPost.title}` : 'Blog - Create',
+        title: initialPost?.title ? `Big Brain - ${initialPost.title}` : 'Big Brain - Create',
         openGraph: {
             images: [initialPost?.image || '', ...previousImages],
         },

@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageContext, parent: Resolvin
     const previousImages = (await parent).openGraph?.images || []
 
     return {
-        title: `Blog - ${post.title}`,
+        title: `Big Brain - ${post.title}`,
         openGraph: {
             images: [post.image, ...previousImages],
         },

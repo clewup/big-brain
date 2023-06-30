@@ -1,50 +1,22 @@
 'use client'
 
-import Modal from '@/components/Modal/Modal'
-import { useNotification } from '@/contexts/NotificationContext/NotificationContext'
-import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
-import useApi from '@/lib/common/hooks/useApi/useApi'
-import { AuthorType } from '@/types/authorTypes'
 import { Post } from '@prisma/client'
-import Avvvatars from 'avvvatars-react'
 import { motion as m } from 'framer-motion'
 import moment from 'moment/moment'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { FC, useState } from 'react'
-import { Edit as EditIcon, Trash as DeleteIcon } from 'react-feather'
+import React, { FC } from 'react'
 
 interface PostProps {
     post: Post
-    isLatest?: boolean
-    isFullPost?: boolean
-    author?: AuthorType
 }
 
-const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false, author }) => {
-    const { user, isAdmin } = useLockr()
-    const { del } = useApi()
+const Post: FC<PostProps> = ({ post }) => {
     const router = useRouter()
-    const { pushNotification } = useNotification()
-
-    const [isModalOpen, setModalOpen] = useState(false)
-
-    async function deletePost() {
-        await del(`/api/post?id=${post.id}`)
-        setModalOpen(false)
-
-        pushNotification({
-            text: 'Post deleted!',
-            variant: 'error',
-        })
-
-        router.refresh()
-        router.push('/')
-    }
 
     return (
         <m.div
-            className="card w-full bg-base-200"
+            className="w-full"
             variants={{
                 hidden: {
                     y: 75,
@@ -61,62 +33,24 @@ const Post: FC<PostProps> = ({ post, isLatest = false, isFullPost = false, autho
                 <img
                     src={post.image}
                     alt={post.title}
-                    className="aspect-video max-h-[50vh] object-cover w-full object-center"
+                    className="aspect-video max-h-[50vh] object-cover w-full object-center rounded-md"
                 />
             </figure>
-            <div className="card-body">
-                {author && (
-                    <h2 className="card-title">
-                        {author.image ? <img src={author.image} /> : <Avvvatars value={author.name} />}
-                        {author.name}
-                    </h2>
-                )}
-                <h2 className="card-title">
-                    {post.title}
-                    <p className="text-lg">{moment(post.createdAt).format('DD/MM/YYYY')}</p>
-                    {isLatest && <div className="badge badge-primary text-white">NEW</div>}
-                </h2>
+            <div className="py-2">
+                <h2 className="text-2xl font-semibold">{post.title}</h2>
 
-                {isFullPost ? (
-                    <p className="whitespace-pre-line">{post.content}</p>
-                ) : (
-                    <p>{post.content.substring(0, 200)}...</p>
-                )}
+                <p className="py-5">{post.content.substring(0, 150)}...</p>
 
-                <div className="card-actions justify-start">
+                <div className="justify-start pb-4">
                     {post.categories.map((category, index) => (
-                        <Link href={`/posts?category=${category}`} key={index} className="underline">
+                        <Link href={`/search?category=${category}`} key={index} className="underline">
                             {category}
                         </Link>
                     ))}
                 </div>
 
-                {isFullPost && (isAdmin || post.createdBy === user?.email) && (
-                    <div className="card-actions justify-end my-2">
-                        <Link href={`/write?id=${post.id}`}>
-                            <EditIcon />
-                        </Link>
-                        <DeleteIcon onClick={() => setModalOpen(true)} />
-                    </div>
-                )}
+                <p className="text-lg text-neutral">{moment(post.createdAt).format('DD/MM/YYYY')}</p>
             </div>
-
-            <Modal
-                id="delete-post"
-                isOpen={isModalOpen}
-                title="Are you sure?"
-                text="This action can not be undone."
-                buttons={[
-                    {
-                        text: 'No',
-                    },
-                    {
-                        text: 'Yes',
-                        variant: 'error',
-                        onClick: deletePost,
-                    },
-                ]}
-            />
         </m.div>
     )
 }

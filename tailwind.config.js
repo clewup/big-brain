@@ -9,7 +9,7 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
-                porkys: ['Porkys', 'sans'],
+                palatino: ['Palatino', 'sans'],
             },
             height: {
                 'screen-header': '92vh',
@@ -25,10 +25,10 @@ module.exports = {
         themes: [
             {
                 blog: {
-                    primary: '#ff64b1',
+                    primary: '#fe416d',
                     secondary: '#7bf6f2',
-                    neutral: '#CCCCCC',
-                    'base-100': '#6495ED',
+                    neutral: '#9ca3af',
+                    'base-100': '#FFFFFF',
                     info: '#3ABFF8',
                     success: '#198754',
                     warning: '#FBBD23',

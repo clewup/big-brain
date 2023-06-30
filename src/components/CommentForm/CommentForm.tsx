@@ -45,7 +45,6 @@ const CommentForm: FC<CommentFormProps> = ({ post }) => {
     if (!user) {
         return (
             <div className="w-full flex flex-col gap-2">
-                <h1 className="text-lg">Log in to leave a comment!</h1>
                 <div>
                     <button className="btn btn-primary" onClick={signIn}>
                         Log in
@@ -61,16 +60,13 @@ const CommentForm: FC<CommentFormProps> = ({ post }) => {
                 return (
                     <Form>
                         <div className="form-control">
-                            <label className="label" htmlFor="content">
-                                Leave a comment
-                            </label>
                             <Field name="content">
                                 {() => {
                                     return (
                                         <textarea
                                             name="content"
                                             value={values.content}
-                                            className="textarea bg-white text-black h-20"
+                                            className="focus:outline-none border-b-2 border-neutral bg-white text-black h-20"
                                             onChange={handleChange}
                                             disabled={isSubmitting}
                                         />
@@ -79,7 +75,7 @@ const CommentForm: FC<CommentFormProps> = ({ post }) => {
                             </Field>
                             <ErrorMessage name="content" component="p" className="text-error" />
 
-                            <span className="mt-5">
+                            <span className="mt-5 flex justify-center">
                                 <button className="btn btn-success" type="submit">
                                     Comment
                                 </button>

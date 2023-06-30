@@ -57,12 +57,12 @@ export default function Posts() {
 
                 {isLoading ? (
                     <div className="w-full h-60 flex justify-center items-center">
-                        <TailSpin color="#111111" />
+                        <TailSpin color="#9ca3af" />
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {searchResults.results.map((post, index) => (
-                            <Post key={index} post={post} isLatest={index === 0} />
+                            <Post key={index} post={post} />
                         ))}
                     </div>
                 )}
@@ -73,7 +73,7 @@ export default function Posts() {
                             return (
                                 <button
                                     key={index}
-                                    className={cx('btn', {
+                                    className={cx('btn text-white', {
                                         'btn-active': pageNumber === searchResults.pagination.page,
                                     })}
                                     onClick={() => {

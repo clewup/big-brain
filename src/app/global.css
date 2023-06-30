@@ -1,16 +1,27 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
-    color: white;
+@font-face {
+    font-family: 'Palatino';
+    src: url('/fonts/Palatino.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-    font-family: 'Porkys';
-    src: url('/fonts/Porkys.ttf') format('truetype');
+    font-family: 'Open Sans';
+    src: url('/fonts/OpenSans-Regular.ttf') format('truetype');
     font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/fonts/OpenSans-Semibold.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }

@@ -1,4 +1,4 @@
-import Heading from '@/components/Heading/Heading'
+import Hero from '@/components/Hero/Hero'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
 import constants from '@/constants/constants'
@@ -38,16 +38,19 @@ export default async function Home() {
     return (
         <PageWrapper className="flex">
             <div className="w-full flex flex-col gap-10">
+                <Hero />
+
                 {posts.length && (
                     <div>
                         <div className="flex justify-between items-end">
-                            <Heading>LATEST BRAINWAVES</Heading>
-                            <Link className="flex gap-2 py-5" href="/posts">
-                                <p>See all</p>
+                            <h1 className="py-5 text-4xl font-semibold">Guides</h1>
+
+                            <Link className="flex gap-2 py-5" href="/search">
+                                <p className="text-neutral">See all</p>
                             </Link>
                         </div>
-                        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-                            {posts.slice(0, 6).map((post, index) => (
+                        <div className="grid grid-cols-3 gap-5">
+                            {posts.slice(0, 9).map((post, index) => (
                                 <Post key={index} post={post} />
                             ))}
                         </div>

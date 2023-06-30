@@ -1,8 +1,7 @@
 import Comment from '@/components/Comment/Comment'
 import CommentForm from '@/components/CommentForm/CommentForm'
-import Heading from '@/components/Heading/Heading'
+import FullPost from '@/components/FullPost/FullPost'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
-import Post from '@/components/Post/Post'
 import constants from '@/constants/constants'
 import { PageContext } from '@/lib/common/types/nextTypes'
 import { UserType } from '@/lib/common/types/userTypes'
@@ -54,15 +53,17 @@ export default async function PostSlug({ params }: PageContext) {
 
     return (
         <PageWrapper>
-            <Post post={post} isFullPost={true} author={author} />
+            <FullPost post={post} author={author} />
 
             <div className="py-5 flex flex-col gap-10">
-                <Heading>COMMENTS</Heading>
+                <h1 className="font-semibold text-neutral text-center">COMMENTS</h1>
 
                 <div className="flex flex-col gap-5">
                     {post.comments.map((comment, index) => (
                         <Comment key={index} comment={comment} user={comment.user} />
                     ))}
+
+                    {post.comments.length === 0 && <p className="text-center">Be the first to leave a comment.</p>}
                 </div>
                 <div className="w-full">
                     <CommentForm post={post.id} />

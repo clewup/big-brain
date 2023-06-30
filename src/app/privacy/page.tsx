@@ -1,11 +1,10 @@
-import Heading from '@/components/Heading/Heading'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import React from 'react'
 
 export default function Privacy() {
     return (
         <PageWrapper>
-            <Heading>PRIVACY POLICY</Heading>
+            <h1 className="text-4xl font-semibold py-5">Privacy Policy</h1>
 
             <div className="flex flex-col gap-10">
                 <p>

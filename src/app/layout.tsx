@@ -17,12 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <LockrProvider>
                 <NotificationProvider>
                     <body>
-                        <div className="w-screen">
-                            <Header />
-                            <div className="min-h-screen-header">{children}</div>
-                            <CookiePopup />
-                            <Footer />
-                        </div>
+                        <Header />
+                        <div className="min-h-screen-header">{children}</div>
+                        <CookiePopup />
+                        <Footer />
                     </body>
                 </NotificationProvider>
             </LockrProvider>

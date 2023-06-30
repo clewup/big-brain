@@ -13,23 +13,25 @@ interface AuthorProps {
 
 const Author: FC<AuthorProps> = ({ author: { name, image, posts }, index }) => {
     return (
-        <div className="card bg-base-200">
-            <div className="card-body">
-                <figure className="w-full">
+        <div className="border-b-2 border-neutral">
+            <div className="flex flex-col gap-5 aspect-square items-center justify-center">
+                <figure className="w-full flex justify-center">
                     {image ? <img src={image} alt={name} /> : <Avvvatars value={name} size={100} />}
                 </figure>
-                <h1 className="card-title text-">{name}</h1>
 
-                <span className="flex">
-                    <p>{posts} posts</p>
-                    <AwardIcon
-                        className={cx(
-                            { 'text-yellow-400': index === 0 },
-                            { 'text-gray-400': index === 1 },
-                            { 'text-amber-600': index === 2 }
-                        )}
-                    />
-                </span>
+                <div className="flex flex-col items-center gap-2">
+                    <h1 className="card-title text-">{name}</h1>
+                    <span className="flex gap-1">
+                        <AwardIcon
+                            className={cx(
+                                { 'text-yellow-400': index === 0 },
+                                { 'text-gray-400': index === 1 },
+                                { 'text-amber-600': index === 2 }
+                            )}
+                        />
+                        <p>{posts} posts</p>
+                    </span>
+                </div>
             </div>
         </div>
     )

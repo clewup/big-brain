@@ -58,16 +58,15 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
             {({ values, handleChange }) => {
                 return (
                     <Form className="flex flex-col items-end justify-between gap-5 py-1 md:flex-row md:gap-20">
-                        <span className="input-group flex-row">
-                            <label className="label bg-primary px-3">Category</label>
+                        <span className="input-group flex-row border-b-2 border-neutral w-fit items-end">
                             <Field name="category">
                                 {() => (
                                     <select
                                         name="category"
-                                        className="select font-normal bg-white text-black w-60"
+                                        className="py-1 font-normal bg-white text-lg focus:outline-none text-neutral w-60"
                                         value={values.category}
                                         onChange={handleChange}>
-                                        <option value={'default'}>Select...</option>
+                                        <option value={'default'}>Category</option>
                                         {categories.map((category, index) => (
                                             <option key={index} value={category}>
                                                 {category}
@@ -77,7 +76,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                                 )}
                             </Field>
                         </span>
-                        <p className="w-full text-right">
+                        <p className="w-full text-right text-neutral">
                             {searchResults.pagination.pageResults +
                                 searchResults.pagination.resultsPerPage * (searchResults.pagination.page - 1)}
                             /{searchResults.pagination.totalResults} results

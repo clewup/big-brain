@@ -1,6 +1,7 @@
 'use client'
 
 import { Field, Form, Formik } from 'formik'
+import { motion as m, Variants } from 'framer-motion'
 import React from 'react'
 import { Check as CheckIcon, X as CrossIcon } from 'react-feather'
 
@@ -10,8 +11,17 @@ const Hero = () => {
         return
     }
 
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { delay: 1.5, duration: 0.5 } },
+    }
+
     return (
-        <div className="bg-primary h-[50vh] flex flex-col items-center justify-center text-white gap-10 rounded-md">
+        <m.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="bg-primary min-h-[50vh] flex flex-col items-center justify-center text-white gap-10 rounded-md">
             <div className="flex flex-col items-center gap-5">
                 <h1 className="font-palatino text-8xl font-bold">Expand your mind</h1>
                 <p className="text-3xl">with simple ideas from regular people.</p>
@@ -51,7 +61,7 @@ const Hero = () => {
                     )
                 }}
             </Formik>
-        </div>
+        </m.div>
     )
 }
 

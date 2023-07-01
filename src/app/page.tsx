@@ -78,7 +78,7 @@ export default async function Home() {
                         </div>
                         <div className="grid grid-cols-3 gap-5">
                             {posts.slice(0, 9).map((post, index) => (
-                                <Post key={index} post={post} />
+                                <Post key={index} post={post} index={index} />
                             ))}
                         </div>
                     </div>

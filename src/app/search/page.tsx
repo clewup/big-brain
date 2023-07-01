@@ -62,7 +62,7 @@ export default function Posts() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {searchResults.results.map((post, index) => (
-                            <Post key={index} post={post} />
+                            <Post key={index} post={post} index={index} />
                         ))}
                     </div>
                 )}

@@ -1,7 +1,7 @@
 'use client'
 
 import { Post } from '@prisma/client'
-import { motion as m } from 'framer-motion'
+import { motion as m, Variants } from 'framer-motion'
 import moment from 'moment/moment'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -9,26 +9,29 @@ import React, { FC } from 'react'
 
 interface PostProps {
     post: Post
+    index: number
 }
 
-const Post: FC<PostProps> = ({ post }) => {
+const Post: FC<PostProps> = ({ post, index }) => {
     const router = useRouter()
+    const delay = index * 0.1
+
+    const containerVariants: Variants = {
+        hidden: {
+            y: 75,
+            opacity: 0,
+        },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                delay: delay, // staggers the animation for 0.3 seconds
+            },
+        },
+    }
 
     return (
-        <m.div
-            className="w-full"
-            variants={{
-                hidden: {
-                    y: 75,
-                    opacity: 0,
-                },
-                visible: {
-                    y: 0,
-                    opacity: 1,
-                },
-            }}
-            initial="hidden"
-            animate="visible">
+        <m.div className="w-full" variants={containerVariants} initial="hidden" animate="visible">
             <figure onClick={() => router.push(`/post/${post.id}`)} className="cursor-pointer">
                 <img
                     src={post.image}

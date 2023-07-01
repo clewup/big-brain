@@ -5,7 +5,7 @@ import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { Field, Form, Formik } from 'formik'
-import { motion as m } from 'framer-motion'
+import { motion as m, Variants } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -29,57 +29,46 @@ export default function Header() {
         },
     ]
 
+    const routeVariants: Variants = {
+        hidden: {
+            x: -75,
+            opacity: 0,
+        },
+        visible: {
+            x: 0,
+            opacity: 1,
+            transition: {
+                delay: 1,
+            },
+        },
+    }
+
     return (
         <div className="p-2 flex flex-col justify-between gap-5 md:h-[15vh] md:flex-row items-center px-40">
-            <m.div
-                variants={{
-                    hidden: {
-                        y: -75,
-                        opacity: 0,
-                    },
-                    visible: {
-                        y: 0,
-                        opacity: 1,
-                    },
-                }}
-                initial="hidden"
-                animate="visible"
-                className="flex gap-10">
-                <Link href="/">
-                    <Image
-                        src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
-                        alt="logo"
-                        width={150}
-                        height={30}
-                    />
-                </Link>
+            <div className="flex gap-10">
+                <m.div layoutId="logo" transition={{ duration: 0.7 }} className="relative z-50">
+                    <Link href="/">
+                        <Image
+                            src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
+                            alt="logo"
+                            width={150}
+                            height={30}
+                        />
+                    </Link>
+                </m.div>
 
-                <div className="flex justify-between z-20">
-                    <m.span
-                        variants={{
-                            hidden: {
-                                x: -75,
-                                opacity: 0,
-                            },
-                            visible: {
-                                x: 0,
-                                opacity: 1,
-                                transition: {
-                                    delay: 0.3,
-                                },
-                            },
-                        }}
-                        initial="hidden"
-                        animate="visible"
-                        className="flex gap-5 font-bold mr-5 md:gap-10 md:mr-10 items-center text-neutral">
-                        {routes.map((route, index) => (
-                            <Link key={index} href={route.path}>
-                                {route.label}
-                            </Link>
-                        ))}
-                    </m.span>
-                </div>
-            </m.div>
+                <m.div
+                    variants={routeVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="flex gap-5 font-bold mr-5 md:gap-10 md:mr-10 items-center text-neutral">
+                    {routes.map((route, index) => (
+                        <Link key={index} href={route.path}>
+                            {route.label}
+                        </Link>
+                    ))}
+                </m.div>
+            </div>
 
             <div className=" flex flex-col items-center justify-between md:flex-row z-20">
                 <div className="flex gap-2 items-center justify-center">

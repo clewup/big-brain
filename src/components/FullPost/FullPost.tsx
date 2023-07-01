@@ -67,7 +67,7 @@ const FullPost: FC<FullPostProps> = ({ post, author }) => {
 
                 <p className="whitespace-pre-line py-5">{post.content}</p>
 
-                <div className="flex flex-col items-center justify-center py-10">
+                <div className="flex flex-col py-10">
                     <div className="justify-start py-2">
                         {post.categories.map((category, index) => (
                             <Link href={`/search?category=${category}`} key={index} className="underline">
@@ -78,7 +78,7 @@ const FullPost: FC<FullPostProps> = ({ post, author }) => {
 
                     <p className="text-lg text-neutral">{moment(post.createdAt).format('DD/MM/YYYY')}</p>
 
-                    <h2 className="flex gap-2 text-xl my-5 items-center">
+                    <h2 className="flex gap-2 mt-3 text-xl items-center">
                         {author.image ? <img src={author.image} /> : <Avvvatars value={author.name} />}
                         {author.name}
                     </h2>

@@ -1,3 +1,4 @@
+import Category from '@/components/Category/Category'
 import Hero from '@/components/Hero/Hero'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import Post from '@/components/Post/Post'
@@ -20,6 +21,18 @@ async function getPosts(): Promise<PrismaPost[]> {
     return postsData
 }
 
+async function getCategories(): Promise<string[]> {
+    const categoriesResponse = await fetch(`${constants.APP_URL}/api/category`, {
+        method: 'GET',
+        cache: 'reload',
+    })
+    const categoriesData = await categoriesResponse.json()
+
+    if (!categoriesResponse.ok) throw new Error(categoriesData.error)
+
+    return categoriesData
+}
+
 // eslint-disable-next-line no-empty-pattern
 export async function generateMetadata({}: PageContext, parent: ResolvingMetadata): Promise<Metadata> {
     const previousImages = (await parent)?.openGraph?.images || []
@@ -34,11 +47,25 @@ export async function generateMetadata({}: PageContext, parent: ResolvingMetadat
 
 export default async function Home() {
     const posts = await getPosts()
+    const categories = await getCategories()
 
     return (
         <PageWrapper className="flex">
             <div className="w-full flex flex-col gap-10">
                 <Hero />
+
+                {categories.length && (
+                    <div>
+                        <div className="flex justify-between items-end">
+                            <h1 className="py-5 text-4xl font-semibold">Knowledge Hubs</h1>
+                        </div>
+                        <div className="grid grid-cols-3 gap-5">
+                            {categories.slice(0, 6).map((category, index) => (
+                                <Category key={index} category={category} />
+                            ))}
+                        </div>
+                    </div>
+                )}
 
                 {posts.length && (
                     <div>

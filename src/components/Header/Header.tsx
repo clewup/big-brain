@@ -107,7 +107,7 @@ export default function Header() {
                     <div className="min-w-[80px] flex justify-end">
                         {!user ? (
                             <span>
-                                <button className="btn btn-ghost" onClick={signIn}>
+                                <button className="btn btn-ghost text-neutral" onClick={signIn}>
                                     Log in
                                 </button>
                             </span>

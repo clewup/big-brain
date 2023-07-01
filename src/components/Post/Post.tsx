@@ -43,7 +43,7 @@ const Post: FC<PostProps> = ({ post }) => {
 
                 <div className="justify-start pb-4">
                     {post.categories.map((category, index) => (
-                        <Link href={`/search?category=${category}`} key={index} className="underline">
+                        <Link href={`/search?category=${category}`} key={index} className="font-semibold text-primary">
                             {category}
                         </Link>
                     ))}

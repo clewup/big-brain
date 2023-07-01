@@ -5,11 +5,17 @@ import React from 'react'
 import { Check as CheckIcon, X as CrossIcon } from 'react-feather'
 
 const Hero = () => {
-    function onSubmit() {}
+    function onSubmit() {
+        //todo: implement newsletter
+        return
+    }
 
     return (
         <div className="bg-primary h-[50vh] flex flex-col items-center justify-center text-white gap-10 rounded-md">
-            <h1 className="font-palatino text-8xl font-bold">Expand your mind</h1>
+            <div className="flex flex-col items-center gap-5">
+                <h1 className="font-palatino text-8xl font-bold">Expand your mind</h1>
+                <p className="text-3xl">with simple ideas from regular people.</p>
+            </div>
 
             <div className="flex gap-20">
                 <span className="flex gap-2 items-center font-semibold">

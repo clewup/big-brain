@@ -4,9 +4,50 @@ import { Field, Form, Formik } from 'formik'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { Facebook, Instagram, Twitter } from 'react-feather'
 
 const Footer = () => {
-    function onSubmit() {}
+    function onSubmit() {
+        //todo: implement newsletter
+        return
+    }
+
+    const companyRoutes = [
+        {
+            label: 'About us',
+            path: '/',
+        },
+        {
+            label: 'FAQ',
+            path: '/',
+        },
+        {
+            label: 'Jobs',
+            path: '/',
+        },
+    ]
+
+    const communityRoutes = [
+        {
+            label: 'Authors',
+            path: '/authors',
+        },
+    ]
+
+    const contactRoutes = [
+        {
+            label: <Twitter />,
+            path: '',
+        },
+        {
+            label: <Instagram />,
+            path: '',
+        },
+        {
+            label: <Facebook />,
+            path: '',
+        },
+    ]
 
     return (
         <div className="w-full  flex flex-col items-center gap-10 py-10 md:px-40">
@@ -40,12 +81,32 @@ const Footer = () => {
                 <div className="w-1/2 flex justify-between">
                     <span className="flex-col">
                         <h1 className="text-xl mb-2 text-black font-semibold">Company</h1>
+
+                        {companyRoutes.map((route, index) => (
+                            <Link key={index} href={route.path}>
+                                <p>{route.label}</p>
+                            </Link>
+                        ))}
                     </span>
                     <span className="flex-col">
-                        <h1 className="text-xl mb-2 text-black font-semibold">Resources</h1>
+                        <h1 className="text-xl mb-2 text-black font-semibold">Community</h1>
+
+                        {communityRoutes.map((route, index) => (
+                            <Link key={index} href={route.path}>
+                                <p>{route.label}</p>
+                            </Link>
+                        ))}
                     </span>
                     <span className="flex-col">
-                        <h1 className="text-xl mb-2 text-black font-semibold">Contact</h1>
+                        <h1 className="text-xl mb-2 text-black font-semibold pr-10">Contact</h1>
+
+                        <div className="flex gap-2">
+                            {contactRoutes.map((route, index) => (
+                                <Link key={index} href={route.path}>
+                                    <p>{route.label}</p>
+                                </Link>
+                            ))}
+                        </div>
                     </span>
                 </div>
             </div>

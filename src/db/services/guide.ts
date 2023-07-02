@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma'
 export default class GuideService {
     async getGuides() {
         const data = await prisma.guide.findMany({
-            include: { hubSection: { include: { hub: true } }, comments: true, sections: true },
+            include: { comments: true, hubSection: { include: { hub: true } }, sections: true },
         })
 
         return mapGuides(data)
@@ -16,8 +16,8 @@ export default class GuideService {
         }
 
         const data = await prisma.guide.findUnique({
+            include: { comments: true, hubSection: { include: { hub: true } }, sections: true },
             where: { id: id },
-            include: { hubSection: { include: { hub: true } }, comments: true, sections: true },
         })
 
         if (!data) return null
@@ -27,8 +27,8 @@ export default class GuideService {
 
     async getGuideByTitle(title: string) {
         const data = await prisma.guide.findFirst({
+            include: { comments: true, hubSection: { include: { hub: true } }, sections: true },
             where: { title: title },
-            include: { hubSection: { include: { hub: true } }, comments: true, sections: true },
         })
 
         if (!data) return null
@@ -38,9 +38,9 @@ export default class GuideService {
 
     async getGuideCategories() {
         const data = await prisma.guide.findMany({
-            select: { categories: true },
-            orderBy: { categories: 'asc' },
             distinct: ['categories'],
+            orderBy: { categories: 'asc' },
+            select: { categories: true },
         })
 
         return data.flatMap((guide) => guide.categories)

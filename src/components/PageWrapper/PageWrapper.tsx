@@ -15,11 +15,11 @@ interface PageWrapperProps {
 const PageWrapper: FC<PageWrapperProps> = ({
     children,
     className,
-    requireLoggedIn = false,
     requireAdminRole = false,
+    requireLoggedIn = false,
 }) => {
     const router = useRouter()
-    const { user, isAdmin } = useLockr()
+    const { isAdmin, user } = useLockr()
 
     function redirectToHome() {
         router.push('/')

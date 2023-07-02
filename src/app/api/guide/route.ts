@@ -8,19 +8,19 @@ export async function POST(request: NextRequest) {
     const user = request.headers.get('x-user')
     if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
 
-    const { isValid, errors } = validate(body)
+    const { errors, isValid } = validate(body)
     if (!isValid) return response.json({ error: `Invalid ${errors.join(', ')}` }, { status: 400 })
 
     if (!body.id) {
         const createdGuide = await prisma.guide.create({
             data: {
-                createdBy: user,
-                updatedBy: user,
-                title: body.title,
-                image: body.image,
                 categories: body.categories,
+                createdBy: user,
                 //todo: connect to hub section
                 hubSection: body.hubSection,
+                image: body.image,
+                title: body.title,
+                updatedBy: user,
             },
         })
 
@@ -28,13 +28,13 @@ export async function POST(request: NextRequest) {
     }
 
     const updatedGuide = await prisma.guide.update({
-        where: { id: body.id },
         data: {
-            updatedBy: user,
-            title: body.title,
-            image: body.image,
             categories: body.categories,
+            image: body.image,
+            title: body.title,
+            updatedBy: user,
         },
+        where: { id: body.id },
     })
 
     return response.json(updatedGuide)
@@ -61,7 +61,7 @@ function validate(body: Partial<Guide & { hubSection: string }>) {
     if (!body.hubSection) errors.push('hubSection')
 
     return {
-        isValid: errors.length === 0,
         errors: errors,
+        isValid: errors.length === 0,
     }
 }

@@ -11,7 +11,7 @@ interface AuthorProps {
     index: number
 }
 
-const Author: FC<AuthorProps> = ({ author: { name, image, guidesCreated }, index }) => {
+const Author: FC<AuthorProps> = ({ author: { guidesCreated, image, name }, index }) => {
     return (
         <div className="border-b-2 border-neutral">
             <div className="flex flex-col gap-5 aspect-square items-center justify-center">

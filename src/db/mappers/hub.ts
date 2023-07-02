@@ -10,14 +10,14 @@ export type HubEntity = Hub & {
 
 export function mapHub(hub: HubEntity): HubType {
     return {
-        title: hub.title,
-        image: hub.image,
         createdAt: hub.createdAt,
         features: hub.features,
+        image: hub.image,
         sections: hub.sections.map((section) => ({
-            title: section.title,
             guides: mapGuides(section.guides),
+            title: section.title,
         })),
+        title: hub.title,
     }
 }
 

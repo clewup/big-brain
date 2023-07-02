@@ -13,7 +13,7 @@ import React from 'react'
 import { Search as SearchIcon, User as UserIcon } from 'react-feather'
 
 export default function Header() {
-    const { signIn, signOut } = useAuth({ redirectUri: constants.APP_URL, applicationId: constants.APPLICATION_ID })
+    const { signIn, signOut } = useAuth({ applicationId: constants.APPLICATION_ID, redirectUri: constants.APP_URL })
     const { user } = useLockr()
     const { queryParams, setQueryParams } = useQueryParams()
     const searchParams = useSearchParams()
@@ -31,15 +31,15 @@ export default function Header() {
 
     const routeVariants: Variants = {
         hidden: {
-            x: -75,
             opacity: 0,
+            x: -75,
         },
         visible: {
-            x: 0,
             opacity: 1,
             transition: {
-                delay: 1,
+                delay: 1.5,
             },
+            x: 0,
         },
     }
 
@@ -75,7 +75,7 @@ export default function Header() {
                     <Formik
                         initialValues={{ search: searchParams.get('search') || '' }}
                         onSubmit={(formValues) => {
-                            const updatedQuery = { ...queryParams, search: formValues.search, page: null }
+                            const updatedQuery = { ...queryParams, page: null, search: formValues.search }
                             setQueryParams(updatedQuery, '/search')
                         }}>
                         <Form>

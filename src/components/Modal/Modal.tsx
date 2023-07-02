@@ -15,7 +15,7 @@ interface ModalProps {
     buttons: ModalButtonType[]
 }
 
-const Modal: FC<ModalProps> = ({ id, isOpen, title, text, buttons }) => {
+const Modal: FC<ModalProps> = ({ buttons, id, isOpen, text, title }) => {
     return (
         <>
             <input type="checkbox" id={id} className="modal-toggle" checked={isOpen} onChange={() => null} />

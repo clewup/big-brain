@@ -5,11 +5,29 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 // eslint-disable-next-line no-undef
 module.exports = {
     content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+    daisyui: {
+        themes: [
+            {
+                blog: {
+                    'base-100': '#FFFFFF',
+                    error: '#d9534f',
+                    info: '#3ABFF8',
+                    neutral: '#9ca3af',
+                    primary: '#fe416d',
+                    secondary: '#7bf6f2',
+                    success: '#198754',
+                    warning: '#FBBD23',
+                },
+            },
+        ],
+    },
+    // eslint-disable-next-line no-undef
+    plugins: [require('@tailwindcss/typography'), require('daisyui')],
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
                 palatino: ['Palatino', 'sans'],
+                sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
             },
             height: {
                 'screen-header': '92vh',
@@ -18,23 +36,5 @@ module.exports = {
                 'screen-header': '92vh',
             },
         },
-    },
-    // eslint-disable-next-line no-undef
-    plugins: [require('@tailwindcss/typography'), require('daisyui')],
-    daisyui: {
-        themes: [
-            {
-                blog: {
-                    primary: '#fe416d',
-                    secondary: '#7bf6f2',
-                    neutral: '#9ca3af',
-                    'base-100': '#FFFFFF',
-                    info: '#3ABFF8',
-                    success: '#198754',
-                    warning: '#FBBD23',
-                    error: '#d9534f',
-                },
-            },
-        ],
     },
 }

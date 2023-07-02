@@ -9,19 +9,19 @@ export async function POST(request: NextRequest) {
     const user = request.headers.get('x-user')
     if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
 
-    const { isValid, errors } = validate(body)
+    const { errors, isValid } = validate(body)
     if (!isValid) return response.json({ error: `Invalid ${errors.join(', ')}` }, { status: 400 })
 
     const createdComment = await prisma.comment.create({
         data: {
-            createdBy: user,
-            updatedBy: user,
             content: body.content,
+            createdBy: user,
             guide: {
                 connect: {
                     id: body.guide,
                 },
             },
+            updatedBy: user,
         },
     })
 
@@ -36,7 +36,7 @@ export async function PATCH(request: NextRequest) {
     const user = request.headers.get('x-user')
     if (!user) return response.json({ error: 'Missing user' }, { status: 400 })
 
-    const { isValid, errors } = validate(body)
+    const { errors, isValid } = validate(body)
     if (!isValid) return response.json({ error: `Invalid ${errors.join(', ')}` }, { status: 400 })
 
     const comment = await prisma.comment.findUnique({ where: { id: Number(body.id) } })
@@ -45,11 +45,11 @@ export async function PATCH(request: NextRequest) {
         return response.json({ error: `Comment ${body.id} was not created by user ${user}` }, { status: 400 })
 
     const updatedComment = await prisma.comment.update({
-        where: { id: body.id },
         data: {
-            updatedBy: user,
             content: body.content,
+            updatedBy: user,
         },
+        where: { id: body.id },
     })
 
     return response.json(updatedComment)
@@ -82,7 +82,7 @@ function validate(body: Partial<Comment & { guide: string }>) {
     if (!body.content) errors.push('content')
 
     return {
-        isValid: errors.length === 0,
         errors: errors,
+        isValid: errors.length === 0,
     }
 }

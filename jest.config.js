@@ -7,12 +7,12 @@ const createJestConfig = nextJest({
 
 /** @type {import('jest').Config} */
 const customJestConfig = {
-    preset: 'ts-jest',
-    testEnvironment: 'jest-environment-jsdom',
     moduleNameMapper: {
         // eslint-disable-next-line no-undef
         '^@/(.*)$': resolve(__dirname, 'src/$1'),
     },
+    preset: 'ts-jest',
+    testEnvironment: 'jest-environment-jsdom',
 }
 
 // eslint-disable-next-line no-undef

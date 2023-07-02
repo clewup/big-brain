@@ -6,8 +6,8 @@ import React from 'react'
 
 async function getAuthors(): Promise<AuthorType[]> {
     const authorsResponse = await fetch(`${constants.APP_URL}/api/author`, {
-        method: 'GET',
         cache: 'no-store',
+        method: 'GET',
     })
 
     const authorsData = await authorsResponse.json()

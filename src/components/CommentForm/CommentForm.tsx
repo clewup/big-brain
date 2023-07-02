@@ -16,8 +16,8 @@ const CommentForm: FC<CommentFormProps> = ({ guideId }) => {
     const { post } = useApi()
     const { user } = useLockr()
     const { signIn } = useAuth({
-        redirectUri: `${constants.APP_URL}/guide/${guideId}`,
         applicationId: constants.APPLICATION_ID,
+        redirectUri: `${constants.APP_URL}/guide/${guideId}`,
     })
     const router = useRouter()
 
@@ -56,7 +56,7 @@ const CommentForm: FC<CommentFormProps> = ({ guideId }) => {
 
     return (
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
-            {({ values, handleChange, isSubmitting }) => {
+            {({ handleChange, isSubmitting, values }) => {
                 return (
                     <Form>
                         <div className="form-control">

@@ -17,8 +17,16 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "perfectionist"
     ],
     "rules": {
+        "perfectionist/sort-objects": [
+            "error",
+            {
+                "type": "natural",
+                "order": "asc"
+            }
+        ]
     }
 }

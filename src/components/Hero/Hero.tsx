@@ -13,7 +13,7 @@ const Hero = () => {
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { delay: 1.5, duration: 0.5 } },
+        visible: { opacity: 1, transition: { delay: 1, duration: 0.5 } },
     }
 
     return (

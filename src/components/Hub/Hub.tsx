@@ -37,27 +37,29 @@ const Hub: FC<HubProps> = ({ hub }) => {
 
     return (
         <div className="flex w-full">
-            <div className="w-1/5">
-                <div className="flex justify-between items-end">
-                    <h1 className="pb-5 text-4xl font-semibold">{hub.title}</h1>
-                </div>
-
-                {hub.sections.map((section, index) => (
-                    <div key={index}>
-                        <p className="font-semibold">{section.title}</p>
-
-                        <div className="ml-10">
-                            {section.guides.map((guide, index) => (
-                                <p
-                                    key={index}
-                                    onClick={() => setQueryParams({ ...queryParams, guide: guide.title })}
-                                    className="cursor-pointer">
-                                    {guide.title}
-                                </p>
-                            ))}
-                        </div>
+            <div className="w-1/5 relative">
+                <div className="sticky top-10">
+                    <div className="flex justify-between items-end">
+                        <h1 className="pb-5 text-4xl font-semibold">{hub.title}</h1>
                     </div>
-                ))}
+
+                    {hub.sections.map((section, index) => (
+                        <div key={index}>
+                            <p className="font-semibold">{section.title}</p>
+
+                            <div className="ml-10">
+                                {section.guides.map((guide, index) => (
+                                    <p
+                                        key={index}
+                                        onClick={() => setQueryParams({ ...queryParams, guide: guide.title })}
+                                        className="cursor-pointer">
+                                        {guide.title}
+                                    </p>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <div className="w-4/5">

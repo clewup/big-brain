@@ -9,12 +9,12 @@ export default class HubService {
                     include: {
                         guides: {
                             include: {
+                                comments: true,
                                 hubSection: {
                                     include: {
                                         hub: true,
                                     },
                                 },
-                                comments: true,
                                 sections: true,
                             },
                         },
@@ -28,24 +28,24 @@ export default class HubService {
 
     async getHubById(id: number) {
         const data = await prisma.hub.findUnique({
-            where: { id: id },
             include: {
                 sections: {
                     include: {
                         guides: {
                             include: {
+                                comments: true,
                                 hubSection: {
                                     include: {
                                         hub: true,
                                     },
                                 },
-                                comments: true,
                                 sections: true,
                             },
                         },
                     },
                 },
             },
+            where: { id: id },
         })
 
         if (!data) return null
@@ -55,24 +55,24 @@ export default class HubService {
 
     async getHubByTitle(title: string) {
         const data = await prisma.hub.findFirst({
-            where: { title: title },
             include: {
                 sections: {
                     include: {
                         guides: {
                             include: {
+                                comments: true,
                                 hubSection: {
                                     include: {
                                         hub: true,
                                     },
                                 },
-                                comments: true,
                                 sections: true,
                             },
                         },
                     },
                 },
             },
+            where: { title: title },
         })
 
         if (!data) return null

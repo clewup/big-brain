@@ -47,8 +47,8 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
 
             const updatedQuery = {
                 ...queryParams,
-                page: null,
                 [key]: isNotFiltered ? null : value,
+                page: null,
             }
             setQueryParams(updatedQuery)
         })
@@ -56,7 +56,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
 
     return (
         <Formik initialValues={initialValues} enableReinitialize={true} onSubmit={onSubmit}>
-            {({ values, handleChange }) => {
+            {({ handleChange, values }) => {
                 return (
                     <Form className="flex flex-col items-end justify-between gap-5 py-1 md:flex-row md:gap-20">
                         <span className="input-group flex-row border-b-2 border-neutral w-fit items-end">

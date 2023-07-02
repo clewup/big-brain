@@ -15,15 +15,15 @@ const HubCard: FC<HubCardProps> = ({ hub, index }) => {
 
     const containerVariants: Variants = {
         hidden: {
-            y: 75,
             opacity: 0,
+            y: 75,
         },
         visible: {
-            y: 0,
             opacity: 1,
             transition: {
                 delay: delay, // staggers the animation for 0.3 seconds
             },
+            y: 0,
         },
     }
 

@@ -11,24 +11,24 @@ export type GuideEntity = Guide & {
 
 export function mapGuide(guide: GuideEntity): GuideType {
     return {
-        id: guide.id,
-        title: guide.title,
-        image: guide.image,
-        createdAt: guide.createdAt,
         //todo: map author
         author: {} as AuthorType,
-        hub: guide.hubSection.hub.title,
         categories: guide.categories,
         comments: guide.comments.map((comment) => ({
-            //todo: map user
-            user: {} as UserType,
             content: comment.content,
             createdAt: comment.updatedAt,
+            //todo: map user
+            user: {} as UserType,
         })),
+        createdAt: guide.createdAt,
+        hub: guide.hubSection.hub.title,
+        id: guide.id,
+        image: guide.image,
         sections: guide.sections.map((section) => ({
-            title: section.title,
             content: section.content,
+            title: section.title,
         })),
+        title: guide.title,
     }
 }
 

@@ -8,18 +8,18 @@ interface LoaderProps {
 
 const Loader: FC<LoaderProps> = ({ setLoading }) => {
     const containerVariants: Variants = {
-        initial: { opacity: 1 },
         animate: { opacity: 1, transition: { duration: 2 } },
+        initial: { opacity: 1 },
     }
 
     const imageVariants: Variants = {
         hidden: { y: 1000 },
         visible: {
-            y: 0,
             transition: {
-                type: 'spring',
                 duration: 1,
+                type: 'spring',
             },
+            y: 0,
         },
     }
 

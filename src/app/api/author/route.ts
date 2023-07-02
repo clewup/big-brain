@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
             id: userData.id,
             name: userData.name,
             image: userData.image,
-            guides: guides.length,
+            guidesCreated: guides.length,
         }
 
         return response.json(author)
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
             id: userData.id,
             name: userData.name,
             image: userData.image,
-            guides: guides.filter((guide) => guide.createdBy === userData.email).length,
+            guidesCreated: guides.filter((guide) => guide.createdBy === userData.email).length,
         }
 
         if (authors.filter((auth) => auth.id === author.id).length === 0) {
@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
         }
     }
 
-    const sortedAuthors = authors.sort((a, b) => b.guides - a.guides)
+    const sortedAuthors = authors.sort((a, b) => b.guidesCreated - a.guidesCreated)
 
     return response.json(sortedAuthors)
 }

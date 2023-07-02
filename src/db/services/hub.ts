@@ -9,6 +9,11 @@ export default class HubService {
                     include: {
                         guides: {
                             include: {
+                                hubSection: {
+                                    include: {
+                                        hub: true,
+                                    },
+                                },
                                 comments: true,
                                 sections: true,
                             },
@@ -21,6 +26,33 @@ export default class HubService {
         return mapHubs(data)
     }
 
+    async getHubById(id: number) {
+        const data = await prisma.hub.findUnique({
+            where: { id: id },
+            include: {
+                sections: {
+                    include: {
+                        guides: {
+                            include: {
+                                hubSection: {
+                                    include: {
+                                        hub: true,
+                                    },
+                                },
+                                comments: true,
+                                sections: true,
+                            },
+                        },
+                    },
+                },
+            },
+        })
+
+        if (!data) return null
+
+        return mapHub(data)
+    }
+
     async getHubByTitle(title: string) {
         const data = await prisma.hub.findFirst({
             where: { title: title },
@@ -29,6 +61,11 @@ export default class HubService {
                     include: {
                         guides: {
                             include: {
+                                hubSection: {
+                                    include: {
+                                        hub: true,
+                                    },
+                                },
                                 comments: true,
                                 sections: true,
                             },

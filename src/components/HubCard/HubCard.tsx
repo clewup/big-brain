@@ -28,7 +28,7 @@ const HubCard: FC<HubCardProps> = ({ hub, index }) => {
     }
 
     return (
-        <Link href={`/hub/${hub.title}`}>
+        <Link href={`/hubs/${hub.title}`}>
             <m.div
                 variants={containerVariants}
                 initial="hidden"

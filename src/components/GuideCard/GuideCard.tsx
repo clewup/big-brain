@@ -1,10 +1,10 @@
 'use client'
 
+import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { GuideType } from '@/types/guideTypes'
 import { motion as m, Variants } from 'framer-motion'
 import moment from 'moment/moment'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import React, { FC } from 'react'
 
 interface GuideCardProps {
@@ -13,7 +13,8 @@ interface GuideCardProps {
 }
 
 const GuideCard: FC<GuideCardProps> = ({ guide, index }) => {
-    const router = useRouter()
+    const { setQueryParams } = useQueryParams()
+
     const delay = index * 0.05
 
     const containerVariants: Variants = {
@@ -36,7 +37,9 @@ const GuideCard: FC<GuideCardProps> = ({ guide, index }) => {
             variants={containerVariants}
             initial="hidden"
             animate="visible">
-            <figure onClick={() => router.push(`/guide/${guide.id}`)} className="cursor-pointer">
+            <figure
+                onClick={() => setQueryParams({ guide: guide.title }, `hubs/${guide.hub}`)}
+                className="cursor-pointer">
                 <img
                     src={guide.image}
                     alt={guide.title}

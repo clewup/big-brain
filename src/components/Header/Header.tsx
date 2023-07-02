@@ -27,10 +27,6 @@ export default function Header() {
             label: 'KNOWLEDGE HUBS',
             path: '/hubs',
         },
-        {
-            label: 'SHARE',
-            path: '/share',
-        },
     ]
 
     const routeVariants: Variants = {

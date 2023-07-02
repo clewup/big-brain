@@ -3,7 +3,9 @@ import { HubType } from '@/types/hubTypes'
 import { Comment, Guide, GuideSection, Hub, HubSection } from '@prisma/client'
 
 export type HubEntity = Hub & {
-    sections: (HubSection & { guides: (Guide & { sections: GuideSection[]; comments: Comment[] })[] })[]
+    sections: (HubSection & {
+        guides: (Guide & { hubSection: HubSection & { hub: Hub }; sections: GuideSection[]; comments: Comment[] })[]
+    })[]
 }
 
 export function mapHub(hub: HubEntity): HubType {

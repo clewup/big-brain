@@ -7,6 +7,7 @@ export interface GuideType {
     image: string
     createdAt: Date
     author: AuthorType
+    hub: string
     categories: string[]
     comments: CommentType[]
     sections: GuideSectionType[]

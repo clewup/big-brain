@@ -1,11 +1,11 @@
 import { UserType } from '@/lib/common/types/userTypes'
-import { Comment } from '@prisma/client'
+import { CommentType } from '@/types/commentTypes'
 import Avvvatars from 'avvvatars-react'
 import moment from 'moment'
 import React, { FC } from 'react'
 
 interface CommentProps {
-    comment: Comment
+    comment: CommentType
     user: UserType
 }
 
@@ -24,7 +24,7 @@ const Comment: FC<CommentProps> = ({ comment, user }) => {
 
                 <p className="text-lg">{user.name}</p>
             </div>
-            <p className="text-neutral">{moment(comment.updatedAt).format('DD/MM/YYYY HH:mm')}</p>
+            <p className="text-neutral">{moment(comment.createdAt).format('DD/MM/YYYY HH:mm')}</p>
         </div>
     )
 }

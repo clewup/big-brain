@@ -5,7 +5,7 @@ import metadata from '@/constants/metadata'
 import { useNotification } from '@/contexts/NotificationContext/NotificationContext'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
-import { Guide } from '@prisma/client'
+import { GuideType } from '@/types/guideTypes'
 import cx from 'classnames'
 import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik'
 import { useRouter } from 'next/navigation'
@@ -16,7 +16,7 @@ import Select from 'react-select/creatable'
 import * as yup from 'yup'
 
 interface GuideFormProps {
-    initialGuide?: Guide
+    initialGuide: GuideType | null
 }
 
 const GuideForm: FC<GuideFormProps> = ({ initialGuide }) => {
@@ -26,7 +26,7 @@ const GuideForm: FC<GuideFormProps> = ({ initialGuide }) => {
     const { pushNotification } = useNotification()
     const { user, isAdmin } = useLockr()
 
-    if (!user || (initialGuide && initialGuide.createdBy !== user.email && !isAdmin)) {
+    if (!user || (initialGuide && initialGuide.author.id !== user.id && !isAdmin)) {
         router.push('/')
     }
 
@@ -67,7 +67,7 @@ const GuideForm: FC<GuideFormProps> = ({ initialGuide }) => {
     async function onSubmit(formValues: FormikValues, formHelpers: FormikHelpers<CreateFormValues>) {
         formHelpers.setSubmitting(true)
 
-        const guideData = await post<Guide>('/api/guide', formValues)
+        const guideData = await post<GuideType>('/api/guide', formValues)
 
         formHelpers.setSubmitting(false)
 

@@ -1,40 +1,6 @@
-import { UserType } from '@/lib/common/types/userTypes'
 import prisma from '@/lib/prisma'
-import { Comment, Guide } from '@prisma/client'
+import { Guide } from '@prisma/client'
 import { NextRequest, NextResponse as response } from 'next/server'
-
-export async function GET(request: NextRequest) {
-    const { searchParams } = new URL(request.url)
-    const id = searchParams.get('id')
-
-    if (id) {
-        const guide = await prisma.guide.findUnique({ include: { comments: true }, where: { id: Number(id) } })
-
-        if (!guide) return response.json({ error: `Guide ${id} not found` }, { status: 404 })
-
-        // map the user information to the comments
-        const commentsWithUsers: (Comment & { user: UserType })[] = []
-        for (const comment of guide.comments) {
-            const userResponse = await fetch(`${process.env.LOCKR_URL}/api/user?id=${comment.createdBy}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${process.env.LOCKR_APPLICATION_SECRET}`,
-                },
-            })
-            const userData = await userResponse.json()
-            commentsWithUsers.push({
-                ...comment,
-                user: userData,
-            })
-        }
-        guide.comments = commentsWithUsers
-
-        return response.json(guide)
-    }
-
-    const guides = await prisma.guide.findMany({ orderBy: { createdAt: 'desc' } })
-    return response.json(guides)
-}
 
 export async function POST(request: NextRequest) {
     const body = await request.json()
@@ -53,6 +19,7 @@ export async function POST(request: NextRequest) {
                 title: body.title,
                 image: body.image,
                 categories: body.categories,
+                //todo: connect to hub section
                 hubSection: body.hubSection,
             },
         })

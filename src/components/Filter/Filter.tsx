@@ -23,6 +23,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
         const categoriesData = await get<string[]>('/api/category', {
             cache: 'no-store',
         })
+
         setCategories(categoriesData)
     }
 
@@ -66,7 +67,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                                         className="py-1 font-normal bg-white pb-2 focus:outline-none text-neutral w-60"
                                         value={values.category}
                                         onChange={handleChange}>
-                                        <option value={'default'}>Category</option>
+                                        <option value="default">Category</option>
                                         {categories.map((category, index) => (
                                             <option key={index} value={category}>
                                                 {category}

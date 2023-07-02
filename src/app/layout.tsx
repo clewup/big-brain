@@ -7,7 +7,6 @@ import './global.css'
 
 export const metadata = {
     title: 'Big Brain',
-    description: '',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

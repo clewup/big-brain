@@ -24,6 +24,10 @@ export default function Header() {
             path: '/search',
         },
         {
+            label: 'KNOWLEDGE HUBS',
+            path: '/hubs',
+        },
+        {
             label: 'SHARE',
             path: '/share',
         },

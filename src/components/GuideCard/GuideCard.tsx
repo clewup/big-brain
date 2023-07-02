@@ -1,6 +1,6 @@
 'use client'
 
-import { Guide } from '@prisma/client'
+import { GuideType } from '@/types/guideTypes'
 import { motion as m, Variants } from 'framer-motion'
 import moment from 'moment/moment'
 import Link from 'next/link'
@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import React, { FC } from 'react'
 
 interface GuideCardProps {
-    guide: Guide
+    guide: GuideType
     index: number
 }
 

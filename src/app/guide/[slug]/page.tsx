@@ -2,50 +2,27 @@ import Comment from '@/components/Comment/Comment'
 import CommentForm from '@/components/CommentForm/CommentForm'
 import Guide from '@/components/Guide/Guide'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
-import constants from '@/constants/constants'
+import { guideService } from '@/db/handler'
 import { PageContext } from '@/lib/common/types/nextTypes'
-import { UserType } from '@/lib/common/types/userTypes'
-import { AuthorType } from '@/types/authorTypes'
-import { Comment as PrismaComment, Guide as GuideType } from '@prisma/client'
-import { Metadata, ResolvingMetadata } from 'next'
+import { Metadata } from 'next'
 import React from 'react'
 
-async function getGuideById(id: number): Promise<GuideType & { comments: (PrismaComment & { user: UserType })[] }> {
-    const guideResponse = await fetch(`${constants.APP_URL}/api/guide?id=${id}`, {
-        method: 'GET',
-        cache: 'no-store',
-    })
-    const guideData = await guideResponse.json()
-    if (!guideResponse.ok) throw new Error(guideData.error)
+export async function generateMetadata({ params }: PageContext): Promise<Metadata> {
+    const guide = await guideService.getGuideById(Number(params.slug))
 
-    return guideData
-}
-
-async function getGuideAuthor(id: number): Promise<AuthorType> {
-    const authorResponse = await fetch(`${constants.APP_URL}/api/author?id=${id}`, {
-        method: 'GET',
-    })
-    const authorData = await authorResponse.json()
-    if (!authorResponse.ok) throw new Error(authorData.error)
-
-    return authorData
-}
-
-export async function generateMetadata({ params }: PageContext, parent: ResolvingMetadata): Promise<Metadata> {
-    const guide = await getGuideById(Number(params.slug))
-    const previousImages = (await parent).openGraph?.images || []
+    if (!guide) {
+        return {
+            title: `Big Brain`,
+        }
+    }
 
     return {
         title: `Big Brain - ${guide.title}`,
-        openGraph: {
-            images: [guide.image, ...previousImages],
-        },
     }
 }
 
 export default async function Page({ params }: PageContext) {
-    const guide = await getGuideById(Number(params.slug))
-    const author = await getGuideAuthor(Number(params.slug))
+    const guide = await guideService.getGuideById(Number(params.slug))
 
     if (!guide) {
         return <p>Not found.</p>
@@ -53,7 +30,7 @@ export default async function Page({ params }: PageContext) {
 
     return (
         <PageWrapper>
-            <Guide guide={guide} author={author} />
+            <Guide guide={guide} />
 
             <div className="py-5 flex flex-col gap-10">
                 <h1 className="font-semibold text-neutral text-center">COMMENTS</h1>

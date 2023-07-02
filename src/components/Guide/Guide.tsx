@@ -4,9 +4,7 @@ import Modal from '@/components/Modal/Modal'
 import { useNotification } from '@/contexts/NotificationContext/NotificationContext'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
-import { AuthorType } from '@/types/authorTypes'
-import { Guide } from '@prisma/client'
-import Avvvatars from 'avvvatars-react'
+import { GuideType } from '@/types/guideTypes'
 import { motion as m } from 'framer-motion'
 import moment from 'moment'
 import Link from 'next/link'
@@ -15,11 +13,10 @@ import React, { FC, useState } from 'react'
 import { Edit as EditIcon, Trash as DeleteIcon } from 'react-feather'
 
 interface GuideProps {
-    guide: Guide
-    author: AuthorType
+    guide: GuideType
 }
 
-const Guide: FC<GuideProps> = ({ guide, author }) => {
+const Guide: FC<GuideProps> = ({ guide }) => {
     const { user, isAdmin } = useLockr()
     const { pushNotification } = useNotification()
     const { del } = useApi()
@@ -75,13 +72,8 @@ const Guide: FC<GuideProps> = ({ guide, author }) => {
                     </div>
 
                     <p className="text-lg text-neutral">{moment(guide.createdAt).format('DD/MM/YYYY')}</p>
-
-                    <h2 className="flex gap-2 mt-3 text-xl items-center">
-                        {author.image ? <img src={author.image} /> : <Avvvatars value={author.name} />}
-                        {author.name}
-                    </h2>
                 </div>
-                {(isAdmin || guide.createdBy === user?.email) && (
+                {(isAdmin || guide.author.id === user?.id) && (
                     <div className="justify-end my-2 flex text-neutral gap-2">
                         <Link href={`/share?id=${guide.id}`}>
                             <EditIcon />

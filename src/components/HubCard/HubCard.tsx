@@ -46,8 +46,8 @@ const HubCard: FC<HubCardProps> = ({ hub, index }) => {
                     <h2 className="text-2xl font-semibold">{hub.title}</h2>
 
                     <div className="pt-5">
-                        {hub.features.map((feature) => (
-                            <p>{feature}</p>
+                        {hub.features.map((feature, index) => (
+                            <p key={index}>{feature}</p>
                         ))}
                     </div>
                 </div>

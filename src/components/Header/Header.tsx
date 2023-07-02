@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
-import { Edit as EditIcon, Search as SearchIcon, User as UserIcon } from 'react-feather'
+import { Search as SearchIcon, User as UserIcon } from 'react-feather'
 
 export default function Header() {
     const { signIn, signOut } = useAuth({ redirectUri: constants.APP_URL, applicationId: constants.APPLICATION_ID })
@@ -20,12 +20,12 @@ export default function Header() {
 
     const routes = [
         {
-            label: 'ALL IDEAS',
+            label: 'GUIDES',
             path: '/search',
         },
         {
             label: 'SHARE',
-            path: '/write',
+            path: '/share',
         },
     ]
 
@@ -83,8 +83,8 @@ export default function Header() {
                                 <Field
                                     name="search"
                                     type="text"
-                                    placeholder="Search great ideas"
-                                    className="bg-white text-black text-lg focus:outline-none border-b-2 border-neutral"
+                                    placeholder="Search guides"
+                                    className="bg-white text-black pb-2 focus:outline-none border-b-2 border-neutral"
                                 />
                                 <button>
                                     <SearchIcon className="text-neutral" />
@@ -110,12 +110,6 @@ export default function Header() {
                                     className="mt-3 bg-base-200 p-2 menu menu-compact dropdown-content rounded-box w-52">
                                     <li onClick={signOut}>
                                         <a>Logout</a>
-                                    </li>
-                                    <li className="block md:hidden">
-                                        <Link href="/write" className="flex gap-2 items-center">
-                                            Share
-                                            <EditIcon size={15} />
-                                        </Link>
                                     </li>
                                 </ul>
                             </div>

@@ -14,7 +14,13 @@ const Loader: FC<LoaderProps> = ({ setLoading }) => {
 
     const imageVariants: Variants = {
         hidden: { y: 1000 },
-        visible: { y: 0, transition: { duration: 1.5 } },
+        visible: {
+            y: 0,
+            transition: {
+                type: 'spring',
+                duration: 1,
+            },
+        },
     }
 
     return (

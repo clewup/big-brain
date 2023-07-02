@@ -9,32 +9,32 @@ import { useRouter } from 'next/navigation'
 import React, { FC } from 'react'
 
 interface CommentFormProps {
-    post: number
+    guideId: number
 }
 
-const CommentForm: FC<CommentFormProps> = ({ post }) => {
-    const { post: apiPost } = useApi()
+const CommentForm: FC<CommentFormProps> = ({ guideId }) => {
+    const { post } = useApi()
     const { user } = useLockr()
     const { signIn } = useAuth({
-        redirectUri: `${constants.APP_URL}/post/${post}`,
+        redirectUri: `${constants.APP_URL}/guide/${guideId}`,
         applicationId: constants.APPLICATION_ID,
     })
     const router = useRouter()
 
     type CommentFormValues = {
         content: string
-        post: number
+        guideId: number
     }
 
     const initialValues: CommentFormValues = {
         content: '',
-        post: post,
+        guideId: guideId,
     }
 
     async function onSubmit(formValues: FormikValues, formHelpers: FormikHelpers<CommentFormValues>) {
         formHelpers.setSubmitting(true)
 
-        await apiPost('/api/comment', formValues)
+        await post('/api/comment', formValues)
 
         formHelpers.setSubmitting(false)
         formHelpers.resetForm({ values: initialValues })

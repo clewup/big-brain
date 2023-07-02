@@ -8,11 +8,11 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get('id')
 
     if (id) {
-        const post = await prisma.post.findUnique({ where: { id: Number(id) } })
+        const guide = await prisma.guide.findUnique({ where: { id: Number(id) } })
 
-        if (!post) return response.json({ error: 'Invalid post' }, { status: 400 })
+        if (!guide) return response.json({ error: 'Invalid guide' }, { status: 400 })
 
-        const userResponse = await fetch(`${process.env.LOCKR_URL}/api/user?id=${post.createdBy}`, {
+        const userResponse = await fetch(`${process.env.LOCKR_URL}/api/user?id=${guide.createdBy}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${process.env.LOCKR_APPLICATION_SECRET}`,
@@ -20,13 +20,13 @@ export async function GET(request: NextRequest) {
         })
         const userData = await userResponse.json()
 
-        const posts = await prisma.post.findMany({ where: { createdBy: userData.email } })
+        const guides = await prisma.guide.findMany({ where: { createdBy: userData.email } })
 
         const author: AuthorType = {
             id: userData.id,
             name: userData.name,
             image: userData.image,
-            posts: posts.length,
+            guides: guides.length,
         }
 
         return response.json(author)
@@ -34,10 +34,10 @@ export async function GET(request: NextRequest) {
 
     const authors: AuthorType[] = []
 
-    const posts = await prisma.post.findMany({ select: { createdBy: true } })
+    const guides = await prisma.guide.findMany({ select: { createdBy: true } })
 
-    for (const post of posts) {
-        const userResponse = await fetch(`${process.env.LOCKR_URL}/api/user?id=${post.createdBy}`, {
+    for (const guide of guides) {
+        const userResponse = await fetch(`${process.env.LOCKR_URL}/api/user?id=${guide.createdBy}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${process.env.LOCKR_APPLICATION_SECRET}`,
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
             id: userData.id,
             name: userData.name,
             image: userData.image,
-            posts: posts.filter((post) => post.createdBy === userData.email).length,
+            guides: guides.filter((guide) => guide.createdBy === userData.email).length,
         }
 
         if (authors.filter((auth) => auth.id === author.id).length === 0) {
@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
         }
     }
 
-    const sortedAuthors = authors.sort((a, b) => b.posts - a.posts)
+    const sortedAuthors = authors.sort((a, b) => b.guides - a.guides)
 
     return response.json(sortedAuthors)
 }

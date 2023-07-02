@@ -16,7 +16,7 @@ async function getAuthors(): Promise<AuthorType[]> {
     return authorsData
 }
 
-export default async function Authors() {
+export default async function Page() {
     const authors = await getAuthors()
 
     return (

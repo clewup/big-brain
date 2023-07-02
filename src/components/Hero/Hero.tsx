@@ -23,8 +23,8 @@ const Hero = () => {
             animate="visible"
             className="bg-primary min-h-[50vh] flex flex-col items-center justify-center text-white gap-10 rounded-md">
             <div className="flex flex-col items-center gap-5">
-                <h1 className="font-palatino text-8xl font-bold">Expand your mind</h1>
-                <p className="text-3xl">with simple ideas from regular people.</p>
+                <h1 className="font-palatino text-8xl font-bold">Unleash your potential</h1>
+                <p className="text-3xl">with Big Brain, where knowledge meets inspiration.</p>
             </div>
 
             <div className="flex gap-20">

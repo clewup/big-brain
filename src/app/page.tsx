@@ -1,24 +1,24 @@
 import Category from '@/components/Category/Category'
+import GuideCard from '@/components/GuideCard/GuideCard'
 import Hero from '@/components/Hero/Hero'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
-import Post from '@/components/Post/Post'
 import constants from '@/constants/constants'
 import { PageContext } from '@/lib/common/types/nextTypes'
-import { Post as PrismaPost } from '@prisma/client'
+import { Guide as GuideType } from '@prisma/client'
 import { Metadata, ResolvingMetadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
-async function getPosts(): Promise<PrismaPost[]> {
-    const postsResponse = await fetch(`${constants.APP_URL}/api/post`, {
+async function getGuides(): Promise<GuideType[]> {
+    const guidesReponse = await fetch(`${constants.APP_URL}/api/guide`, {
         method: 'GET',
         cache: 'no-store',
     })
-    const postsData = await postsResponse.json()
+    const guidesData = await guidesReponse.json()
 
-    if (!postsResponse.ok) throw new Error(postsData.error)
+    if (!guidesReponse.ok) throw new Error(guidesData.error)
 
-    return postsData
+    return guidesData
 }
 
 async function getCategories(): Promise<string[]> {
@@ -46,7 +46,7 @@ export async function generateMetadata({}: PageContext, parent: ResolvingMetadat
 }
 
 export default async function Home() {
-    const posts = await getPosts()
+    const guides = await getGuides()
     const categories = await getCategories()
 
     return (
@@ -54,20 +54,20 @@ export default async function Home() {
             <div className="w-full flex flex-col gap-10">
                 <Hero />
 
-                {categories.length && (
+                {categories.length > 0 && (
                     <div>
                         <div className="flex justify-between items-end">
                             <h1 className="py-5 text-4xl font-semibold">Knowledge Hubs</h1>
                         </div>
                         <div className="grid grid-cols-3 gap-5">
-                            {categories.slice(0, 6).map((category, index) => (
+                            {categories.map((category, index) => (
                                 <Category key={index} category={category} />
                             ))}
                         </div>
                     </div>
                 )}
 
-                {posts.length && (
+                {guides.length > 0 && (
                     <div>
                         <div className="flex justify-between items-end">
                             <h1 className="py-5 text-4xl font-semibold">Guides</h1>
@@ -77,8 +77,8 @@ export default async function Home() {
                             </Link>
                         </div>
                         <div className="grid grid-cols-3 gap-5">
-                            {posts.slice(0, 9).map((post, index) => (
-                                <Post key={index} post={post} index={index} />
+                            {guides.slice(0, 6).map((guide, index) => (
+                                <GuideCard key={index} guide={guide} index={index} />
                             ))}
                         </div>
                     </div>

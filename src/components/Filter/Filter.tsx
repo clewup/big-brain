@@ -63,7 +63,7 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
                                 {() => (
                                     <select
                                         name="category"
-                                        className="py-1 font-normal bg-white text-lg focus:outline-none text-neutral w-60"
+                                        className="py-1 font-normal bg-white pb-2 focus:outline-none text-neutral w-60"
                                         value={values.category}
                                         onChange={handleChange}>
                                         <option value={'default'}>Category</option>

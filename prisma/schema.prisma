@@ -14,7 +14,13 @@ datasource db {
 // updatedAt DateTime @updatedAt
 // updatedBy String
 
-model Post {
+// Hierarchy
+// 1. Hub
+// 2. Hub Section
+// 3. Guide
+// 4. Guide Section & Comments
+
+model Guide {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   createdBy String
@@ -22,10 +28,27 @@ model Post {
   updatedBy String
 
   title      String
-  content    String
   image      String
   categories String[]
   comments   Comment[]
+  sections   GuideSection[]
+
+  hubSection   HubSection @relation(fields: [hubSectionId], references: [id])
+  hubSectionId Int
+}
+
+model GuideSection {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  createdBy String
+  updatedAt DateTime @updatedAt
+  updatedBy String
+
+  title   String
+  content String
+
+  guide   Guide @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  guideId Int
 }
 
 model Comment {
@@ -36,6 +59,32 @@ model Comment {
   updatedBy String
 
   content String
-  post    Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId  Int
+
+  guide   Guide @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  guideId Int
+}
+
+model Hub {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  createdBy String
+  updatedAt DateTime @updatedAt
+  updatedBy String
+
+  title    String
+  sections HubSection[]
+}
+
+model HubSection {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  createdBy String
+  updatedAt DateTime @updatedAt
+  updatedBy String
+
+  title  String
+  guides Guide[]
+
+  hub   Hub @relation(fields: [hubId], references: [id], onDelete: Cascade)
+  hubId Int
 }

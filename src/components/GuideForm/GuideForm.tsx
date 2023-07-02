@@ -5,7 +5,7 @@ import metadata from '@/constants/metadata'
 import { useNotification } from '@/contexts/NotificationContext/NotificationContext'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
-import { Post } from '@prisma/client'
+import { Guide } from '@prisma/client'
 import cx from 'classnames'
 import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik'
 import { useRouter } from 'next/navigation'
@@ -15,18 +15,18 @@ import { MultiValue } from 'react-select'
 import Select from 'react-select/creatable'
 import * as yup from 'yup'
 
-interface PostFormProps {
-    initialPost?: Post
+interface GuideFormProps {
+    initialGuide?: Guide
 }
 
-const PostForm: FC<PostFormProps> = ({ initialPost }) => {
+const GuideForm: FC<GuideFormProps> = ({ initialGuide }) => {
     const formRef = useRef<FormikProps<CreateFormValues>>(null)
     const { post } = useApi()
     const router = useRouter()
     const { pushNotification } = useNotification()
     const { user, isAdmin } = useLockr()
 
-    if (!user || (initialPost && initialPost.createdBy !== user.email && !isAdmin)) {
+    if (!user || (initialGuide && initialGuide.createdBy !== user.email && !isAdmin)) {
         router.push('/')
     }
 
@@ -34,14 +34,12 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
 
     type CreateFormValues = {
         title: string
-        content: string
         image: string
         categories: string[]
     }
 
     const initialValues: CreateFormValues = {
         title: '',
-        content: '',
         image: '',
         categories: [],
     }
@@ -69,18 +67,18 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
     async function onSubmit(formValues: FormikValues, formHelpers: FormikHelpers<CreateFormValues>) {
         formHelpers.setSubmitting(true)
 
-        const postData = await post<Post>('/api/post', formValues)
+        const guideData = await post<Guide>('/api/guide', formValues)
 
         formHelpers.setSubmitting(false)
 
         pushNotification({
-            text: 'Post created!',
+            text: 'Guide created!',
             variant: 'success',
         })
 
         setTimeout(() => {
             router.refresh()
-            router.push(`/post/${postData.id}`)
+            router.push(`/guide/${guideData.id}`)
         }, 100)
     }
 
@@ -109,14 +107,14 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
 
     return (
         <Formik
-            initialValues={initialPost || initialValues}
+            initialValues={initialGuide || initialValues}
             enableReinitialize={true}
             onSubmit={onSubmit}
             innerRef={formRef}
             validationSchema={validationSchema}>
             {({ values, setFieldValue, handleChange, isSubmitting }) => {
                 return (
-                    <Form className="bg-base-200 p-10 rounded-2xl">
+                    <Form className="bg-base-200 p-10 rounded-md">
                         <div className="flex flex-col items-center justify-center mb-10 md:flex-row md:gap-20">
                             {isImageLoading ? (
                                 <div className="my-5">
@@ -130,7 +128,7 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                                 <div className="mt-5 h-[300px] w-[300px] avatar">
                                     <img
                                         src={metadata.images.placeholder}
-                                        alt="post_image"
+                                        alt="guideImage"
                                         className="mask mask-squircle"
                                     />
                                 </div>
@@ -200,30 +198,13 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
                             </div>
                         </div>
 
-                        <span className="form-control">
-                            <label className="label">Content</label>
-
-                            <Field name="content">
-                                {() => {
-                                    return (
-                                        <textarea
-                                            name="content"
-                                            value={values.content}
-                                            className="textarea textarea-bordered h-96"
-                                            onChange={handleChange}
-                                            disabled={isSubmitting}
-                                        />
-                                    )
-                                }}
-                            </Field>
-                            <ErrorMessage name="content" component="p" className="text-error" />
-                        </span>
+                        {/*//todo: add markdown guide section content*/}
 
                         <div className="mt-10">
                             <button
                                 className={cx('btn btn-success', { loading: isSubmitting })}
                                 disabled={isSubmitting}>
-                                {initialPost ? 'Update' : 'Publish'}
+                                {initialGuide ? 'Update' : 'Publish'}
                             </button>
                         </div>
                     </Form>
@@ -233,4 +214,4 @@ const PostForm: FC<PostFormProps> = ({ initialPost }) => {
     )
 }
 
-export default PostForm
+export default GuideForm

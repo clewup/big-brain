@@ -1,7 +1,7 @@
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import React from 'react'
 
-export default function Privacy() {
+export default function Page() {
     return (
         <PageWrapper>
             <h1 className="text-4xl font-semibold py-5">Privacy Policy</h1>

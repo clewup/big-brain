@@ -1,8 +1,8 @@
 'use client'
 
 import Filter from '@/components/Filter/Filter'
+import GuideCard from '@/components/GuideCard/GuideCard'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
-import Post from '@/components/Post/Post'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { SearchRequestType, SearchResponseType } from '@/types/searchTypes'
@@ -12,7 +12,7 @@ import { stringify } from 'querystring'
 import React, { useEffect, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 
-export default function Posts() {
+export default function Page() {
     const { queryParams, setQueryParams } = useQueryParams()
     const searchParams = useSearchParams()
     const { get } = useApi()
@@ -29,7 +29,7 @@ export default function Posts() {
     })
     const [isLoading, setLoading] = useState(true)
 
-    async function getFilteredPosts(query: string) {
+    async function getFilteredGuides(query: string) {
         const searchData = await get<SearchResponseType>(`/api/search?${query}`, { cache: 'no-store' })
         setSearchResults(searchData)
         setLoading(false)
@@ -47,7 +47,7 @@ export default function Posts() {
         if (page) queryObject.page = page
 
         const formattedQuery = stringify(queryObject)
-        getFilteredPosts(formattedQuery)
+        getFilteredGuides(formattedQuery)
     }, [searchParams])
 
     return (
@@ -59,11 +59,15 @@ export default function Posts() {
                     <div className="w-full h-60 flex justify-center items-center">
                         <TailSpin color="#9ca3af" />
                     </div>
-                ) : (
+                ) : searchResults.results.length ? (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        {searchResults.results.map((post, index) => (
-                            <Post key={index} post={post} index={index} />
+                        {searchResults.results.map((guide, index) => (
+                            <GuideCard key={index} guide={guide} index={index} />
                         ))}
+                    </div>
+                ) : (
+                    <div className="h-60 flex justify-center items-center">
+                        <p>No results found</p>
                     </div>
                 )}
 

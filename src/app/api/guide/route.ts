@@ -1,6 +1,6 @@
 import { UserType } from '@/lib/common/types/userTypes'
 import prisma from '@/lib/prisma'
-import { Comment, Post } from '@prisma/client'
+import { Comment, Guide } from '@prisma/client'
 import { NextRequest, NextResponse as response } from 'next/server'
 
 export async function GET(request: NextRequest) {
@@ -8,13 +8,13 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get('id')
 
     if (id) {
-        const post = await prisma.post.findUnique({ include: { comments: true }, where: { id: Number(id) } })
+        const guide = await prisma.guide.findUnique({ include: { comments: true }, where: { id: Number(id) } })
 
-        if (!post) return response.json({ error: `Post ${id} not found` }, { status: 404 })
+        if (!guide) return response.json({ error: `Guide ${id} not found` }, { status: 404 })
 
         // map the user information to the comments
         const commentsWithUsers: (Comment & { user: UserType })[] = []
-        for (const comment of post.comments) {
+        for (const comment of guide.comments) {
             const userResponse = await fetch(`${process.env.LOCKR_URL}/api/user?id=${comment.createdBy}`, {
                 method: 'GET',
                 headers: {
@@ -27,13 +27,13 @@ export async function GET(request: NextRequest) {
                 user: userData,
             })
         }
-        post.comments = commentsWithUsers
+        guide.comments = commentsWithUsers
 
-        return response.json(post)
+        return response.json(guide)
     }
 
-    const posts = await prisma.post.findMany({ orderBy: { createdAt: 'desc' } })
-    return response.json(posts)
+    const guides = await prisma.guide.findMany({ orderBy: { createdAt: 'desc' } })
+    return response.json(guides)
 }
 
 export async function POST(request: NextRequest) {
@@ -46,32 +46,31 @@ export async function POST(request: NextRequest) {
     if (!isValid) return response.json({ error: `Invalid ${errors.join(', ')}` }, { status: 400 })
 
     if (!body.id) {
-        const createdPost = await prisma.post.create({
+        const createdGuide = await prisma.guide.create({
             data: {
                 createdBy: user,
                 updatedBy: user,
                 title: body.title,
-                content: body.content,
                 image: body.image,
                 categories: body.categories,
+                hubSection: body.hubSection,
             },
         })
 
-        return response.json(createdPost)
+        return response.json(createdGuide)
     }
 
-    const updatedPost = await prisma.post.update({
+    const updatedGuide = await prisma.guide.update({
         where: { id: body.id },
         data: {
             updatedBy: user,
             title: body.title,
-            content: body.content,
             image: body.image,
             categories: body.categories,
         },
     })
 
-    return response.json(updatedPost)
+    return response.json(updatedGuide)
 }
 
 export async function DELETE(request: NextRequest) {
@@ -80,19 +79,19 @@ export async function DELETE(request: NextRequest) {
 
     if (!id) return response.json({ error: `Missing id` }, { status: 404 })
 
-    const deletedPost = await prisma.post.delete({ where: { id: Number(id) } })
-    if (!deletedPost) return response.json({ error: `There was a problem deleting post ${id}` }, { status: 400 })
+    const deletedGuide = await prisma.guide.delete({ where: { id: Number(id) } })
+    if (!deletedGuide) return response.json({ error: `There was a problem deleting guide ${id}` }, { status: 400 })
 
-    return response.json({ message: `Post ${id} successfully deleted` })
+    return response.json({ message: `Guide ${id} successfully deleted` })
 }
 
-function validate(body: Partial<Post>) {
+function validate(body: Partial<Guide & { hubSection: string }>) {
     const errors: string[] = []
 
     if (!body.title) errors.push('title')
-    if (!body.content) errors.push('content')
     if (!body.image) errors.push('image')
     if (!body.categories) errors.push('categories')
+    if (!body.hubSection) errors.push('hubSection')
 
     return {
         isValid: errors.length === 0,

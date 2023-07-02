@@ -17,9 +17,9 @@ export async function POST(request: NextRequest) {
             createdBy: user,
             updatedBy: user,
             content: body.content,
-            post: {
+            guide: {
                 connect: {
-                    id: body.post,
+                    id: body.guide,
                 },
             },
         },
@@ -75,10 +75,10 @@ export async function DELETE(request: NextRequest) {
     return response.json({ message: `Comment ${id} successfully deleted` })
 }
 
-function validate(body: Partial<Comment & { post: string }>) {
+function validate(body: Partial<Comment & { guide: string }>) {
     const errors: string[] = []
 
-    if (!body.post) errors.push('post')
+    if (!body.guide) errors.push('guide')
     if (!body.content) errors.push('content')
 
     return {

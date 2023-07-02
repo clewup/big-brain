@@ -1,4 +1,4 @@
-import { Post } from '.prisma/client'
+import { Guide } from '.prisma/client'
 
 export type SearchRequestType = {
     search?: string
@@ -7,7 +7,7 @@ export type SearchRequestType = {
 }
 
 export type SearchResponseType = {
-    results: Post[]
+    results: Guide[]
     pagination: Pagination
 }
 

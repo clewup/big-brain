@@ -10,23 +10,24 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category')
     const page = searchParams.get('page') || '1'
 
-    const posts = await prisma.post.findMany({ orderBy: { createdAt: 'desc' } })
+    const guides = await prisma.guide.findMany({ orderBy: { createdAt: 'desc' } })
 
-    let filteredPosts = posts
-    if (search) filteredPosts = filteredPosts.filter((post) => post.title.toLowerCase().includes(search.toLowerCase()))
+    let filteredGuides = guides
+    if (search)
+        filteredGuides = filteredGuides.filter((guide) => guide.title.toLowerCase().includes(search.toLowerCase()))
     if (category)
-        filteredPosts = filteredPosts.filter((post) =>
-            post.categories.some((cat) => cat.toLowerCase() === category.toLowerCase())
+        filteredGuides = filteredGuides.filter((guide) =>
+            guide.categories.some((cat) => cat.toLowerCase() === category.toLowerCase())
         )
 
-    const paginatedPosts = filteredPosts.slice((Number(page) - 1) * PAGE_SIZE, Number(page) * PAGE_SIZE)
-    const totalPages = Math.ceil(filteredPosts.length / PAGE_SIZE)
+    const paginatedGuides = filteredGuides.slice((Number(page) - 1) * PAGE_SIZE, Number(page) * PAGE_SIZE)
+    const totalPages = Math.ceil(filteredGuides.length / PAGE_SIZE)
 
     return response.json({
-        results: paginatedPosts,
+        results: paginatedGuides,
         pagination: {
-            totalResults: filteredPosts.length,
-            pageResults: paginatedPosts.length,
+            totalResults: filteredGuides.length,
+            pageResults: paginatedGuides.length,
             page: Number(page),
             totalPages: totalPages,
             resultsPerPage: PAGE_SIZE,

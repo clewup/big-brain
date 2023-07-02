@@ -11,7 +11,7 @@ interface AuthorProps {
     index: number
 }
 
-const Author: FC<AuthorProps> = ({ author: { name, image, posts }, index }) => {
+const Author: FC<AuthorProps> = ({ author: { name, image, guidesCreated }, index }) => {
     return (
         <div className="border-b-2 border-neutral">
             <div className="flex flex-col gap-5 aspect-square items-center justify-center">
@@ -29,7 +29,7 @@ const Author: FC<AuthorProps> = ({ author: { name, image, posts }, index }) => {
                                 { 'text-amber-600': index === 2 }
                             )}
                         />
-                        <p>{posts} posts</p>
+                        <p>{guidesCreated} guides</p>
                     </span>
                 </div>
             </div>

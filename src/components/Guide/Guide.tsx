@@ -5,7 +5,7 @@ import { useNotification } from '@/contexts/NotificationContext/NotificationCont
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import { AuthorType } from '@/types/authorTypes'
-import { Post } from '@prisma/client'
+import { Guide } from '@prisma/client'
 import Avvvatars from 'avvvatars-react'
 import { motion as m } from 'framer-motion'
 import moment from 'moment'
@@ -14,12 +14,12 @@ import { useRouter } from 'next/navigation'
 import React, { FC, useState } from 'react'
 import { Edit as EditIcon, Trash as DeleteIcon } from 'react-feather'
 
-interface FullPostProps {
-    post: Post
+interface GuideProps {
+    guide: Guide
     author: AuthorType
 }
 
-const FullPost: FC<FullPostProps> = ({ post, author }) => {
+const Guide: FC<GuideProps> = ({ guide, author }) => {
     const { user, isAdmin } = useLockr()
     const { pushNotification } = useNotification()
     const { del } = useApi()
@@ -27,12 +27,12 @@ const FullPost: FC<FullPostProps> = ({ post, author }) => {
 
     const [isModalOpen, setModalOpen] = useState(false)
 
-    async function deletePost() {
-        await del(`/api/post?id=${post.id}`)
+    async function deleteGuide() {
+        await del(`/api/guide?id=${guide.id}`)
         setModalOpen(false)
 
         pushNotification({
-            text: 'Post deleted!',
+            text: 'Guide deleted!',
             variant: 'error',
         })
 
@@ -57,36 +57,33 @@ const FullPost: FC<FullPostProps> = ({ post, author }) => {
             animate="visible">
             <figure className="cursor-pointer">
                 <img
-                    src={post.image}
-                    alt={post.title}
+                    src={guide.image}
+                    alt={guide.title}
                     className="aspect-video max-h-[50vh] object-cover w-full object-center rounded-md"
                 />
             </figure>
             <div className="py-2">
-                <h2 className="text-4xl text-center py-5 font-semibold">{post.title}</h2>
-
-                <p className="whitespace-pre-line py-5">{post.content}</p>
-
+                <h2 className="text-4xl text-center py-5 font-semibold">{guide.title}</h2>
+                {/*//todo: guide section mapping*/}
                 <div className="flex flex-col py-10">
                     <div className="justify-start py-2">
-                        {post.categories.map((category, index) => (
+                        {guide.categories.map((category, index) => (
                             <Link href={`/search?category=${category}`} key={index} className="underline">
                                 {category}
                             </Link>
                         ))}
                     </div>
 
-                    <p className="text-lg text-neutral">{moment(post.createdAt).format('DD/MM/YYYY')}</p>
+                    <p className="text-lg text-neutral">{moment(guide.createdAt).format('DD/MM/YYYY')}</p>
 
                     <h2 className="flex gap-2 mt-3 text-xl items-center">
                         {author.image ? <img src={author.image} /> : <Avvvatars value={author.name} />}
                         {author.name}
                     </h2>
                 </div>
-
-                {(isAdmin || post.createdBy === user?.email) && (
+                {(isAdmin || guide.createdBy === user?.email) && (
                     <div className="justify-end my-2 flex text-neutral gap-2">
-                        <Link href={`/write?id=${post.id}`}>
+                        <Link href={`/share?id=${guide.id}`}>
                             <EditIcon />
                         </Link>
                         <DeleteIcon onClick={() => setModalOpen(true)} />
@@ -95,7 +92,7 @@ const FullPost: FC<FullPostProps> = ({ post, author }) => {
             </div>
 
             <Modal
-                id="delete-post"
+                id="delete-guide"
                 isOpen={isModalOpen}
                 title="Are you sure?"
                 text="This action can not be undone."
@@ -106,7 +103,7 @@ const FullPost: FC<FullPostProps> = ({ post, author }) => {
                     {
                         text: 'Yes',
                         variant: 'error',
-                        onClick: deletePost,
+                        onClick: deleteGuide,
                     },
                 ]}
             />
@@ -114,4 +111,4 @@ const FullPost: FC<FullPostProps> = ({ post, author }) => {
     )
 }
 
-export default FullPost
+export default Guide

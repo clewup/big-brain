@@ -4,6 +4,7 @@ export interface HubType {
     title: string
     image: string
     createdAt: Date
+    features: string[]
     sections: HubSectionType[]
 }
 

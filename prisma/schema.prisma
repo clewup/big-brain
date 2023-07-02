@@ -73,6 +73,7 @@ model Hub {
 
   title    String
   image    String
+  features String[]
   sections HubSection[]
 }
 

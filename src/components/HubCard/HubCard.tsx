@@ -44,6 +44,12 @@ const HubCard: FC<HubCardProps> = ({ hub, index }) => {
 
                 <div className="py-2">
                     <h2 className="text-2xl font-semibold">{hub.title}</h2>
+
+                    <div className="pt-5">
+                        {hub.features.map((feature) => (
+                            <p>{feature}</p>
+                        ))}
+                    </div>
                 </div>
             </m.div>
         </Link>

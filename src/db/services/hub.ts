@@ -27,6 +27,8 @@ export default class HubService {
     }
 
     async getHubById(id: number) {
+        if (isNaN(id)) return null
+
         const data = await prisma.hub.findUnique({
             include: {
                 sections: {

@@ -38,7 +38,7 @@ const Hub: FC<HubProps> = ({ hub }) => {
     return (
         <div className="flex w-full">
             <div className="w-1/5 relative">
-                <div className="sticky top-10">
+                <div className="sticky top-10 pb-10">
                     <div className="flex justify-between items-end">
                         <h1 className="pb-5 text-4xl font-semibold">{hub.title}</h1>
                     </div>

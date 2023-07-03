@@ -21,9 +21,9 @@ const Hero = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="bg-primary min-h-[50vh] flex flex-col items-center justify-center text-white gap-10 rounded-md">
-            <div className="flex flex-col items-center gap-5">
-                <h1 className="font-palatino text-8xl font-bold">Unleash your potential</h1>
+            className="bg-primary min-h-[50vh] flex flex-col items-center justify-center text-white gap-10 rounded-md p-10">
+            <div className="flex flex-col gap-5 text-center">
+                <h1 className="font-palatino text-5xl font-bold md:text-8xl">Unleash your potential</h1>
                 <p className="text-3xl">with Big Brain, where knowledge meets inspiration.</p>
             </div>
 

@@ -14,18 +14,25 @@ import { Search as SearchIcon, User as UserIcon } from 'react-feather'
 
 export default function Header() {
     const { signIn, signOut } = useAuth({ applicationId: constants.APPLICATION_ID, redirectUri: constants.APP_URL })
-    const { user } = useLockr()
+    const { isAdmin, user } = useLockr()
     const { queryParams, setQueryParams } = useQueryParams()
     const searchParams = useSearchParams()
 
     const routes = [
         {
+            isAdmin: false,
             label: 'GUIDES',
             path: '/search',
         },
         {
+            isAdmin: false,
             label: 'KNOWLEDGE HUBS',
             path: '/hubs',
+        },
+        {
+            isAdmin: true,
+            label: 'EDITOR',
+            path: '/editor',
         },
     ]
 
@@ -62,11 +69,17 @@ export default function Header() {
                     initial="hidden"
                     animate="visible"
                     className="flex gap-5 font-bold mr-5 md:gap-10 md:mr-10 items-center text-neutral">
-                    {routes.map((route, index) => (
-                        <Link key={index} href={route.path}>
-                            {route.label}
-                        </Link>
-                    ))}
+                    {routes.map((route, index) => {
+                        if (route.isAdmin && !isAdmin) {
+                            return
+                        }
+
+                        return (
+                            <Link key={index} href={route.path}>
+                                {route.label}
+                            </Link>
+                        )
+                    })}
                 </m.div>
             </div>
 

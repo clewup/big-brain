@@ -8,7 +8,7 @@ export default async function Page({ searchParams }: PageContext) {
     const hub = await hubService.getHubById(Number(searchParams.id))
 
     return (
-        <PageWrapper>
+        <PageWrapper requireAdminRole={true}>
             <HubEditor />
         </PageWrapper>
     )

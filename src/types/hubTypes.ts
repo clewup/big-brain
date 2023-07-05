@@ -1,6 +1,7 @@
 import { GuideType } from '@/types/guideTypes'
 
 export interface HubType {
+    id?: number
     title: string
     image: string
     createdAt: Date

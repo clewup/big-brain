@@ -8,7 +8,7 @@ import { HubType } from '@/types/hubTypes'
 import { Field, Form, Formik } from 'formik'
 import moment from 'moment'
 import React, { useState } from 'react'
-import { Minus, Plus } from 'react-feather'
+import { Minus, Plus, Save } from 'react-feather'
 import { TailSpin } from 'react-loader-spinner'
 
 const HubEditor = () => {
@@ -48,8 +48,8 @@ const HubEditor = () => {
         title: '',
     }
 
-    function onSubmit() {
-        return
+    function onSubmit(formValues: HubType) {
+        post<HubType>('/api/hub', formValues)
     }
 
     return (
@@ -263,9 +263,15 @@ const HubEditor = () => {
                                     </div>
                                 ))}
 
-                                <button type="button" onClick={addSection} className="text-neutral mt-5">
-                                    <Plus />
-                                </button>
+                                <div className="flex flex-col">
+                                    <button type="button" onClick={addSection} className="text-neutral mt-5">
+                                        <Plus />
+                                    </button>
+
+                                    <button type="submit" className="text-neutral mt-5">
+                                        <Save />
+                                    </button>
+                                </div>
                             </div>
                         </div>
 

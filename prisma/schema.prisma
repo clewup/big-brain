@@ -33,7 +33,7 @@ model Guide {
   comments   Comment[]
   sections   GuideSection[]
 
-  hubSection   HubSection @relation(fields: [hubSectionId], references: [id])
+  hubSection   HubSection @relation(fields: [hubSectionId], references: [id], onDelete: Cascade)
   hubSectionId Int
 }
 

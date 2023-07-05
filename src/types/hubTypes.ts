@@ -4,7 +4,7 @@ export interface HubType {
     id?: number
     title: string
     image: string
-    createdAt: Date
+    createdAt?: Date
     features: string[]
     sections: HubSectionType[]
 }

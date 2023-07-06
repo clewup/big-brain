@@ -30,10 +30,10 @@ module.exports = {
                 sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
             },
             height: {
-                'screen-header': '92vh',
+                'screen-header': '85vh',
             },
             minHeight: {
-                'screen-header': '92vh',
+                'screen-header': '85vh',
             },
         },
     },

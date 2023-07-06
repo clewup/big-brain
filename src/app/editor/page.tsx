@@ -1,4 +1,4 @@
-import HubEditor from '@/components/HubEditor/HubEditor'
+import Editor from '@/components/Editor/Editor'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
 import { hubService } from '@/db/handler'
 import { PageContext } from '@/lib/common/types/nextTypes'
@@ -9,7 +9,7 @@ export default async function Page({ searchParams }: PageContext) {
 
     return (
         <PageWrapper requireAdminRole={true}>
-            <HubEditor />
+            <Editor />
         </PageWrapper>
     )
 }

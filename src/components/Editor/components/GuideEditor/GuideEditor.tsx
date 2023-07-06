@@ -1,18 +1,23 @@
+'use client'
+
 import constants from '@/constants/constants'
 import metadata from '@/constants/metadata'
 import { HubType } from '@/types/hubTypes'
+import 'easymde/dist/easymde.min.css'
 import { Field, useFormikContext } from 'formik'
 import React, { FC, useState } from 'react'
 import { Minus, Plus } from 'react-feather'
 import { TailSpin } from 'react-loader-spinner'
+import SimpleMDE from 'react-simplemde-editor'
 
 interface GuideEditorProps {
     activeGuideIndex: number
     activeSectionIndex: number
+    handleNavigation: (index: number) => void
 }
 
-const GuideEditor: FC<GuideEditorProps> = ({ activeGuideIndex, activeSectionIndex }) => {
-    const { setFieldValue, values } = useFormikContext<HubType>()
+const GuideEditor: FC<GuideEditorProps> = ({ activeGuideIndex, activeSectionIndex, handleNavigation }) => {
+    const { handleChange, setFieldValue, values } = useFormikContext<HubType>()
 
     const [isImageLoading, setImageLoading] = useState(false)
 
@@ -53,56 +58,98 @@ const GuideEditor: FC<GuideEditorProps> = ({ activeGuideIndex, activeSectionInde
     }
 
     return (
-        <div>
-            <Field
-                name={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].title`}
-                className="text-4xl py-5 font-semibold"
-            />
-
-            {isImageLoading ? (
-                <div className="my-5 w-full flex justify-center">
-                    <TailSpin color="#9ca3af" width={50} height={50} />
+        <div className="flex flex-col gap-10">
+            <div className="flex">
+                <div className="w-1/2">
+                    <span className="flex flex-col">
+                        <label
+                            htmlFor={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].title`}
+                            className="text-2xl text-neutral">
+                            Guide Title
+                        </label>
+                        <Field
+                            id={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].title`}
+                            name={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].title`}
+                            className="text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
+                        />
+                    </span>
                 </div>
-            ) : values.sections[activeSectionIndex].guides[activeGuideIndex].image ? (
-                <img
-                    src={values.sections[activeSectionIndex].guides[activeGuideIndex].image}
-                    alt="guide_image"
-                    className="w-full aspect-video object-cover rounded-md"
-                />
-            ) : (
-                <div className="w-full relative">
-                    <img
-                        src={metadata.images.placeholder}
-                        alt="guide_image"
-                        className="w-full aspect-video object-cover rounded-md"
-                    />
+                <div className="w-1/2">
+                    {isImageLoading ? (
+                        <div className="my-5 w-full flex justify-center">
+                            <TailSpin color="#9ca3af" width={50} height={50} />
+                        </div>
+                    ) : values.sections[activeSectionIndex].guides[activeGuideIndex].image ? (
+                        <img
+                            src={values.sections[activeSectionIndex].guides[activeGuideIndex].image}
+                            alt="guide_image"
+                            className="w-full aspect-video object-cover rounded-md"
+                        />
+                    ) : (
+                        <div className="w-full relative">
+                            <img
+                                src={metadata.images.placeholder}
+                                alt="guide_image"
+                                className="w-full aspect-video object-cover rounded-md"
+                            />
 
-                    <input
-                        type="file"
-                        className="absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] file-input"
-                        onChange={({ target: { files } }) =>
-                            uploadImage(files?.[0], activeSectionIndex, activeGuideIndex)
-                        }
-                    />
+                            <input
+                                type="file"
+                                className="absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] file-input"
+                                onChange={({ target: { files } }) =>
+                                    uploadImage(files?.[0], activeSectionIndex, activeGuideIndex)
+                                }
+                            />
+                        </div>
+                    )}
                 </div>
-            )}
+            </div>
 
             {values.sections[activeSectionIndex].guides[activeGuideIndex].sections.map((section, guideSectionIndex) => (
-                <div key={guideSectionIndex} className="flex flex-col my-10 relative">
-                    <button
-                        type="button"
-                        onClick={() => removeGuideSection(activeSectionIndex, activeGuideIndex, guideSectionIndex)}
-                        className="text-neutral absolute top-0 right-0">
-                        <Minus />
-                    </button>
+                <div
+                    key={guideSectionIndex}
+                    className="flex flex-col relative gap-10 border-neutral border-2 rounded-md p-5">
+                    {guideSectionIndex > 0 && (
+                        <button
+                            type="button"
+                            onClick={() => removeGuideSection(activeSectionIndex, activeGuideIndex, guideSectionIndex)}
+                            className="text-neutral absolute top-5 right-5">
+                            <Minus />
+                        </button>
+                    )}
 
-                    <Field
-                        name={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].sections[${guideSectionIndex}].title`}
-                        className="text-2xl"
-                    />
-                    <Field
-                        name={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].sections[${guideSectionIndex}].content`}
-                    />
+                    <span className="flex flex-col">
+                        <label
+                            htmlFor={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].sections[${guideSectionIndex}].title`}
+                            className="text-2xl text-neutral">
+                            Guide Section Title
+                        </label>
+                        <Field
+                            id={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].sections[${guideSectionIndex}].title`}
+                            name={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].sections[${guideSectionIndex}].title`}
+                            className="text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
+                        />
+                    </span>
+
+                    <Field>
+                        {() => (
+                            <SimpleMDE
+                                value={
+                                    values.sections[activeSectionIndex].guides[activeGuideIndex].sections[
+                                        guideSectionIndex
+                                    ].content
+                                }
+                                onChange={(value) =>
+                                    setFieldValue(
+                                        `sections[${activeSectionIndex}].guides[${activeGuideIndex}].sections[
+                                        ${guideSectionIndex}
+                                    ].content}`,
+                                        value
+                                    )
+                                }
+                            />
+                        )}
+                    </Field>
                 </div>
             ))}
 
@@ -112,6 +159,14 @@ const GuideEditor: FC<GuideEditorProps> = ({ activeGuideIndex, activeSectionInde
                 className="w-full bg-primary py-3 text-white rounded-md flex justify-center">
                 <Plus size={30} />
             </button>
+
+            <div className="flex gap-5">
+                <button
+                    className="text-xl bg-primary text-white px-5 py-3 rounded-md"
+                    onClick={() => handleNavigation(1)}>
+                    Back
+                </button>
+            </div>
         </div>
     )
 }

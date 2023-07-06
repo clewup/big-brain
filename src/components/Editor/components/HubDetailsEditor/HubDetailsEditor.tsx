@@ -8,10 +8,10 @@ import React, { FC, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 
 interface HubDetailsEditorProps {
-    handleNextStep: () => void
+    handleNavigation: (index: number) => void
 }
 
-const HubDetailsEditor: FC<HubDetailsEditorProps> = ({ handleNextStep }) => {
+const HubDetailsEditor: FC<HubDetailsEditorProps> = ({ handleNavigation }) => {
     const { errors, setFieldValue, values } = useFormikContext<HubType>()
 
     const formErrors = errors.image || errors.title
@@ -84,10 +84,10 @@ const HubDetailsEditor: FC<HubDetailsEditorProps> = ({ handleNextStep }) => {
                 </div>
             </div>
 
-            <div className="mt-20 flex justify-center">
+            <div className="mt-20">
                 <button
                     className="text-xl bg-primary text-white px-5 py-3 rounded-md"
-                    onClick={handleNextStep}
+                    onClick={() => handleNavigation(1)}
                     disabled={!!formErrors}>
                     Next
                 </button>

@@ -26,7 +26,7 @@ const Editor = () => {
 
     const editorSteps: Step[] = [
         {
-            component: <HubDetailsEditor handleNextStep={handleNextStep} />,
+            component: <HubDetailsEditor handleNavigation={handleNavigation} />,
             icon: Info,
             index: 0,
             label: 'Details',
@@ -37,6 +37,7 @@ const Editor = () => {
                 <HubSectionsEditor
                     setActiveGuideIndex={setActiveGuideIndex}
                     setActiveSectionIndex={setActiveSectionIndex}
+                    handleNavigation={handleNavigation}
                 />
             ),
             icon: Layers,
@@ -45,7 +46,13 @@ const Editor = () => {
             route: 'sections',
         },
         {
-            component: <GuideEditor activeGuideIndex={activeGuideIndex} activeSectionIndex={activeSectionIndex} />,
+            component: (
+                <GuideEditor
+                    activeGuideIndex={activeGuideIndex}
+                    activeSectionIndex={activeSectionIndex}
+                    handleNavigation={handleNavigation}
+                />
+            ),
             icon: BookOpen,
             index: 2,
             label: 'Guide',
@@ -81,13 +88,10 @@ const Editor = () => {
         title: '',
     }
 
-    function handleNextStep() {
-        const currentIndex = currentStep.index
-
-        if (currentIndex === editorSteps.length - 1) return
-
-        const nextStep = editorSteps[currentIndex + 1]
+    function handleNavigation(index: number) {
+        const nextStep = editorSteps[index]
         setCurrentStep(nextStep)
+        document.body.scrollTop = document.documentElement.scrollTop = 0
     }
 
     function onSubmit(formValues: HubType) {

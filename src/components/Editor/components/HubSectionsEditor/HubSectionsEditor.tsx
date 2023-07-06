@@ -10,9 +10,14 @@ import { Minus, Plus } from 'react-feather'
 interface HubSectionsEditorProps {
     setActiveGuideIndex: Dispatch<SetStateAction<number>>
     setActiveSectionIndex: Dispatch<SetStateAction<number>>
+    handleNavigation: (index: number) => void
 }
 
-const HubSectionsEditor: FC<HubSectionsEditorProps> = ({ setActiveGuideIndex, setActiveSectionIndex }) => {
+const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
+    handleNavigation,
+    setActiveGuideIndex,
+    setActiveSectionIndex,
+}) => {
     const { setFieldValue, values } = useFormikContext<HubType>()
 
     function addSection() {
@@ -79,18 +84,26 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({ setActiveGuideIndex, se
     }
 
     return (
-        <div>
+        <div className="flex flex-col gap-10">
             {values.sections.map((section, sectionIndex) => (
-                <div key={sectionIndex}>
-                    <div className="flex gap-2">
-                        <Field
-                            name={`sections[${sectionIndex}].title`}
-                            placeholder="Section Title"
-                            className="font-semibold"
-                        />
+                <div key={sectionIndex} className="border-neutral border-2 rounded-md p-5 flex flex-col gap-5">
+                    <div className="flex gap-2 relative">
+                        <span className="flex flex-col w-full">
+                            <label htmlFor={`sections[${sectionIndex}].title`} className="text-2xl text-neutral">
+                                Section Title
+                            </label>
+                            <Field
+                                id={`sections[${sectionIndex}].title`}
+                                name={`sections[${sectionIndex}].title`}
+                                className="text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
+                            />
+                        </span>
 
                         {sectionIndex > 0 && (
-                            <button type="button" onClick={() => removeSection(sectionIndex)} className="text-neutral">
+                            <button
+                                type="button"
+                                onClick={() => removeSection(sectionIndex)}
+                                className="text-neutral absolute top-5 right-5">
                                 <Minus />
                             </button>
                         )}
@@ -99,14 +112,15 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({ setActiveGuideIndex, se
                     <div className="ml-10">
                         {section.guides.map((guide, guideIndex) => (
                             <div key={guideIndex} className="flex gap-2">
-                                <p
+                                <button
                                     onClick={() => {
                                         setActiveSectionIndex(sectionIndex)
                                         setActiveGuideIndex(guideIndex)
+                                        handleNavigation(2)
                                     }}
-                                    className="cursor-pointer">
+                                    className="text-xl">
                                     {guide.title}
-                                </p>
+                                </button>
 
                                 {guideIndex > 0 && (
                                     <button
@@ -119,16 +133,34 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({ setActiveGuideIndex, se
                             </div>
                         ))}
 
-                        <button type="button" onClick={() => addGuide(sectionIndex)} className="text-neutral">
-                            <Plus />
+                        <button
+                            type="button"
+                            onClick={() => addGuide(sectionIndex)}
+                            className="text-white py-1 bg-primary flex justify-center items-center px-10 mt-2 rounded-md">
+                            <Plus size={20} />
                         </button>
                     </div>
                 </div>
             ))}
 
-            <button type="button" onClick={addSection} className="text-neutral mt-5">
+            <button
+                type="button"
+                onClick={addSection}
+                className="w-full bg-primary py-3 text-white rounded-md flex justify-center">
                 <Plus />
             </button>
+
+            <div className="flex gap-5">
+                <button
+                    className="text-xl bg-primary text-white px-5 py-3 rounded-md"
+                    onClick={() => handleNavigation(0)}>
+                    Back
+                </button>
+
+                <button type="submit" className="text-xl bg-success text-white px-5 py-3 rounded-md">
+                    Save
+                </button>
+            </div>
         </div>
     )
 }

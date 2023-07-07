@@ -3,7 +3,7 @@
 import constants from '@/constants/constants'
 import metadata from '@/constants/metadata'
 import { HubType } from '@/types/hubTypes'
-import { Field, useFormikContext } from 'formik'
+import { ErrorMessage, Field, useFormikContext } from 'formik'
 import React, { FC, useState } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 
@@ -12,9 +12,7 @@ interface HubDetailsEditorProps {
 }
 
 const HubDetailsEditor: FC<HubDetailsEditorProps> = ({ handleNavigation }) => {
-    const { errors, setFieldValue, values } = useFormikContext<HubType>()
-
-    const formErrors = errors.image || errors.title
+    const { setFieldValue, values } = useFormikContext<HubType>()
 
     const [isImageLoading, setImageLoading] = useState(false)
 
@@ -52,6 +50,9 @@ const HubDetailsEditor: FC<HubDetailsEditorProps> = ({ handleNavigation }) => {
                             name="title"
                             className="text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
                         />
+                        <ErrorMessage name="title">
+                            {(errorMessage) => <p className="text-error">{errorMessage}</p>}
+                        </ErrorMessage>
                     </span>
                 </div>
 
@@ -67,19 +68,24 @@ const HubDetailsEditor: FC<HubDetailsEditorProps> = ({ handleNavigation }) => {
                             className="w-full aspect-video object-cover rounded-md"
                         />
                     ) : (
-                        <div className="w-full relative">
-                            <img
-                                src={metadata.images.placeholder}
-                                alt="hub_image"
-                                className="w-full aspect-video object-cover rounded-md"
-                            />
+                        <>
+                            <div className="w-full relative">
+                                <img
+                                    src={metadata.images.placeholder}
+                                    alt="hub_image"
+                                    className="w-full aspect-video object-cover rounded-md"
+                                />
 
-                            <input
-                                type="file"
-                                className="absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] file-input file-input-md w-[90%]"
-                                onChange={({ target: { files } }) => uploadImage(files?.[0])}
-                            />
-                        </div>
+                                <input
+                                    type="file"
+                                    className="absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] file-input file-input-md w-[90%]"
+                                    onChange={({ target: { files } }) => uploadImage(files?.[0])}
+                                />
+                            </div>
+                            <ErrorMessage name="image">
+                                {(errorMessage) => <p className="text-error">{errorMessage}</p>}
+                            </ErrorMessage>
+                        </>
                     )}
                 </div>
             </div>
@@ -87,8 +93,7 @@ const HubDetailsEditor: FC<HubDetailsEditorProps> = ({ handleNavigation }) => {
             <div className="mt-20">
                 <button
                     className="text-xl bg-primary text-white px-5 py-3 rounded-md"
-                    onClick={() => handleNavigation(1)}
-                    disabled={!!formErrors}>
+                    onClick={() => handleNavigation(1)}>
                     Next
                 </button>
             </div>

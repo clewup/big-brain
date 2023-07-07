@@ -2,7 +2,7 @@
 
 import { AuthorType } from '@/types/authorTypes'
 import { HubType } from '@/types/hubTypes'
-import { Field, useFormikContext } from 'formik'
+import { ErrorMessage, Field, useFormikContext } from 'formik'
 import moment from 'moment/moment'
 import React, { Dispatch, FC, SetStateAction } from 'react'
 import { Minus, Plus } from 'react-feather'
@@ -97,6 +97,9 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
                                 name={`sections[${sectionIndex}].title`}
                                 className="text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
                             />
+                            <ErrorMessage name={`sections[${sectionIndex}].title`}>
+                                {(errorMessage) => <p className="text-error">{errorMessage}</p>}
+                            </ErrorMessage>
                         </span>
 
                         {sectionIndex > 0 && (
@@ -152,6 +155,7 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
 
             <div className="flex gap-5">
                 <button
+                    type="button"
                     className="text-xl bg-primary text-white px-5 py-3 rounded-md"
                     onClick={() => handleNavigation(0)}>
                     Back

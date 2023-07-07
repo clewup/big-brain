@@ -9,6 +9,7 @@ import { HubType } from '@/types/hubTypes'
 import { Form, Formik } from 'formik'
 import React, { FunctionComponent, useState } from 'react'
 import { BookOpen, IconProps, Info, Layers } from 'react-feather'
+import * as Yup from 'yup'
 
 type Step = {
     component: JSX.Element
@@ -98,8 +99,42 @@ const Editor = () => {
         post<HubType>('/api/hub', formValues)
     }
 
+    const validationSchema = Yup.object().shape({
+        features: Yup.array().of(Yup.string()),
+        image: Yup.string().required('Please provide an image for the hub.'),
+        sections: Yup.array()
+            .of(
+                Yup.object().shape({
+                    guides: Yup.array()
+                        .of(
+                            Yup.object().shape({
+                                categories: Yup.array().of(Yup.string()),
+                                image: Yup.string().required('Please provide an image for each guide.'),
+                                sections: Yup.array()
+                                    .of(
+                                        Yup.object().shape({
+                                            content: Yup.string().required(
+                                                'Please provide content for each guide section.'
+                                            ),
+                                            title: Yup.string().required(
+                                                'Please provide a title for each guide section.'
+                                            ),
+                                        })
+                                    )
+                                    .min(1, 'Please provide at least one section for each guide.'),
+                                title: Yup.string().required('Please provide a title for each guide.'),
+                            })
+                        )
+                        .min(1, 'Please provide at least one guide for the hub.'),
+                    title: Yup.string().required('Please provide a title for each section of the hub.'),
+                })
+            )
+            .min(1, 'Please provide at least one section for the hub.'),
+        title: Yup.string().required('Please provide a title for the hub.'),
+    })
+
     return (
-        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             {() => {
                 return <Form>{currentStep.component}</Form>
             }}

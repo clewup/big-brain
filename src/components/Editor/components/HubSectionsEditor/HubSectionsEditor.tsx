@@ -1,23 +1,18 @@
 'use client'
 
+import useEditorStore from '@/lib/zustand/hooks/useEditorStore/useEditorStore'
 import { HubType } from '@/types/hubTypes'
 import { ErrorMessage, Field, useFormikContext } from 'formik'
-import moment from 'moment/moment'
-import React, { Dispatch, FC, SetStateAction } from 'react'
+import React, { FC } from 'react'
 import { Minus, Plus } from 'react-feather'
 
 interface HubSectionsEditorProps {
-    setActiveGuideIndex: Dispatch<SetStateAction<number>>
-    setActiveSectionIndex: Dispatch<SetStateAction<number>>
     handleNavigation: (index: number) => void
 }
 
-const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
-    handleNavigation,
-    setActiveGuideIndex,
-    setActiveSectionIndex,
-}) => {
+const HubSectionsEditor: FC<HubSectionsEditorProps> = ({ handleNavigation }) => {
     const { setFieldValue, values } = useFormikContext<HubType>()
+    const { setActiveGuideIndex, setActiveSectionIndex } = useEditorStore()
 
     function addSection() {
         setFieldValue('sections', [
@@ -26,7 +21,6 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
                 guides: [
                     {
                         categories: [],
-                        createdAt: moment().toDate(),
                         image: '',
                         sections: [
                             {
@@ -57,7 +51,6 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
             ...values.sections[sectionIndex].guides,
             {
                 categories: [],
-                createdAt: moment().toDate(),
                 image: '',
                 sections: [
                     {

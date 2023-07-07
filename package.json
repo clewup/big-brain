@@ -70,7 +70,8 @@
         "ts-jest": "^29.0.5",
         "typescript": "*",
         "yarn": "^1.22.19",
-        "yup": "^1.0.2"
+        "yup": "^1.0.2",
+        "zustand": "^4.3.9"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.16.5",

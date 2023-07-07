@@ -21,9 +21,6 @@ type Step = {
 const Editor = () => {
     const { post } = useApi()
 
-    const [activeSectionIndex, setActiveSectionIndex] = useState(0)
-    const [activeGuideIndex, setActiveGuideIndex] = useState(0)
-
     const editorSteps: Step[] = [
         {
             component: <HubDetailsEditor handleNavigation={handleNavigation} />,
@@ -33,26 +30,14 @@ const Editor = () => {
             route: 'details',
         },
         {
-            component: (
-                <HubSectionsEditor
-                    setActiveGuideIndex={setActiveGuideIndex}
-                    setActiveSectionIndex={setActiveSectionIndex}
-                    handleNavigation={handleNavigation}
-                />
-            ),
+            component: <HubSectionsEditor handleNavigation={handleNavigation} />,
             icon: Layers,
             index: 1,
             label: 'Sections',
             route: 'sections',
         },
         {
-            component: (
-                <GuideEditor
-                    activeGuideIndex={activeGuideIndex}
-                    activeSectionIndex={activeSectionIndex}
-                    handleNavigation={handleNavigation}
-                />
-            ),
+            component: <GuideEditor handleNavigation={handleNavigation} />,
             icon: BookOpen,
             index: 2,
             label: 'Guide',

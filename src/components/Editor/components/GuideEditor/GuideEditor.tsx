@@ -2,6 +2,7 @@
 
 import constants from '@/constants/constants'
 import metadata from '@/constants/metadata'
+import useEditorStore from '@/lib/zustand/hooks/useEditorStore/useEditorStore'
 import { HubType } from '@/types/hubTypes'
 import 'easymde/dist/easymde.min.css'
 import { ErrorMessage, Field, useFormikContext } from 'formik'
@@ -11,13 +12,12 @@ import { TailSpin } from 'react-loader-spinner'
 import SimpleMDE from 'react-simplemde-editor'
 
 interface GuideEditorProps {
-    activeGuideIndex: number
-    activeSectionIndex: number
     handleNavigation: (index: number) => void
 }
 
-const GuideEditor: FC<GuideEditorProps> = ({ activeGuideIndex, activeSectionIndex, handleNavigation }) => {
+const GuideEditor: FC<GuideEditorProps> = ({ handleNavigation }) => {
     const { setFieldValue, values } = useFormikContext<HubType>()
+    const { activeGuideIndex, activeSectionIndex } = useEditorStore()
 
     const [isImageLoading, setImageLoading] = useState(false)
 

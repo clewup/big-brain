@@ -26,7 +26,6 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
                 guides: [
                     {
                         categories: [],
-                        comments: [],
                         createdAt: moment().toDate(),
                         image: '',
                         sections: [
@@ -58,7 +57,6 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
             ...values.sections[sectionIndex].guides,
             {
                 categories: [],
-                comments: [],
                 createdAt: moment().toDate(),
                 image: '',
                 sections: [

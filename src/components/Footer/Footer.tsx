@@ -30,7 +30,7 @@ const Footer = () => {
     const communityRoutes = [
         {
             label: 'Authors',
-            path: '/authors',
+            path: '/',
         },
     ]
 

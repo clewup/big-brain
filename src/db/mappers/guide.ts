@@ -1,10 +1,9 @@
 import { GuideType } from '@/types/guideTypes'
-import { Comment, Guide, GuideSection, Hub, HubSection } from '@prisma/client'
+import { Guide, GuideSection, Hub, HubSection } from '@prisma/client'
 
 export type GuideEntity = Guide & {
     hubSection: HubSection & { hub: Hub }
     sections: GuideSection[]
-    comments: Comment[]
 }
 
 export function mapGuide(guide: GuideEntity): GuideType {

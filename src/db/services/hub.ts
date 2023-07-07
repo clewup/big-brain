@@ -10,7 +10,6 @@ export default class HubService {
                     include: {
                         guides: {
                             include: {
-                                comments: true,
                                 hubSection: {
                                     include: {
                                         hub: true,
@@ -36,7 +35,6 @@ export default class HubService {
                     include: {
                         guides: {
                             include: {
-                                comments: true,
                                 hubSection: {
                                     include: {
                                         hub: true,
@@ -63,7 +61,6 @@ export default class HubService {
                     include: {
                         guides: {
                             include: {
-                                comments: true,
                                 hubSection: {
                                     include: {
                                         hub: true,

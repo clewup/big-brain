@@ -1,10 +1,10 @@
 import { mapGuides } from '@/db/mappers/guide'
 import { HubType } from '@/types/hubTypes'
-import { Comment, Guide, GuideSection, Hub, HubSection } from '@prisma/client'
+import { Guide, GuideSection, Hub, HubSection } from '@prisma/client'
 
 export type HubEntity = Hub & {
     sections: (HubSection & {
-        guides: (Guide & { hubSection: HubSection & { hub: Hub }; sections: GuideSection[]; comments: Comment[] })[]
+        guides: (Guide & { hubSection: HubSection & { hub: Hub }; sections: GuideSection[] })[]
     })[]
 }
 

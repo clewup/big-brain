@@ -1,6 +1,5 @@
 'use client'
 
-import { AuthorType } from '@/types/authorTypes'
 import { HubType } from '@/types/hubTypes'
 import { ErrorMessage, Field, useFormikContext } from 'formik'
 import moment from 'moment/moment'
@@ -26,7 +25,6 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
             {
                 guides: [
                     {
-                        author: {} as AuthorType,
                         categories: [],
                         comments: [],
                         createdAt: moment().toDate(),
@@ -59,7 +57,6 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({
         setFieldValue(`sections[${sectionIndex}].guides`, [
             ...values.sections[sectionIndex].guides,
             {
-                author: {} as AuthorType,
                 categories: [],
                 comments: [],
                 createdAt: moment().toDate(),

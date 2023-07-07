@@ -17,7 +17,7 @@ interface GuideEditorProps {
 }
 
 const GuideEditor: FC<GuideEditorProps> = ({ activeGuideIndex, activeSectionIndex, handleNavigation }) => {
-    const { handleChange, setFieldValue, values } = useFormikContext<HubType>()
+    const { setFieldValue, values } = useFormikContext<HubType>()
 
     const [isImageLoading, setImageLoading] = useState(false)
 

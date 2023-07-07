@@ -4,7 +4,6 @@ import GuideEditor from '@/components/Editor/components/GuideEditor/GuideEditor'
 import HubDetailsEditor from '@/components/Editor/components/HubDetailsEditor/HubDetailsEditor'
 import HubSectionsEditor from '@/components/Editor/components/HubSectionsEditor/HubSectionsEditor'
 import useApi from '@/lib/common/hooks/useApi/useApi'
-import { AuthorType } from '@/types/authorTypes'
 import { HubType } from '@/types/hubTypes'
 import { Form, Formik } from 'formik'
 import React, { FunctionComponent, useState } from 'react'
@@ -70,9 +69,7 @@ const Editor = () => {
             {
                 guides: [
                     {
-                        author: {} as AuthorType,
                         categories: [],
-                        comments: [],
                         image: '',
                         sections: [
                             {

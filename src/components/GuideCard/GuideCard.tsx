@@ -49,7 +49,7 @@ const GuideCard: FC<GuideCardProps> = ({ guide, index }) => {
             <div className="py-2">
                 <h2 className="text-2xl font-semibold">{guide.title}</h2>
 
-                <div className="justify-start pb-4">
+                <div className="justify-start pb-4 flex flex-col">
                     {guide.categories.map((category, index) => (
                         <Link href={`/search?category=${category}`} key={index} className="font-semibold text-primary">
                             {category}

@@ -1,6 +1,6 @@
 'use client'
 
-import Guide from '@/components/Guide/Guide'
+import Guide from '@/components/Hub/components/Guide/Guide'
 import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { GuideType } from '@/types/guideTypes'
@@ -66,7 +66,7 @@ const Hub: FC<HubProps> = ({ hub }) => {
                     {isAdmin && (
                         <button
                             className="text-neutral flex gap-2 items-center"
-                            onClick={() => setQueryParams({ id: hub.id }, 'editor')}>
+                            onClick={() => setQueryParams({ guide: '', id: hub.id }, 'editor')}>
                             <p className="text-lg">EDIT</p>
                             <Edit size={20} />
                         </button>

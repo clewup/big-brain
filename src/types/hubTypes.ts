@@ -10,6 +10,7 @@ export interface HubType {
 }
 
 export interface HubSectionType {
+    id?: number
     title: string
     guides: GuideType[]
 }

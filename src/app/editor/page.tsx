@@ -9,7 +9,7 @@ export default async function Page({ searchParams }: PageContext) {
 
     return (
         <PageWrapper requireAdminRole={true}>
-            <Editor />
+            <Editor hub={hub} />
         </PageWrapper>
     )
 }

@@ -9,6 +9,7 @@ export interface GuideType {
 }
 
 export interface GuideSectionType {
+    id?: number
     title: string
     content: string
 }

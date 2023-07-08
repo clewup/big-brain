@@ -15,6 +15,7 @@ export function mapGuide(guide: GuideEntity): GuideType {
         image: guide.image,
         sections: guide.sections.map((section) => ({
             content: section.content,
+            id: section.id,
             title: section.title,
         })),
         title: guide.title,

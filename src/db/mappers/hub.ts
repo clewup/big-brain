@@ -16,6 +16,7 @@ export function mapHub(hub: HubEntity): HubType {
         image: hub.image,
         sections: hub.sections.map((section) => ({
             guides: mapGuides(section.guides),
+            id: section.id,
             title: section.title,
         })),
         title: hub.title,

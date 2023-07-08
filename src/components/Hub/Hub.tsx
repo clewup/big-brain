@@ -1,17 +1,20 @@
 'use client'
 
 import Guide from '@/components/Guide/Guide'
+import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { GuideType } from '@/types/guideTypes'
 import { HubType } from '@/types/hubTypes'
 import React, { FC, useEffect, useState } from 'react'
+import { Edit } from 'react-feather'
 
 interface HubProps {
     hub: HubType
 }
 
 const Hub: FC<HubProps> = ({ hub }) => {
-    const { queryParams, setQueryParams } = useQueryParams<{ guide: string }>()
+    const { queryParams, setQueryParams } = useQueryParams<{ guide: string; id?: number }>()
+    const { isAdmin } = useLockr()
 
     const [activeGuide, setActiveGuide] = useState(hub.sections[0].guides[0])
 
@@ -38,13 +41,13 @@ const Hub: FC<HubProps> = ({ hub }) => {
     return (
         <div className="flex w-full gap-5">
             <div className="w-1/4 relative">
-                <div className="sticky top-10 pb-10">
+                <div className="sticky top-10 pb-10 flex flex-col gap-5">
                     <div className="flex justify-between items-end">
-                        <h1 className="pb-5 text-4xl font-semibold">{hub.title}</h1>
+                        <h1 className="text-4xl font-semibold">{hub.title}</h1>
                     </div>
 
                     {hub.sections.map((section, index) => (
-                        <div key={index} className="mb-5">
+                        <div key={index}>
                             <p className="font-semibold">{section.title}</p>
 
                             <div className="ml-10">
@@ -59,6 +62,15 @@ const Hub: FC<HubProps> = ({ hub }) => {
                             </div>
                         </div>
                     ))}
+
+                    {isAdmin && (
+                        <button
+                            className="text-neutral flex gap-2 items-center"
+                            onClick={() => setQueryParams({ id: hub.id }, 'editor')}>
+                            <p className="text-lg">EDIT</p>
+                            <Edit size={20} />
+                        </button>
+                    )}
                 </div>
             </div>
 

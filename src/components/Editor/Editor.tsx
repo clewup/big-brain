@@ -6,7 +6,7 @@ import HubSectionsEditor from '@/components/Editor/components/HubSectionsEditor/
 import useApi from '@/lib/common/hooks/useApi/useApi'
 import { HubType } from '@/types/hubTypes'
 import { Form, Formik } from 'formik'
-import React, { FunctionComponent, useState } from 'react'
+import React, { FC, FunctionComponent, useState } from 'react'
 import { BookOpen, IconProps, Info, Layers } from 'react-feather'
 import * as Yup from 'yup'
 
@@ -18,8 +18,12 @@ type Step = {
     icon: FunctionComponent<IconProps>
 }
 
-const Editor = () => {
-    const { post } = useApi()
+interface EditorProps {
+    hub: HubType | null
+}
+
+const Editor: FC<EditorProps> = ({ hub }) => {
+    const { patch } = useApi()
 
     const editorSteps: Step[] = [
         {
@@ -47,7 +51,7 @@ const Editor = () => {
 
     const [currentStep, setCurrentStep] = useState<Step>(editorSteps[0])
 
-    const initialValues: HubType = {
+    const initialValues: HubType = hub ?? {
         features: [],
         image: '',
         sections: [
@@ -78,7 +82,7 @@ const Editor = () => {
     }
 
     function onSubmit(formValues: HubType) {
-        post<HubType>('/api/hub', formValues)
+        patch<HubType>('/api/hub', formValues)
     }
 
     const validationSchema = Yup.object().shape({

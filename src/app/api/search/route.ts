@@ -10,18 +10,14 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category')
     const page = searchParams.get('page') || '1'
 
-    const guides = await guideService.getGuides({ orderBy: { createdAt: 'desc' } })
+    let guides = await guideService.getGuides({ orderBy: { createdAt: 'desc' } })
 
-    let filteredGuides = guides
-    if (search)
-        filteredGuides = filteredGuides.filter((guide) => guide.title.toLowerCase().includes(search.toLowerCase()))
+    if (search) guides = guides.filter((guide) => guide.title.toLowerCase().includes(search.toLowerCase()))
     if (category)
-        filteredGuides = filteredGuides.filter((guide) =>
-            guide.categories.some((cat) => cat.toLowerCase() === category.toLowerCase())
-        )
+        guides = guides.filter((guide) => guide.categories.some((cat) => cat.toLowerCase() === category.toLowerCase()))
 
-    const paginatedGuides = filteredGuides.slice((Number(page) - 1) * PAGE_SIZE, Number(page) * PAGE_SIZE)
-    const totalPages = Math.ceil(filteredGuides.length / PAGE_SIZE)
+    const paginatedGuides = guides.slice((Number(page) - 1) * PAGE_SIZE, Number(page) * PAGE_SIZE)
+    const totalPages = Math.ceil(guides.length / PAGE_SIZE)
 
     return response.json({
         pagination: {
@@ -29,7 +25,7 @@ export async function GET(request: NextRequest) {
             pageResults: paginatedGuides.length,
             resultsPerPage: PAGE_SIZE,
             totalPages: totalPages,
-            totalResults: filteredGuides.length,
+            totalResults: guides.length,
         },
         results: paginatedGuides,
     })

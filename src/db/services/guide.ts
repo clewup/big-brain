@@ -46,6 +46,9 @@ export default class GuideService {
             select: { categories: true },
         })
 
-        return data.flatMap((value) => value.categories).filter((value, index, self) => self.indexOf(value) === index)
+        return data
+            .flatMap((value) => value.categories)
+            .filter((value, index, self) => self.indexOf(value) === index)
+            .sort()
     }
 }

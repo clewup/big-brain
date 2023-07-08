@@ -13,6 +13,7 @@ export const metadata = {
 export default async function Home() {
     const guides = await guideService.getGuides()
     const hubs = await hubService.getHubs()
+    const upcomingHubs = await hubService.getUpcomingHubs()
 
     return (
         <PageWrapper className="flex">
@@ -44,6 +45,19 @@ export default async function Home() {
                         <div className="grid grid-cols-3 gap-5">
                             {guides.slice(0, 6).map((guide, index) => (
                                 <GuideCard key={index} guide={guide} index={index} />
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {upcomingHubs.length > 0 && (
+                    <div>
+                        <div className="flex justify-between items-end">
+                            <h1 className="py-5 text-4xl font-semibold">Coming Soon</h1>
+                        </div>
+                        <div className="grid grid-cols-3 gap-5">
+                            {upcomingHubs.map((hub, index) => (
+                                <HubCard key={index} hub={hub} index={index} isDisabled={true} />
                             ))}
                         </div>
                     </div>

@@ -21,15 +21,14 @@ export default class HubService {
                     },
                 },
             },
+            where: { isUpcoming: false },
         })
 
         return mapHubs(data)
     }
 
-    async getHubById(id: number) {
-        if (isNaN(id)) return null
-
-        const data = await prisma.hub.findUnique({
+    async getUpcomingHubs() {
+        const data = await prisma.hub.findMany({
             include: {
                 sections: {
                     include: {
@@ -46,7 +45,33 @@ export default class HubService {
                     },
                 },
             },
-            where: { id: id },
+            where: { isUpcoming: true },
+        })
+
+        return mapHubs(data)
+    }
+
+    async getHubById(id: number) {
+        if (isNaN(id)) return null
+
+        const data = await prisma.hub.findFirst({
+            include: {
+                sections: {
+                    include: {
+                        guides: {
+                            include: {
+                                hubSection: {
+                                    include: {
+                                        hub: true,
+                                    },
+                                },
+                                sections: true,
+                            },
+                        },
+                    },
+                },
+            },
+            where: { id: id, isUpcoming: false },
         })
 
         if (!data) return null
@@ -72,7 +97,7 @@ export default class HubService {
                     },
                 },
             },
-            where: { title: title },
+            where: { isUpcoming: false, title: title },
         })
 
         if (!data) return null

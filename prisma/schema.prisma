@@ -57,10 +57,11 @@ model Hub {
   updatedAt DateTime @updatedAt
   updatedBy String
 
-  title    String
-  image    String
-  features String[]
-  sections HubSection[]
+  title      String
+  image      String
+  features   String[]
+  sections   HubSection[]
+  isUpcoming Boolean      @default(false)
 }
 
 model HubSection {

@@ -2,9 +2,10 @@ import { mapGuide, mapGuides } from '@/db/mappers/guide'
 import prisma from '@/lib/prisma'
 
 export default class GuideService {
-    async getGuides() {
+    async getGuides(query?: object) {
         const data = await prisma.guide.findMany({
             include: { hubSection: { include: { hub: true } }, sections: true },
+            ...query,
         })
 
         return mapGuides(data)
@@ -30,6 +31,8 @@ export default class GuideService {
             include: { hubSection: { include: { hub: true } }, sections: true },
             where: { title: title },
         })
+
+        console.log(data)
 
         if (!data) return null
 

@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma'
+import { guideService } from '@/db/handler'
 import { NextRequest, NextResponse as response } from 'next/server'
 
 export async function GET(request: NextRequest) {
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category')
     const page = searchParams.get('page') || '1'
 
-    const guides = await prisma.guide.findMany({ orderBy: { createdAt: 'desc' } })
+    const guides = await guideService.getGuides({ orderBy: { createdAt: 'desc' } })
 
     let filteredGuides = guides
     if (search)

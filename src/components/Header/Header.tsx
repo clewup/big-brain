@@ -51,7 +51,7 @@ export default function Header() {
     }
 
     return (
-        <div className="p-2 flex flex-col justify-between gap-5 md:h-[15vh] md:flex-row items-center px-40">
+        <div className="flex flex-col justify-between gap-5 md:h-[15vh] md:flex-row items-center px-40">
             <div className="flex gap-10">
                 <m.div layoutId="logo" transition={{ duration: 0.7 }} className="relative z-50">
                     <Link href="/">

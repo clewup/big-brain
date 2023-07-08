@@ -63,14 +63,16 @@ const Hub: FC<HubProps> = ({ hub }) => {
                         </div>
                     ))}
 
-                    {isAdmin && (
-                        <button
-                            className="text-neutral flex gap-2 items-center"
-                            onClick={() => setQueryParams({ guide: '', id: hub.id }, 'editor')}>
-                            <p className="text-lg">EDIT</p>
-                            <Edit size={20} />
-                        </button>
-                    )}
+                    <div className="pt-10">
+                        {isAdmin && (
+                            <button
+                                className="text-neutral flex gap-2 items-center"
+                                onClick={() => setQueryParams({ guide: '', id: hub.id }, 'editor')}>
+                                <p className="text-lg">EDIT</p>
+                                <Edit size={20} />
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 

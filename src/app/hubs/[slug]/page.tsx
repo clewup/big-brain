@@ -1,3 +1,4 @@
+import FourOhFour from '@/components/Errors/FourOhFour/FourOhFour'
 import Hub from '@/components/Hub/Hub'
 import HubCard from '@/components/HubCard/HubCard'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
@@ -10,10 +11,7 @@ export default async function Page({ params }: PageContext) {
     const hubs = await hubService.getHubs()
 
     if (!hub) {
-        return (
-            //todo: create generic 404
-            <p>404</p>
-        )
+        return <FourOhFour />
     }
 
     const otherHubs = hubs.filter((_hub) => _hub.title !== hub.title)

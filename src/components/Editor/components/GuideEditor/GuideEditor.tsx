@@ -57,6 +57,16 @@ const GuideEditor: FC<GuideEditorProps> = ({ handleNavigation }) => {
         setImageLoading(false)
     }
 
+    function setImageAsHubImage() {
+        if (!values.image) return
+
+        setFieldValue(`sections[${activeSectionIndex}].guides[${activeGuideIndex}].image`, values.image)
+    }
+
+    function removeImage() {
+        setFieldValue(`sections[${activeSectionIndex}].guides[${activeGuideIndex}].image`, undefined)
+    }
+
     return (
         <div className="flex flex-col gap-10">
             <div className="flex">
@@ -111,6 +121,17 @@ const GuideEditor: FC<GuideEditorProps> = ({ handleNavigation }) => {
                             </ErrorMessage>
                         </>
                     )}
+
+                    <div className="flex gap-5 py-2">
+                        <button type="button" onClick={setImageAsHubImage}>
+                            Use Hub Image
+                        </button>
+                        {values.sections[activeSectionIndex].guides[activeGuideIndex].image && (
+                            <button type="button" onClick={removeImage} className="text-error">
+                                Remove Image
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 

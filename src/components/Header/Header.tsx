@@ -21,17 +21,17 @@ export default function Header() {
     const routes = [
         {
             isAdmin: false,
-            label: 'GUIDES',
+            label: 'Guides',
             path: '/search',
         },
         {
             isAdmin: false,
-            label: 'KNOWLEDGE HUBS',
+            label: 'Knowledge Hubs',
             path: '/hubs',
         },
         {
             isAdmin: true,
-            label: 'EDITOR',
+            label: 'Editor',
             path: '/editor',
         },
     ]
@@ -68,7 +68,7 @@ export default function Header() {
                     variants={routeVariants}
                     initial="hidden"
                     animate="visible"
-                    className="flex gap-5 font-bold mr-5 md:gap-10 md:mr-10 items-center text-neutral">
+                    className="flex gap-5 text-lg font-semibold mr-5 md:gap-10 md:mr-10 items-center">
                     {routes.map((route, index) => {
                         if (route.isAdmin && !isAdmin) {
                             return
@@ -97,10 +97,10 @@ export default function Header() {
                                     name="search"
                                     type="text"
                                     placeholder="Search guides"
-                                    className="bg-white text-black pb-2 focus:outline-none border-b-2 border-neutral"
+                                    className="bg-white text-black text-lg pb-2 focus:outline-none border-b-2 border-neutral"
                                 />
                                 <button>
-                                    <SearchIcon className="text-neutral" />
+                                    <SearchIcon />
                                 </button>
                             </div>
                         </Form>
@@ -109,14 +109,14 @@ export default function Header() {
                     <div className="min-w-[80px] flex justify-end">
                         {!user ? (
                             <span>
-                                <button className="btn btn-ghost text-neutral" onClick={signIn}>
+                                <button className="btn btn-ghost" onClick={signIn}>
                                     Log in
                                 </button>
                             </span>
                         ) : (
                             <div className="dropdown dropdown-end">
                                 <label tabIndex={0} className="btn btn-ghost btn-circle">
-                                    <UserIcon className="text-neutral" />
+                                    <UserIcon />
                                 </label>
                                 <ul
                                     tabIndex={0}

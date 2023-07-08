@@ -80,7 +80,7 @@ const Footer = () => {
 
                 <div className="w-1/2 flex justify-between">
                     <span className="flex-col">
-                        <h1 className="text-xl mb-2 text-black font-semibold">Company</h1>
+                        <h1 className="text-lg mb-2 text-black font-semibold">Company</h1>
 
                         {companyRoutes.map((route, index) => (
                             <Link key={index} href={route.path}>
@@ -89,7 +89,7 @@ const Footer = () => {
                         ))}
                     </span>
                     <span className="flex-col">
-                        <h1 className="text-xl mb-2 text-black font-semibold">Community</h1>
+                        <h1 className="text-lg mb-2 text-black font-semibold">Community</h1>
 
                         {communityRoutes.map((route, index) => (
                             <Link key={index} href={route.path}>
@@ -98,7 +98,7 @@ const Footer = () => {
                         ))}
                     </span>
                     <span className="flex-col">
-                        <h1 className="text-xl mb-2 text-black font-semibold pr-10">Contact</h1>
+                        <h1 className="text-lg mb-2 text-black font-semibold pr-10">Contact</h1>
 
                         <div className="flex gap-2">
                             {contactRoutes.map((route, index) => (

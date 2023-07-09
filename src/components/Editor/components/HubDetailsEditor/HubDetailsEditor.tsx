@@ -48,7 +48,7 @@ const HubDetailsEditor: FC<HubDetailsEditorProps> = ({ handleNavigation }) => {
                         <Field
                             id="title"
                             name="title"
-                            className="text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
+                            className="bg-transparent text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
                         />
                         <ErrorMessage name="title">
                             {(errorMessage) => <p className="text-error">{errorMessage}</p>}

@@ -80,7 +80,7 @@ const GuideEditor: FC<GuideEditorProps> = ({ handleNavigation }) => {
                         <Field
                             id={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].title`}
                             name={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].title`}
-                            className="text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
+                            className="bg-transparent text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
                         />
                         <ErrorMessage name={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].title`}>
                             {(errorMessage) => <p className="text-error">{errorMessage}</p>}
@@ -157,7 +157,7 @@ const GuideEditor: FC<GuideEditorProps> = ({ handleNavigation }) => {
                         <Field
                             id={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].sections[${guideSectionIndex}].title`}
                             name={`sections[${activeSectionIndex}].guides[${activeGuideIndex}].sections[${guideSectionIndex}].title`}
-                            className="text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
+                            className="bg-transparent text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
                         />
 
                         <ErrorMessage

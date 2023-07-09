@@ -22,10 +22,10 @@ export default async function Home() {
 
                 {hubs.length > 0 && (
                     <div>
-                        <div className="flex justify-between items-end">
+                        <div className="flex justify-between items-end border-b-2 border-base-200">
                             <h1 className="py-5 text-4xl font-semibold">Knowledge Hubs</h1>
                         </div>
-                        <div className="grid grid-cols-3 gap-5">
+                        <div className="grid grid-cols-3 gap-20">
                             {hubs.map((hub, index) => (
                                 <HubCard key={index} hub={hub} index={index} />
                             ))}
@@ -35,27 +35,35 @@ export default async function Home() {
 
                 {guides.length > 0 && (
                     <div>
-                        <div className="flex justify-between items-end">
+                        <div className="flex justify-between items-end border-b-2 border-base-200">
                             <h1 className="py-5 text-4xl font-semibold">Guides</h1>
 
                             <Link className="flex gap-2 py-5" href="/search">
-                                <p className="text-neutral">See all</p>
+                                <p className="text-info">See all</p>
                             </Link>
                         </div>
-                        <div className="grid grid-cols-3 gap-5">
-                            {guides.slice(0, 6).map((guide, index) => (
-                                <GuideCard key={index} guide={guide} index={index} />
-                            ))}
+                        <div className="grid grid-cols-3 gap-x-20 grid-flow-col">
+                            {guides.slice(0, 3).map((guide, index) => {
+                                if (index === 0) {
+                                    return (
+                                        <div key={index} className="row-span-2 col-span-2">
+                                            <GuideCard guide={guide} index={index} shouldShowContent={true} />
+                                        </div>
+                                    )
+                                }
+
+                                return <GuideCard key={index} guide={guide} index={index} />
+                            })}
                         </div>
                     </div>
                 )}
 
                 {upcomingHubs.length > 0 && (
                     <div>
-                        <div className="flex justify-between items-end">
+                        <div className="flex justify-between items-end border-b-2 border-base-200">
                             <h1 className="py-5 text-4xl font-semibold">Coming Soon</h1>
                         </div>
-                        <div className="grid grid-cols-3 gap-5">
+                        <div className="grid grid-cols-3 gap-20">
                             {upcomingHubs.map((hub, index) => (
                                 <HubCard key={index} hub={hub} index={index} isDisabled={true} />
                             ))}

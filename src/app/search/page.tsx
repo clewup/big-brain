@@ -52,7 +52,7 @@ export default function Page() {
 
     return (
         <PageWrapper className="relative w-full">
-            <div className="flex flex-col gap-5 pb-20">
+            <div className="flex flex-col gap-5 pb-32">
                 <Filter searchResults={searchResults} />
 
                 {isLoading ? (
@@ -60,7 +60,7 @@ export default function Page() {
                         <TailSpin color="#9ca3af" />
                     </div>
                 ) : searchResults.results.length ? (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-20">
                         {searchResults.results.map((guide, index) => (
                             <GuideCard key={index} guide={guide} index={index} />
                         ))}

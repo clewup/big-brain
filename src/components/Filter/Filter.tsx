@@ -58,16 +58,17 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
         <Formik initialValues={initialValues} enableReinitialize={true} onSubmit={onSubmit}>
             {({ handleChange, values }) => {
                 return (
-                    <Form className="flex flex-col items-end justify-between gap-5 py-1 md:flex-row md:gap-20">
-                        <span className="input-group flex-row border-b-2 border-neutral w-fit items-end">
+                    <Form className="flex flex-col items-end justify-between gap-5 py-3 md:flex-row md:gap-20">
+                        <span className="flex-row border-b-2 border-neutral w-fit items-end">
+                            <label className="uppercase text-neutral font-semibold">Category</label>
                             <Field name="category">
                                 {() => (
                                     <select
                                         name="category"
-                                        className="py-1 font-normal bg-white pb-2 focus:outline-none text-neutral w-60"
+                                        className="py-1 font-normal bg-transparent pb-2 focus:outline-none text-neutral w-60"
                                         value={values.category}
                                         onChange={handleChange}>
-                                        <option value="default">Category</option>
+                                        <option value="default">All</option>
                                         {categories.map((category, index) => (
                                             <option key={index} value={category}>
                                                 {category}

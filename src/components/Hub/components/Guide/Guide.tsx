@@ -25,12 +25,12 @@ const Guide: FC<GuideProps> = ({ guide }) => {
                 <h2 className="text-4xl py-5 font-semibold">{guide.title}</h2>
 
                 <div className="flex flex-col pb-10">
-                    <div className="justify-start py-2">
+                    <div className="flex flex-col justify-start py-2">
                         {guide.categories.map((category, index) => (
                             <Link
                                 href={`/search?category=${category}`}
                                 key={index}
-                                className="font-semibold text-primary">
+                                className="font-semibold uppercase text-sm text-neutral">
                                 {category}
                             </Link>
                         ))}

@@ -10,9 +10,10 @@ import React, { FC } from 'react'
 interface GuideCardProps {
     guide: GuideType
     index: number
+    shouldShowContent?: boolean
 }
 
-const GuideCard: FC<GuideCardProps> = ({ guide, index }) => {
+const GuideCard: FC<GuideCardProps> = ({ guide, index, shouldShowContent }) => {
     const { setQueryParams } = useQueryParams()
 
     const delay = index * 0.05
@@ -32,11 +33,7 @@ const GuideCard: FC<GuideCardProps> = ({ guide, index }) => {
     }
 
     return (
-        <m.div
-            className="w-full border-b-2 border-neutral py-5"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible">
+        <m.div className="w-full h-full py-5" variants={containerVariants} initial="hidden" animate="visible">
             <figure
                 onClick={() => setQueryParams({ guide: guide.title }, `hubs/${guide.hub}`)}
                 className="cursor-pointer">
@@ -46,18 +43,29 @@ const GuideCard: FC<GuideCardProps> = ({ guide, index }) => {
                     className="aspect-video max-h-[50vh] object-cover w-full object-center rounded-md"
                 />
             </figure>
-            <div className="py-2">
-                <h2 className="text-2xl font-semibold">{guide.title}</h2>
-
-                <div className="justify-start pb-4 flex flex-col">
+            <div className="py-2 h-full">
+                <div className="justify-start flex flex-col">
                     {guide.categories.map((category, index) => (
-                        <Link href={`/search?category=${category}`} key={index} className="font-semibold text-primary">
+                        <Link
+                            href={`/search?category=${category}`}
+                            key={index}
+                            className="font-semibold uppercase text-sm text-neutral">
                             {category}
                         </Link>
                     ))}
                 </div>
 
-                <p className="text-lg text-neutral">{moment(guide.createdAt).format('DD/MM/YYYY')}</p>
+                <div>
+                    <h2 className="text-2xl font-semibold">{guide.title}</h2>
+
+                    {shouldShowContent && (
+                        <div className="py-1">
+                            <p className="line-clamp-4">{guide.sections[0].content}</p>
+                        </div>
+                    )}
+
+                    <p className="text-lg text-neutral">{moment(guide.createdAt).format('DD/MM/YYYY')}</p>
+                </div>
             </div>
         </m.div>
     )

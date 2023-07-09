@@ -34,11 +34,7 @@ const HubCard: FC<HubCardProps> = ({ hub, index, isDisabled }) => {
     }
 
     return withDisabled(
-        <m.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="w-full border-b-2 border-neutral py-5">
+        <m.div variants={containerVariants} initial="hidden" animate="visible" className="w-full py-5">
             <figure className={cx({ 'cursor-pointer': !isDisabled })}>
                 <img
                     src={hub.image}
@@ -50,11 +46,14 @@ const HubCard: FC<HubCardProps> = ({ hub, index, isDisabled }) => {
             <div className="py-2">
                 <h2 className="text-2xl font-semibold">{hub.title}</h2>
 
-                <div className="pt-5">
-                    {hub.features.map((feature, index) => (
-                        <p key={index}>{feature}</p>
-                    ))}
-                </div>
+                {hub.features.length > 0 && (
+                    <div className="pt-5">
+                        <h1 className="uppercase font-semibold text-neutral">FEATURES</h1>
+                        {hub.features.map((feature, index) => (
+                            <p key={index}>{feature}</p>
+                        ))}
+                    </div>
+                )}
             </div>
         </m.div>
     )

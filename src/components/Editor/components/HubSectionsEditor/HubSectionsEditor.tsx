@@ -83,7 +83,7 @@ const HubSectionsEditor: FC<HubSectionsEditorProps> = ({ handleNavigation }) => 
                             <Field
                                 id={`sections[${sectionIndex}].title`}
                                 name={`sections[${sectionIndex}].title`}
-                                className="text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
+                                className="bg-transparent text-3xl pb-2 focus:outline-0 border-b-2 border-neutral w-[50%]"
                             />
                             <ErrorMessage name={`sections[${sectionIndex}].title`}>
                                 {(errorMessage) => <p className="text-error">{errorMessage}</p>}

@@ -51,14 +51,14 @@ export default function Header() {
     }
 
     return (
-        <div className="flex flex-col justify-between gap-5 md:h-[15vh] md:flex-row items-center px-40">
+        <div className="flex flex-col justify-between gap-5 md:h-[10vh] md:flex-row items-center px-40 bg-white">
             <div className="flex gap-10">
                 <m.div layoutId="logo" transition={{ duration: 0.7 }} className="relative z-50">
                     <Link href="/">
                         <Image
                             src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
                             alt="logo"
-                            width={150}
+                            width={120}
                             height={30}
                         />
                     </Link>
@@ -68,7 +68,7 @@ export default function Header() {
                     variants={routeVariants}
                     initial="hidden"
                     animate="visible"
-                    className="flex gap-5 text-lg font-semibold mr-5 md:gap-10 md:mr-10 items-center">
+                    className="flex gap-5 mr-5 md:gap-10 md:mr-10 items-center text-neutral">
                     {routes.map((route, index) => {
                         if (route.isAdmin && !isAdmin) {
                             return
@@ -97,10 +97,10 @@ export default function Header() {
                                     name="search"
                                     type="text"
                                     placeholder="Search guides"
-                                    className="bg-white text-black text-lg pb-2 focus:outline-none border-b-2 border-neutral"
+                                    className="bg-transparent text-black pb-2 focus:outline-none border-b-2 border-neutral"
                                 />
                                 <button>
-                                    <SearchIcon />
+                                    <SearchIcon className="text-neutral" />
                                 </button>
                             </div>
                         </Form>
@@ -109,13 +109,13 @@ export default function Header() {
                     <div className="min-w-[80px] flex justify-end">
                         {!user ? (
                             <span>
-                                <button className="btn btn-ghost" onClick={signIn}>
+                                <button className="btn btn-ghost text-neutral" onClick={signIn}>
                                     Log in
                                 </button>
                             </span>
                         ) : (
                             <div className="dropdown dropdown-end">
-                                <label tabIndex={0} className="btn btn-ghost btn-circle">
+                                <label tabIndex={0} className="btn btn-ghost btn-circle text-neutral">
                                     <UserIcon />
                                 </label>
                                 <ul

@@ -1,128 +1,128 @@
 'use client'
 
-import { Field, Form, Formik } from 'formik'
+import cx from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Facebook, Instagram, Twitter } from 'react-feather'
 
 const Footer = () => {
-    function onSubmit() {
-        //todo: implement newsletter
-        return
-    }
-
-    const companyRoutes = [
+    const routeSections = [
         {
-            label: 'About us',
-            path: '/',
+            routes: [
+                {
+                    label: 'Knowledge Hubs',
+                    path: '/hubs',
+                },
+                {
+                    label: 'Guides',
+                    path: '/search',
+                },
+            ],
+            title: 'Platform',
         },
         {
-            label: 'FAQ',
-            path: '/',
+            routes: [
+                {
+                    label: 'TypeScript',
+                    path: '/hubs/TypeScript',
+                },
+                {
+                    label: 'JavaScript',
+                    path: '/hubs/JavaScript',
+                },
+            ],
+            title: 'Popular',
         },
         {
-            label: 'Jobs',
-            path: '/',
-        },
-    ]
-
-    const communityRoutes = [
-        {
-            label: 'Authors',
-            path: '/',
-        },
-    ]
-
-    const contactRoutes = [
-        {
-            label: <Twitter />,
-            path: '',
-        },
-        {
-            label: <Instagram />,
-            path: '',
+            routes: [
+                {
+                    label: 'About us',
+                    path: '/',
+                },
+                {
+                    label: 'FAQ',
+                    path: '/',
+                },
+                {
+                    label: 'Jobs',
+                    path: '/',
+                },
+            ],
+            title: 'Company',
         },
         {
-            label: <Facebook />,
-            path: '',
+            routes: [
+                {
+                    label: 'Authors',
+                    path: '/',
+                },
+            ],
+            title: 'Community',
+        },
+        {
+            routes: [
+                {
+                    label: <Twitter />,
+                    path: '',
+                },
+                {
+                    label: <Instagram />,
+                    path: '',
+                },
+                {
+                    label: <Facebook />,
+                    path: '',
+                },
+            ],
+            title: 'Contact',
         },
     ]
 
     return (
-        <div className="w-full  flex flex-col items-center gap-10 py-10 md:px-40">
-            <div className="bg-primary text-white w-full flex flex-col gap-5 justify-center items-center py-10">
-                <h1 className="font-palatino text-4xl font-bold">Join the newsletter</h1>
+        <div className="w-full flex flex-col items-center gap-10 pt-10 md:px-40 bg-[#1e2b36] text-[#768391] mt-10">
+            <div className="flex w-full gap-40">
+                <div className="w-1/4 flex flex-col gap-5">
+                    <Link href="/">
+                        <Image
+                            src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
+                            alt="logo"
+                            width={120}
+                            height={30}
+                        />
+                    </Link>
 
-                <Formik initialValues={{ email: '' }} onSubmit={onSubmit}>
-                    {() => {
-                        return (
-                            <Form className="bg-[#ccc] p-2 flex">
-                                <Field
-                                    name="email"
-                                    type="text"
-                                    placeholder="Email address"
-                                    className="text-center bg-white text-black text-lg focus:outline-none border-b-2 border-white px-14 py-2"
-                                />
-                                <button type="submit" className="px-7 bg-primary font-semibold">
-                                    Join Free
-                                </button>
-                            </Form>
-                        )
-                    }}
-                </Formik>
-            </div>
+                    <div className="w-1/2">
+                        <p className="text-xl text-white">Learn new skills and enhance existing ones.</p>
+                    </div>
+                </div>
 
-            <div className="flex w-full gap-40 text-neutral">
-                <span className="flex-col w-1/2">
-                    <h1 className="text-xl mb-2 text-black font-semibold">Most viewed</h1>
-                </span>
+                <div className="w-3/4 flex justify-between">
+                    {routeSections.map((routeSection, index) => (
+                        <div key={index}>
+                            <h1 className="text-lg mb-2 text-white font-semibold">{routeSection.title}</h1>
 
-                <div className="w-1/2 flex justify-between">
-                    <span className="flex-col">
-                        <h1 className="text-lg mb-2 text-black font-semibold">Company</h1>
-
-                        {companyRoutes.map((route, index) => (
-                            <Link key={index} href={route.path}>
-                                <p>{route.label}</p>
-                            </Link>
-                        ))}
-                    </span>
-                    <span className="flex-col">
-                        <h1 className="text-lg mb-2 text-black font-semibold">Community</h1>
-
-                        {communityRoutes.map((route, index) => (
-                            <Link key={index} href={route.path}>
-                                <p>{route.label}</p>
-                            </Link>
-                        ))}
-                    </span>
-                    <span className="flex-col">
-                        <h1 className="text-lg mb-2 text-black font-semibold pr-10">Contact</h1>
-
-                        <div className="flex gap-2">
-                            {contactRoutes.map((route, index) => (
-                                <Link key={index} href={route.path}>
-                                    <p>{route.label}</p>
-                                </Link>
-                            ))}
+                            <span
+                                className={cx(
+                                    'flex',
+                                    routeSection.title === 'Contact' ? 'flex-row gap-2' : 'flex-col'
+                                )}>
+                                {routeSection.routes.map((route, index) => (
+                                    <Link key={index} href={route.path}>
+                                        <p>{route.label}</p>
+                                    </Link>
+                                ))}
+                            </span>
                         </div>
-                    </span>
+                    ))}
                 </div>
             </div>
-
-            <div className="flex flex-col gap-5 items-center text-neutral mt-5">
-                <Link href="/">
-                    <Image
-                        src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
-                        alt="logo"
-                        width={100}
-                        height={30}
-                    />
-                </Link>
+            <div className="flex justify-between w-full border-t-2 border-[#768391] py-5">
                 <Link href="/privacy">
-                    <p className="font-bold">PRIVACY POLICY</p>
+                    <p>Privacy Policy</p>
                 </Link>
+
+                <p>© 2023 BigBrain</p>
             </div>
         </div>
     )

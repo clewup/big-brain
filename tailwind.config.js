@@ -9,9 +9,9 @@ module.exports = {
         themes: [
             {
                 blog: {
-                    'base-100': '#FFFFFF',
+                    'base-100': '#eeeeee',
                     error: '#d9534f',
-                    info: '#3ABFF8',
+                    info: '#0277cc',
                     neutral: '#9ca3af',
                     primary: '#fe416d',
                     secondary: '#7bf6f2',
@@ -30,10 +30,10 @@ module.exports = {
                 sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
             },
             height: {
-                'screen-header': '85vh',
+                'screen-header': '90vh',
             },
             minHeight: {
-                'screen-header': '85vh',
+                'screen-header': '90vh',
             },
         },
     },

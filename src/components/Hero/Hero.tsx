@@ -13,7 +13,7 @@ const Hero = () => {
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { delay: 1, duration: 0.5 } },
+        visible: { opacity: 1, transition: { duration: 0.5 } },
     }
 
     return (
@@ -23,8 +23,8 @@ const Hero = () => {
             animate="visible"
             className="bg-primary min-h-[50vh] flex flex-col items-center justify-center text-white gap-10 rounded-md p-10">
             <div className="flex flex-col gap-5 text-center">
-                <h1 className="font-palatino text-5xl font-bold md:text-8xl">Unleash your potential</h1>
-                <p className="text-3xl">with Big Brain, where knowledge meets inspiration.</p>
+                <h1 className="font-palatino text-5xl font-bold md:text-8xl">Unleash your potential.</h1>
+                <p className="text-3xl">Learn new skills and enhance existing ones.</p>
             </div>
 
             <div className="flex gap-20">
@@ -55,7 +55,7 @@ const Hero = () => {
                                 className="text-center bg-white text-black text-lg focus:outline-none border-b-2 border-white px-14 py-2"
                             />
                             <button type="submit" className="px-7 bg-primary font-semibold">
-                                Join Free
+                                Subscribe
                             </button>
                         </Form>
                     )

@@ -33,17 +33,22 @@ const GuideCard: FC<GuideCardProps> = ({ guide, index, shouldShowContent }) => {
     }
 
     return (
-        <m.div className="w-full h-full py-5" variants={containerVariants} initial="hidden" animate="visible">
+        <m.div
+            className="w-full h-full bg-white rounded-md"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible">
             <figure
                 onClick={() => setQueryParams({ guide: guide.title }, `hubs/${guide.hub}`)}
                 className="cursor-pointer">
                 <img
                     src={guide.image}
                     alt={guide.title}
-                    className="aspect-video max-h-[50vh] object-cover w-full object-center rounded-md"
+                    className="aspect-video max-h-[50vh] object-cover w-full object-center rounded-tl-md rounded-tr-md"
                 />
             </figure>
-            <div className="py-2 h-full">
+
+            <div className="h-full p-5">
                 <div className="justify-start flex flex-col">
                     {guide.categories.map((category, index) => (
                         <Link

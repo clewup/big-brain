@@ -41,27 +41,40 @@ const Hub: FC<HubProps> = ({ hub }) => {
     return (
         <div className="flex w-full gap-5">
             <div className="w-1/4 relative">
-                <div className="sticky top-10 pb-10 flex flex-col gap-5">
-                    <div className="flex justify-between items-end">
-                        <h1 className="text-4xl font-semibold">{hub.title}</h1>
-                    </div>
+                <div className="sticky top-10 flex flex-col gap-5 bg-white p-5 rounded-md">
+                    <h1 className="text-4xl pb-5 font-semibold">{hub.title}</h1>
 
-                    {hub.sections.map((section, index) => (
-                        <div key={index}>
-                            <p className="font-semibold">{section.title}</p>
-
-                            <div className="ml-10">
-                                {section.guides.map((guide, index) => (
-                                    <p
-                                        key={index}
-                                        onClick={() => setQueryParams({ ...queryParams, guide: guide.title })}
-                                        className="cursor-pointer">
-                                        {guide.title}
-                                    </p>
-                                ))}
-                            </div>
+                    {hub.features.length > 0 && (
+                        <div>
+                            <h1 className="uppercase font-semibold text-neutral">FEATURES</h1>
+                            {hub.features.map((feature, index) => (
+                                <p key={index}>{feature}</p>
+                            ))}
                         </div>
-                    ))}
+                    )}
+
+                    <div>
+                        <div className="w-full">
+                            <h1 className="uppercase font-semibold text-neutral">SECTIONS</h1>
+                        </div>
+
+                        {hub.sections.map((section, index) => (
+                            <div key={index}>
+                                <p className="font-semibold">{section.title}</p>
+
+                                <div className="ml-10">
+                                    {section.guides.map((guide, index) => (
+                                        <p
+                                            key={index}
+                                            onClick={() => setQueryParams({ ...queryParams, guide: guide.title })}
+                                            className="cursor-pointer">
+                                            {guide.title}
+                                        </p>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
                     <div className="pt-10">
                         {isAdmin && (

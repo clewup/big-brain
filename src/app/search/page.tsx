@@ -60,7 +60,7 @@ export default function Page() {
                         <TailSpin color="#9ca3af" />
                     </div>
                 ) : searchResults.results.length ? (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-20">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                         {searchResults.results.map((guide, index) => (
                             <GuideCard key={index} guide={guide} index={index} />
                         ))}

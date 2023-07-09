@@ -34,16 +34,20 @@ const HubCard: FC<HubCardProps> = ({ hub, index, isDisabled }) => {
     }
 
     return withDisabled(
-        <m.div variants={containerVariants} initial="hidden" animate="visible" className="w-full py-5">
-            <figure className={cx({ 'cursor-pointer': !isDisabled })}>
+        <m.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="w-full flex h-full rounded-md bg-white">
+            <figure className={cx('w-2/3', { 'cursor-pointer': !isDisabled })}>
                 <img
                     src={hub.image}
                     alt={hub.title}
-                    className="aspect-video max-h-[50vh] object-cover w-full object-center rounded-md"
+                    className="h-full object-cover w-full object-center rounded-tl-md rounded-bl-md"
                 />
             </figure>
 
-            <div className="py-2">
+            <div className="py-2 w-1/3 flex flex-col justify-center p-5">
                 <h2 className="text-2xl font-semibold">{hub.title}</h2>
 
                 {hub.features.length > 0 && (

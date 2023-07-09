@@ -21,11 +21,11 @@ export default async function Page({ params }: PageContext) {
             <Hub hub={hub} />
 
             {otherHubs.length > 0 && (
-                <div>
-                    <div className="flex justify-between items-end">
+                <div className="pt-10">
+                    <div className="flex justify-between items-end border-b-2 border-base-200 mb-10">
                         <h1 className="py-5 text-4xl font-semibold">You may also be interested in</h1>
                     </div>
-                    <div className="grid grid-cols-3 gap-5">
+                    <div className="grid grid-cols-2 gap-5">
                         {otherHubs.map((hub, index) => (
                             <HubCard key={index} hub={hub} index={index} />
                         ))}

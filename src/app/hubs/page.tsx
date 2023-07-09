@@ -8,7 +8,7 @@ export default async function Page() {
 
     return (
         <PageWrapper>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 {hubs.map((hub, index) => (
                     <HubCard key={index} hub={hub} index={index} />
                 ))}

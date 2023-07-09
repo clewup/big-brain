@@ -13,6 +13,9 @@ const Loader: FC<LoaderProps> = ({ setLoading }) => {
     }
 
     const imageVariants: Variants = {
+        exit: {
+            opacity: 0,
+        },
         hidden: { y: 1000 },
         visible: {
             transition: {
@@ -29,8 +32,9 @@ const Loader: FC<LoaderProps> = ({ setLoading }) => {
             variants={containerVariants}
             initial="initial"
             animate="animate"
+            exit="exit"
             onAnimationComplete={() => setLoading(false)}>
-            <m.div variants={imageVariants} initial="hidden" animate="visible" layoutId="logo">
+            <m.div variants={imageVariants} initial="hidden" animate="visible">
                 <Image
                     src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
                     alt="logo"

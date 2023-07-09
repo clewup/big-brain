@@ -18,6 +18,20 @@ export default function Header() {
     const { queryParams, setQueryParams } = useQueryParams()
     const searchParams = useSearchParams()
 
+    const logoVariants = {
+        hidden: {
+            opacity: 0,
+            y: -75,
+        },
+        visible: {
+            opacity: 1,
+            transition: {
+                delay: 0.5,
+            },
+            y: 0,
+        },
+    }
+
     const routes = [
         {
             isAdmin: false,
@@ -44,7 +58,7 @@ export default function Header() {
         visible: {
             opacity: 1,
             transition: {
-                delay: 1.5,
+                delay: 1,
             },
             x: 0,
         },
@@ -52,8 +66,8 @@ export default function Header() {
 
     return (
         <div className="flex flex-col justify-between gap-5 md:h-[10vh] md:flex-row items-center px-40 bg-white">
-            <div className="flex gap-10">
-                <m.div layoutId="logo" transition={{ duration: 0.7 }} className="relative z-50">
+            <div className="flex gap-20">
+                <m.div variants={logoVariants} initial="hidden" animate="visible" className="relative z-50">
                     <Link href="/">
                         <Image
                             src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
@@ -64,23 +78,25 @@ export default function Header() {
                     </Link>
                 </m.div>
 
-                <m.div
-                    variants={routeVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="flex gap-5 mr-5 md:gap-10 md:mr-10 items-center text-neutral">
-                    {routes.map((route, index) => {
-                        if (route.isAdmin && !isAdmin) {
-                            return
-                        }
+                <div className="flex gap-10">
+                    <m.div
+                        variants={routeVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="flex gap-5 mr-5 md:gap-10 md:mr-10 items-center text-neutral">
+                        {routes.map((route, index) => {
+                            if (route.isAdmin && !isAdmin) {
+                                return
+                            }
 
-                        return (
-                            <Link key={index} href={route.path}>
-                                {route.label}
-                            </Link>
-                        )
-                    })}
-                </m.div>
+                            return (
+                                <Link key={index} href={route.path}>
+                                    {route.label}
+                                </Link>
+                            )
+                        })}
+                    </m.div>
+                </div>
             </div>
 
             <div className=" flex flex-col items-center justify-between md:flex-row z-20">

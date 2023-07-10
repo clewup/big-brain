@@ -13,7 +13,6 @@ export const metadata = {
 export default async function Home() {
     const guides = await guideService.getGuides()
     const hubs = await hubService.getHubs()
-    const upcomingHubs = await hubService.getUpcomingHubs()
 
     return (
         <PageWrapper className="flex">
@@ -33,10 +32,20 @@ export default async function Home() {
                     </div>
                 )}
 
+                <div className="min-h-[60vh] flex items-center justify-center flex-col text-center ">
+                    <div className="flex flex-col gap-10 items-center">
+                        <h1 className="font-bold text-4xl">The power of Big Brain</h1>
+                        <p className="text-xl w-4/5 text-neutral leading-[2.5rem]">
+                            Through comprehensive knowledge, sourced from industry specialists, you can learn lifelong
+                            skills at your own pace.
+                        </p>
+                    </div>
+                </div>
+
                 {guides.length > 0 && (
-                    <div>
+                    <div className="overflow-hidden">
                         <div className="flex justify-between items-end border-b-2 border-base-200 mb-10">
-                            <h1 className="py-5 text-4xl font-semibold">Guides</h1>
+                            <h1 className="pb-5 text-4xl font-semibold">Guides</h1>
 
                             <Link className="flex gap-2 py-5" href="/search">
                                 <p className="text-info">See all</p>
@@ -54,19 +63,6 @@ export default async function Home() {
 
                                 return <GuideCard key={index} guide={guide} index={index} />
                             })}
-                        </div>
-                    </div>
-                )}
-
-                {upcomingHubs.length > 0 && (
-                    <div>
-                        <div className="flex justify-between items-end border-b-2 border-base-200 mb-10">
-                            <h1 className="py-5 text-4xl font-semibold">Coming Soon</h1>
-                        </div>
-                        <div className="grid grid-cols-3 gap-10">
-                            {upcomingHubs.map((hub, index) => (
-                                <HubCard key={index} hub={hub} index={index} isDisabled={true} />
-                            ))}
                         </div>
                     </div>
                 )}

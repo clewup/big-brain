@@ -14,7 +14,7 @@ module.exports = {
                     info: '#0277cc',
                     neutral: '#9ca3af',
                     primary: '#fe416d',
-                    secondary: '#7bf6f2',
+                    secondary: '#9ca3af',
                     success: '#198754',
                     warning: '#FBBD23',
                 },

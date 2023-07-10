@@ -80,7 +80,7 @@ const Footer = () => {
     ]
 
     return (
-        <div className="w-full flex flex-col items-center gap-10 pt-10 md:px-40 bg-[#1e2b36] text-[#768391] mt-10">
+        <div className="w-full flex flex-col items-center gap-10 pt-10 md:px-40 bg-[#1e2b36] text-[#768391] mt-20">
             <div className="flex w-full gap-40">
                 <div className="w-1/4 flex flex-col gap-5">
                     <Link href="/">
@@ -92,8 +92,8 @@ const Footer = () => {
                         />
                     </Link>
 
-                    <div className="w-1/2">
-                        <p className="text-xl text-white">Learn new skills and enhance existing ones.</p>
+                    <div className="w-2/3">
+                        <p className="text-xl text-white">Expand your knowledge base and strengthen your talents.</p>
                     </div>
                 </div>
 

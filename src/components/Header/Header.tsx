@@ -25,9 +25,6 @@ export default function Header() {
         },
         visible: {
             opacity: 1,
-            transition: {
-                delay: 0.5,
-            },
             y: 0,
         },
     }
@@ -58,7 +55,7 @@ export default function Header() {
         visible: {
             opacity: 1,
             transition: {
-                delay: 1,
+                delay: 0.3,
             },
             x: 0,
         },

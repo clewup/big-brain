@@ -5,7 +5,6 @@ import { useLockr } from '@/lib/common/contexts/LockrContext/LockrContext'
 import useAuth from '@/lib/common/hooks/useAuth/useAuth'
 import useQueryParams from '@/lib/common/hooks/useQueryParams/useQueryParams'
 import { Field, Form, Formik } from 'formik'
-import { motion as m, Variants } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -17,17 +16,6 @@ export default function Header() {
     const { isAdmin, user } = useLockr()
     const { queryParams, setQueryParams } = useQueryParams()
     const searchParams = useSearchParams()
-
-    const logoVariants = {
-        hidden: {
-            opacity: 0,
-            y: -75,
-        },
-        visible: {
-            opacity: 1,
-            y: 0,
-        },
-    }
 
     const routes = [
         {
@@ -47,24 +35,10 @@ export default function Header() {
         },
     ]
 
-    const routeVariants: Variants = {
-        hidden: {
-            opacity: 0,
-            x: -75,
-        },
-        visible: {
-            opacity: 1,
-            transition: {
-                delay: 0.3,
-            },
-            x: 0,
-        },
-    }
-
     return (
         <div className="flex flex-col justify-between gap-5 md:h-[10vh] md:flex-row items-center px-40 bg-white">
             <div className="flex gap-20">
-                <m.div variants={logoVariants} initial="hidden" animate="visible" className="relative z-50">
+                <div className="relative z-50">
                     <Link href="/">
                         <Image
                             src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
@@ -73,14 +47,10 @@ export default function Header() {
                             height={30}
                         />
                     </Link>
-                </m.div>
+                </div>
 
                 <div className="flex gap-10">
-                    <m.div
-                        variants={routeVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="flex gap-5 mr-5 md:gap-10 md:mr-10 items-center text-neutral">
+                    <div className="flex gap-5 mr-5 md:gap-10 md:mr-10 items-center text-neutral">
                         {routes.map((route, index) => {
                             if (route.isAdmin && !isAdmin) {
                                 return
@@ -92,7 +62,7 @@ export default function Header() {
                                 </Link>
                             )
                         })}
-                    </m.div>
+                    </div>
                 </div>
             </div>
 

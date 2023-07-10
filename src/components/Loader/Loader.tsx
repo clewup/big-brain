@@ -26,6 +26,18 @@ const Loader: FC<LoaderProps> = ({ setLoading }) => {
         },
     }
 
+    const blockVariants: Variants = {
+        hidden: {
+            opacity: 0,
+        },
+        visible: {
+            opacity: 1,
+            transition: {
+                delay: 1.2,
+            },
+        },
+    }
+
     return (
         <m.div
             className="w-full h-screen flex justify-center items-center"
@@ -34,11 +46,18 @@ const Loader: FC<LoaderProps> = ({ setLoading }) => {
             animate="animate"
             exit="exit"
             onAnimationComplete={() => setLoading(false)}>
+            <m.div
+                variants={blockVariants}
+                initial="hidden"
+                animate="visible"
+                className="bg-base-100 w-full h-full absolute z-50"
+            />
+
             <m.div variants={imageVariants} initial="hidden" animate="visible">
                 <Image
                     src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
                     alt="logo"
-                    width={150}
+                    width={200}
                     height={30}
                 />
             </m.div>

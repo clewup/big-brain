@@ -13,7 +13,7 @@ interface HubCardProps {
 }
 
 const HubCard: FC<HubCardProps> = ({ hub, index, isDisabled }) => {
-    const delay = index * 0.05
+    const delay = index * 0.1
 
     const containerVariants: Variants = {
         hidden: {
@@ -24,6 +24,8 @@ const HubCard: FC<HubCardProps> = ({ hub, index, isDisabled }) => {
             opacity: 1,
             transition: {
                 delay: delay, // staggers the animation for 0.3 seconds
+                duration: 0.5,
+                type: 'spring',
             },
             y: 0,
         },

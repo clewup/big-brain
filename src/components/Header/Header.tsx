@@ -91,11 +91,11 @@ export default function Header() {
 
                     <div className="min-w-[80px] flex justify-end">
                         {!user ? (
-                            <span>
-                                <button className="btn btn-ghost text-neutral" onClick={signIn}>
-                                    Log in
-                                </button>
-                            </span>
+                            <div className="dropdown dropdown-end">
+                                <label tabIndex={0} className="btn btn-ghost btn-circle text-neutral" onClick={signIn}>
+                                    <UserIcon />
+                                </label>
+                            </div>
                         ) : (
                             <div className="dropdown dropdown-end">
                                 <label tabIndex={0} className="btn btn-ghost btn-circle text-neutral">

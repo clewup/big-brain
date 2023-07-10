@@ -2,6 +2,7 @@ import GuideCard from '@/components/GuideCard/GuideCard'
 import Hero from '@/components/Hero/Hero'
 import HubCard from '@/components/HubCard/HubCard'
 import PageWrapper from '@/components/PageWrapper/PageWrapper'
+import Power from '@/components/Power/Power'
 import { guideService, hubService } from '@/db/handler'
 import Link from 'next/link'
 import React from 'react'
@@ -32,15 +33,7 @@ export default async function Home() {
                     </div>
                 )}
 
-                <div className="min-h-[60vh] flex items-center justify-center flex-col text-center ">
-                    <div className="flex flex-col gap-10 items-center">
-                        <h1 className="font-bold text-4xl">The power of Big Brain</h1>
-                        <p className="text-xl w-4/5 text-neutral leading-[2.5rem]">
-                            Through comprehensive knowledge, sourced from industry specialists, you can learn lifelong
-                            skills at your own pace.
-                        </p>
-                    </div>
-                </div>
+                <Power />
 
                 {guides.length > 0 && (
                     <div className="overflow-hidden">

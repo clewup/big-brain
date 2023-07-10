@@ -80,7 +80,7 @@ const Footer = () => {
     ]
 
     return (
-        <div className="w-full flex flex-col items-center gap-10 pt-10 md:px-40 bg-[#1e2b36] text-[#768391] mt-20">
+        <div className="w-full flex flex-col items-center gap-10 pt-10 md:px-40 bg-white text-neutral mt-20">
             <div className="flex w-full gap-40">
                 <div className="w-1/4 flex flex-col gap-5">
                     <Link href="/">
@@ -93,14 +93,14 @@ const Footer = () => {
                     </Link>
 
                     <div className="w-2/3">
-                        <p className="text-xl text-white">Expand your knowledge base and strengthen your talents.</p>
+                        <p className="text-xl text-black">Expand your knowledge base and strengthen your talents.</p>
                     </div>
                 </div>
 
                 <div className="w-3/4 flex justify-between">
                     {routeSections.map((routeSection, index) => (
                         <div key={index}>
-                            <h1 className="text-lg mb-2 text-white font-semibold">{routeSection.title}</h1>
+                            <h1 className="text-lg mb-2 text-black font-semibold">{routeSection.title}</h1>
 
                             <span
                                 className={cx(

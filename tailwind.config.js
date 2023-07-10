@@ -26,7 +26,6 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                palatino: ['Palatino', 'sans'],
                 sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
             },
             height: {

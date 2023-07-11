@@ -15,7 +15,6 @@ const Hero = () => {
     const [hasSubmitted, setSubmitted] = useState(false)
 
     function onSubmit(formValues: FormikValues) {
-        console.log(formValues)
         setLoading(true)
         post('/api/newsletter', formValues)
             .then(() => setSubmitted(true))
@@ -53,7 +52,7 @@ const Hero = () => {
 
             {hasSubmitted ? (
                 <div>
-                    <p className="text-xl font-semibold">Thank you for joining our mailing list!</p>
+                    <p className="text-xl font-semibold">Thank you for joining the mailing list!</p>
                 </div>
             ) : (
                 <Formik initialValues={{ email: '' }} onSubmit={onSubmit} validationSchema={validationSchema}>

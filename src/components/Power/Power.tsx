@@ -1,6 +1,7 @@
 'use client'
 
 import { motion as m, Variants } from 'framer-motion'
+import Image from 'next/image'
 import React, { useState } from 'react'
 
 const Power = () => {
@@ -49,21 +50,29 @@ const Power = () => {
             </div>
             <div className="flex -gap-10 w-full px-40">
                 <div
-                    className="bg-base-200 w-full aspect-square -rotate-12 rounded-md hover:bg-primary transition-colors duration-700"
+                    className="relative bg-base-200 w-full aspect-square -rotate-12 rounded-md hover:bg-primary transition-colors duration-700"
                     onMouseEnter={() => setSelectedPower(Powers.LifelongSkills)}
-                    onMouseLeave={() => setSelectedPower(null)}></div>
+                    onMouseLeave={() => setSelectedPower(null)}>
+                    <Image src="/images/medal.png" alt="medal" fill={true} className="h-full w-full" />
+                </div>
                 <div
-                    className="bg-base-300 w-full aspect-square rotate-12 rounded-md hover:bg-primary transition-colors duration-700"
+                    className="relative bg-base-300 w-full aspect-square rotate-12 rounded-md hover:bg-primary transition-colors duration-700"
                     onMouseEnter={() => setSelectedPower(Powers.PaceYourself)}
-                    onMouseLeave={() => setSelectedPower(null)}></div>
+                    onMouseLeave={() => setSelectedPower(null)}>
+                    <Image src="/images/rocket.png" alt="rocket" fill={true} className="h-full w-full" />
+                </div>
                 <div
-                    className="bg-base-200 w-full aspect-square -rotate-12 rounded-md hover:bg-primary transition-colors duration-700"
+                    className="relative bg-base-200 w-full aspect-square -rotate-12 rounded-md hover:bg-primary transition-colors duration-700"
                     onMouseEnter={() => setSelectedPower(Powers.AccessAnywhere)}
-                    onMouseLeave={() => setSelectedPower(null)}></div>
+                    onMouseLeave={() => setSelectedPower(null)}>
+                    <Image src="/images/location.png" alt="location" fill={true} className="h-full w-full" />
+                </div>
                 <div
-                    className="bg-base-300 w-full aspect-square rotate-12 rounded-md hover:bg-primary transition-colors duration-700"
+                    className="relative bg-base-300 w-full aspect-square rotate-12 rounded-md hover:bg-primary transition-colors duration-700"
                     onMouseEnter={() => setSelectedPower(Powers.Free)}
-                    onMouseLeave={() => setSelectedPower(null)}></div>
+                    onMouseLeave={() => setSelectedPower(null)}>
+                    <Image src="/images/pound.png" alt="pound" fill={true} className="h-full w-full" />
+                </div>
             </div>
         </div>
     )

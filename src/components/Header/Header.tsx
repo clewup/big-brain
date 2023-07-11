@@ -28,11 +28,6 @@ export default function Header() {
             label: 'Knowledge Hubs',
             path: '/hubs',
         },
-        {
-            isAdmin: true,
-            label: 'Editor',
-            path: '/editor',
-        },
     ]
 
     return (

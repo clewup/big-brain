@@ -117,7 +117,7 @@ const Footer = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex justify-between w-full border-t-2 border-[#768391] py-5">
+            <div className="flex justify-between w-full border-t-2 border-base-300 py-5">
                 <Link href="/privacy">
                     <p>Privacy Policy</p>
                 </Link>

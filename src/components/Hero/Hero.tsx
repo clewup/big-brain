@@ -29,11 +29,11 @@ const Hero = () => {
     return (
         <div className="bg-primary min-h-[50vh] flex flex-col items-center justify-center text-white gap-10 rounded-md p-10">
             <div className="flex flex-col gap-10 text-center items-center">
-                <h1 className="text-5xl font-bold">Invest in yourself and unleash your potential</h1>
-                <p className="text-2xl">Expand your knowledge base and strengthen your talents.</p>
+                <h1 className="text-3xl font-bold md:text-5xl">Invest in yourself and unleash your potential</h1>
+                <p className="text-xl md:text-2xl">Expand your knowledge base and strengthen your talents.</p>
             </div>
 
-            <div className="flex gap-20">
+            <div className="flex gap-2 flex-col md:flex-row md:gap-20">
                 <span className="flex gap-2 items-center font-semibold">
                     <CheckIcon />
                     <p className="-tracking-tighter">FREE</p>
@@ -59,16 +59,16 @@ const Hero = () => {
                     {() => {
                         return (
                             <Form className="bg-[#ddd] p-2 rounded-md flex flex-col">
-                                <span className="flex">
+                                <span className="flex flex-col md:flex-row">
                                     <Field
                                         name="email"
                                         type="text"
                                         placeholder="Email address"
-                                        className="text-center bg-white text-black text-lg focus:outline-none border-b-2 border-white px-14 py-2 rounded-tl-md rounded-bl-md"
+                                        className="text-center bg-white text-black text-lg focus:outline-none border-b-2 border-white px-14 py-2 rounded-tl-md md:rounded-bl-md"
                                     />
                                     <button
                                         type="submit"
-                                        className="px-7 bg-primary font-semibold rounded-tr-md rounded-br-md flex items-center gap-2">
+                                        className="px-7 bg-primary font-semibold rounded-br-md flex justify-center items-center gap-2 py-2 md:py-0 md:rounded-tr-md">
                                         Subscribe
                                         {isLoading && <TailSpin color="#ffffff" height={20} width={20} />}
                                     </button>

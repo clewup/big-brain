@@ -25,7 +25,7 @@ export default async function Home() {
                         <div className="flex justify-between items-end border-b-2 border-base-200 mb-10">
                             <h1 className="py-5 text-4xl font-semibold">Knowledge Hubs</h1>
                         </div>
-                        <div className="grid grid-cols-2 gap-10">
+                        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
                             {hubs.map((hub, index) => (
                                 <HubCard key={index} hub={hub} index={index} />
                             ))}
@@ -44,11 +44,11 @@ export default async function Home() {
                                 <p className="text-info">See all</p>
                             </Link>
                         </div>
-                        <div className="grid grid-cols-3 gap-10 grid-flow-col">
+                        <div className="grid grid-cols-1 gap-10 md:grid-flow-col md:grid-cols-3">
                             {guides.slice(0, 3).map((guide, index) => {
                                 if (index === 0) {
                                     return (
-                                        <div key={index} className="row-span-2 col-span-2">
+                                        <div key={index} className="md:row-span-2 md:col-span-2">
                                             <GuideCard guide={guide} index={index} shouldShowContent={true} />
                                         </div>
                                     )

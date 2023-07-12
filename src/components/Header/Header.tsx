@@ -31,8 +31,8 @@ export default function Header() {
     ]
 
     return (
-        <div className="flex flex-col justify-between gap-5 md:h-[10vh] md:flex-row items-center px-40 bg-white">
-            <div className="flex gap-20">
+        <div className="flex flex-col justify-between py-5 gap-5 items-center px-40 bg-white md:h-[10vh] md:flex-row md:py-0">
+            <div className="flex flex-col items-center gap-5 md:flex-row md:gap-20">
                 <div className="relative z-50">
                     <Link href="/">
                         <Image
@@ -45,14 +45,14 @@ export default function Header() {
                 </div>
 
                 <div className="flex gap-10">
-                    <div className="flex gap-5 mr-5 md:gap-10 md:mr-10 items-center text-neutral">
+                    <div className="flex gap-10 mr-5 items-center text-neutral md:mr-10">
                         {routes.map((route, index) => {
                             if (route.isAdmin && !isAdmin) {
                                 return
                             }
 
                             return (
-                                <Link key={index} href={route.path}>
+                                <Link key={index} href={route.path} className="whitespace-nowrap">
                                     {route.label}
                                 </Link>
                             )

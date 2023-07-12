@@ -42,13 +42,13 @@ const Power = () => {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="text-xl w-4/5 text-neutral leading-[2.5rem]">
+                            className="w-4/5 text-neutral md:leading-[2.5rem] md:text-xl">
                             {selectedPower}
                         </m.p>
                     )}
                 </m.div>
             </div>
-            <div className="flex -gap-10 w-full px-40">
+            <div className="flex -gap-10 w-full px-5 md:px-40">
                 <div
                     className="relative bg-base-200 w-full aspect-square -rotate-12 rounded-md hover:bg-primary transition-colors duration-700"
                     onMouseEnter={() => setSelectedPower(Powers.LifelongSkills)}

@@ -80,9 +80,9 @@ const Footer = () => {
     ]
 
     return (
-        <div className="w-full flex flex-col items-center gap-10 pt-10 md:px-40 bg-white text-neutral mt-20">
-            <div className="flex w-full gap-40">
-                <div className="w-1/4 flex flex-col gap-5">
+        <div className="w-full flex flex-col items-center gap-10 pt-10 md:px-40 bg-white text-neutral mt-20 p-5 md:p-0 md:pt-10">
+            <div className="flex w-full flex-col md:flex-row md:gap-40">
+                <div className="flex flex-row gap-5 md:flex-col md:w-1/4">
                     <Link href="/">
                         <Image
                             src="https://res.cloudinary.com/dliog6kq6/image/upload/v1688161397/Logo_jewaxq.png"
@@ -93,11 +93,11 @@ const Footer = () => {
                     </Link>
 
                     <div className="w-2/3">
-                        <p className="text-xl text-black">Expand your knowledge base and strengthen your talents.</p>
+                        <p className="text-black md:text-xl">Expand your knowledge base and strengthen your talents.</p>
                     </div>
                 </div>
 
-                <div className="w-3/4 flex justify-between">
+                <div className="py-5 grid grid-cols-2 gap-5 md:w-3/4 md:py-0 md:gap-0 md:flex md:flex-row md:justify-between">
                     {routeSections.map((routeSection, index) => (
                         <div key={index}>
                             <h1 className="text-lg mb-2 text-black font-semibold">{routeSection.title}</h1>

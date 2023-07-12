@@ -40,16 +40,16 @@ const HubCard: FC<HubCardProps> = ({ hub, index, isDisabled }) => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="w-full flex h-full rounded-md bg-white">
-            <figure className={cx('w-2/3', { 'cursor-pointer': !isDisabled })}>
+            className="w-full flex h-full rounded-md bg-white flex-col md:flex-row">
+            <figure className={cx('md:w-2/3', { 'cursor-pointer': !isDisabled })}>
                 <img
                     src={hub.image}
                     alt={hub.title}
-                    className="h-full object-cover w-full object-center rounded-tl-md rounded-bl-md"
+                    className="h-full object-cover w-full object-center rounded-tl-md rounded-tr-md md:rounded-tr-none md:rounded-bl-md"
                 />
             </figure>
 
-            <div className="py-2 w-1/3 flex flex-col justify-center p-5">
+            <div className="py-2 flex flex-col justify-center p-5 md:w-1/3">
                 <h2 className="text-2xl font-semibold">{hub.title}</h2>
 
                 {hub.features.length > 0 && (

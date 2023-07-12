@@ -59,8 +59,8 @@ const Filter: FC<FilterProps> = ({ searchResults }) => {
             {({ handleChange, values }) => {
                 return (
                     <Form className="flex flex-col items-end justify-between gap-5 py-3 md:flex-row md:gap-20">
-                        <span className="flex-row border-b-2 border-neutral w-fit items-end">
-                            <label className="uppercase text-neutral font-semibold">Category</label>
+                        <span className="flex-row border-b-2 border-neutral w-full items-end md:w-fit">
+                            <label className="uppercase text-neutral font-semibold mr-5 md:mr-0">Category</label>
                             <Field name="category">
                                 {() => (
                                     <select

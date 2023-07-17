@@ -28,6 +28,7 @@ Big Brain aims to provide users with a user-friendly and organized space to lear
 - Framer Motion
 - Zustand
 - SendGrid (Email client)
+- Tailwind
 - Formik
 - Yup
   

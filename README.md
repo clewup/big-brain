@@ -18,6 +18,7 @@ Big Brain aims to provide users with a user-friendly and organized space to lear
 - Hierarchies to organize guides into topics and centralize learning.
 - Responsive design for optimal user experience across various devices.
 - Role based permissions for content management.
+- Newsletter sign-up and contact management.
 
 ## Technologies
 - Next.js
@@ -26,6 +27,7 @@ Big Brain aims to provide users with a user-friendly and organized space to lear
 - Postgres
 - Framer Motion
 - Zustand
+- SendGrid (Email client)
   
 ## Screenshots
 

@@ -1,38 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Big Brain
+Big Brain is a collaborative platform for creating and sharing knowledge in the form of articles and documentation.
 
-## Getting Started
+## Table of Contents
 
-First, run the development server:
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Screenshots](#screenshots)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Project Overview
+Big Brain aims to provide users with a user-friendly and organized space to learn. Whether it's for personal use, team collaboration, or public knowledge sharing, Big Brain allows users to browse and search for articles on various topics. With rich text formatting options, site administrators can create complex, multi-staged posts under the umbrella of a 'Knowlegde Hub'.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
+- User authentication using my authentication service, [Lockr](https://github.com/clewup/lockr).
+- Creation, editing and formatting of guides using a markdown editor.
+- Search functionality to quickly find guides based on keywords.
+- Hierarchies to organize guides into topics and centralize learning.
+- Responsive design for optimal user experience across various devices.
+- Role based permissions for content management.
 
-You can start editing the page by modifying `pages/index.ts`. The page auto-updates as you edit the file.
+## Technologies
+- Next.js
+- TypeScript
+- Prisma
+- Postgres
+- Framer Motion
+- Zustand
+  
+## Screenshots
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Screenshot](https://res.cloudinary.com/dliog6kq6/image/upload/v1689630227/BigBrain_Condensed_zoweex.jpg)
